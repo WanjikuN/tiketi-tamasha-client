@@ -24,7 +24,7 @@ code {
 }
 #upcoming{
   /* border: 1px solid black; */
-  margin: 10px ;
+  /* margin: 10px ; */
   height: 40vh;
   display: flex;
   flex-wrap: wrap;
@@ -90,6 +90,7 @@ code {
 margin-right: 12px;
 display: flex;
 justify-content: space-between;
+
 }
 
 .filter{
@@ -157,16 +158,17 @@ justify-content: space-between;
   padding: 7px;
   font-size: 22px;
   background-color: #be372800;
+  color:#be37288a;
   
 
 }
 #btn{
-  width: 70%;
+  width: 100%;
   padding: 7px;
   border-radius: 4px;
   font-size: 17px;
   background-color: #be372808;
- 
+  border: 1px solid #be372824;
   
 }
 .btn:hover, #btn:hover{
@@ -177,5 +179,6 @@ justify-content: space-between;
   font-size: 30px ;
 }
 #btn:hover{
-    border: 3px solid black;  
+    border: 3px solid #be372824; 
+
 }
