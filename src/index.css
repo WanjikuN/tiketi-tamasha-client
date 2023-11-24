@@ -11,3 +11,87 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+#calendar{
+  color: red;
+  display: flex;
+  justify-content: space-between;
+}
+.ticket_img{
+  width: 100%;
+  height: 50%;
+  border-radius: 10px 10px 0px 0px;
+}
+#upcoming{
+  /* border: 1px solid black; */
+  margin: 10px ;
+  height: 40vh;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  justify-content: center;
+  overflow: scroll;
+  
+
+}
+#trending{
+  border: 1px solid black;
+  height: 25vh;
+  margin: 10px;
+
+}
+#ticket{
+  border: 2px solid #be372824;
+  border-radius: 11px ;
+  padding: 2px;
+  margin: 10px;
+  width: 250px;
+  height: 95%;
+
+  
+}
+#ticket:hover{
+  cursor: pointer;
+  border: 5px solid #be372824;
+}
+/* Hide scroll bar */
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+#ticket_details{
+  display: flex;
+  justify-content: space-between;
+  height: 160px;
+
+}
+#name_loc{
+ width: 80%;
+ /* border: 1px solid black; */
+ padding: 10px;
+
+}
+#calendar{
+  /* border: 1px solid black; */
+  width: 20%;
+
+}
+
+#filter{
+margin-right: 12px;
+display: flex;
+justify-content: space-between;
+}
+
+.filter{
+  padding: 7px;
+  margin: 10px;
+  border-radius: 4px;
+  width: 300px;
+  
+}
+
+#ticket_filter{
+  display: flex;
+  flex-direction: row-reverse;
+ 
+}
