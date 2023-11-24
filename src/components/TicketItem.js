@@ -1,7 +1,7 @@
 import { AddToCalendarButton } from 'add-to-calendar-button-react';
 export default function TicketItem({name, location, time, image,description}){
-    console.log(description);
-    
+
+
     return(
         <div id='ticket'>
             <img className="ticket_img" src={image} alt={name} />

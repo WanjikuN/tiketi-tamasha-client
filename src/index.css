@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #be372808;
 }
 
 code {
@@ -12,7 +13,7 @@ code {
     monospace;
 }
 #calendar{
-  color: red;
+  /* color: red; */
   display: flex;
   justify-content: space-between;
 }
@@ -27,16 +28,25 @@ code {
   height: 40vh;
   display: flex;
   flex-wrap: wrap;
-  padding: 10px;
+  padding: 9.5px;
   justify-content: center;
   overflow: scroll;
   
 
 }
 #trending{
-  border: 1px solid black;
+  border-bottom: 10px solid #be372824;
+  border-top: none;
+  /* border-left: 1px solid #be372824 ;
+  border-right: 1px solid #be372824 ; */
+  border-radius: 0px 0px 11px 11px ;
   height: 25vh;
-  margin: 10px;
+  margin: 0px 10% 0px 10%;
+  padding: 10px;
+  padding-bottom:0.5px;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
 
 }
 #ticket{
@@ -92,6 +102,80 @@ justify-content: space-between;
 
 #ticket_filter{
   display: flex;
-  flex-direction: row-reverse;
+  /* flex-direction: row-reverse; */
+  justify-content: space-between;
+  padding-left: 20px ;
  
+}
+
+#trending_card{
+  border: 1px solid black;
+  width: 500px;
+  margin: 30px;
+  padding-top: 20px;
+  /* display: flex; */
+}
+.trending_img {
+  height: 100%;
+  border-radius: 10px 10px 0px 0px;
+  
+}
+@media screen and (min-width: 600px) {
+  .trending_img {
+    width: 200px; /* Default width for smaller screens */
+  }
+}
+@media screen and (min-width: 1200px) {
+  .trending_img {
+    width: 400px; /* Larger width for screens wider than 1200px */
+  }
+}
+
+.trending_card{
+  /* border: 1px solid black; */
+  display: flex;
+  width: 1000px;
+}
+/* #ti{
+  width: 10%;
+} */
+/* */
+#trending #name_loc{
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+#calenda{
+    
+    width:9%
+  }
+
+.btn{
+  border: none;
+  padding: 7px;
+  font-size: 22px;
+  background-color: #be372800;
+  
+
+}
+#btn{
+  width: 70%;
+  padding: 7px;
+  border-radius: 4px;
+  font-size: 17px;
+  background-color: #be372808;
+ 
+  
+}
+.btn:hover, #btn:hover{
+  cursor: pointer;
+  
+}
+.btn:hover{
+  font-size: 30px ;
+}
+#btn:hover{
+    border: 3px solid black;  
 }
