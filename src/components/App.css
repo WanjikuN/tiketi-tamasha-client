@@ -16,6 +16,9 @@ body {
   align-items: center;
   padding: 2px;
   background-color: #BE3728;
+  margin: 20px;
+  border-radius: 10px;
+  margin-top: 0;
 }
 
 .navbar-brand {
@@ -136,4 +139,50 @@ body {
 .footer-bottom p {
   font-size: 0.8rem;
   margin: 0;
+}
+
+
+/*   ABOUT US PAGE */
+
+.about-us-page {
+ 
+  margin: 0 auto;
+  background-color: azure;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.container p {
+  text-align: center;
+  font-family: var(--ff-montserrat);
+  font-size: larger;
+}
+
+h1 {
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.5;
+  
+}
+
+.who-we-are {
+  margin-top: 40px;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
 }
