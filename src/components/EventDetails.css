@@ -1,0 +1,41 @@
+
+.event-details-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.general-details {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.general-details h2 {
+  color: #007bff;
+}
+
+.general-details p {
+  margin: 10px 0;
+}
+
+.tickets-section {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.tickets-section h3 {
+  color: #007bff;
+}
+
+.ticket-list {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+  
+  
+  
