@@ -1,19 +1,19 @@
 
 #ticket {
-    border: 1px solid #ddd;
+    /* border: 1px solid #ddd; */
     margin-bottom: 20px;
     border-radius: 8px;
     overflow: hidden;
   }
   
-  .ticket_img {
+  /* .ticket_img {
     width: 100%;
     height: auto;
-  }
+  } */
   
-  #ticket_details {
+  /* #ticket_details {
     padding: 15px;
-  }
+  } */
   
   #name_loc {
     text-align: center;
@@ -34,11 +34,11 @@
   }
   
   .btnTicket:hover {
-    background-color: #0056b3;
+    background-color: #be372894;
   }
-  .event-image {
+  /* .event-image {
     width: 100%; 
     height: auto;
     border-radius: 8px;
     margin-bottom: 20px;
-  }
+  } */

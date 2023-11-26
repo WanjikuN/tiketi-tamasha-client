@@ -37,8 +37,8 @@ const Select = styled.select`
 `;
 
 const SubmitButton = styled.button`
-  background-color: #be372862;
-  border: 1px solid #be372824;
+  background-color: #BE3728;
+  border: 1px solid #be372894;
   color: black;
   padding: 10px 20px;
   border: none;
@@ -46,8 +46,8 @@ const SubmitButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: #be372824;
-    font-size: 18px;
+    background-color: #be372894;
+    
   }
 `;
 const SuccessMsg = styled.p`

@@ -19,8 +19,9 @@ code {
 }
 .ticket_img{
   width: 100%;
-  height: 50%;
+  height: 150px;
   border-radius: 10px 10px 0px 0px;
+  
 }
 #upcoming{
   /* border: 1px solid black; */
@@ -55,13 +56,14 @@ code {
   padding: 2px;
   margin: 10px;
   width: 250px;
-  height: 95%;
+  height: 89%;
+  line-height: 12px;
 
   
 }
 #ticket:hover{
   cursor: pointer;
-  border: 5px solid #be372824;
+  border: 4px solid #be372824;
 }
 /* Hide scroll bar */
 ::-webkit-scrollbar {

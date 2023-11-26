@@ -8,8 +8,8 @@ export default function TicketItem({ name, location, time, image, description, s
       <img className="ticket_img event-image" src={image} alt={name} />
       <div id="ticket_details">
         <div id="name_loc">
-          <h4>{name.toUpperCase()}|({startDate})</h4>
-          <p>{startTime}hrs</p>
+          <h4>{name.toUpperCase()}</h4>
+          <p>{time}hrs</p>
           <p>{location}</p>
           <button className='btnTicket'>Buy Ticket</button>
         </div>
