@@ -6,6 +6,7 @@ import SignUp from './components/SignUp';
 import LandingPage from './components/LandingPage';
 import { Routes, Route, Link} from 'react-router-dom';
 import Login from './components/login';
+import Checkout from './components/checkout';
 const App = () => {
   return (
     <div className="App">
@@ -14,7 +15,7 @@ const App = () => {
         <Route exact path='/' element={<LandingPage />} />
         <Route exact path='signup/' element={<SignUp />} />
         <Route exact path='login/' element={<Login />} />
-
+        <Route path="/checkout" element={<Checkout />} /> 
       
 
       
