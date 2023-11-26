@@ -66,38 +66,36 @@ export default function LandingPage() {
         </button>
         <div style={{ display: "flex", overflow: "hidden" }}>
           {tickets.slice(startIndex, startIndex + visibleTickets).map((item, index) => (
-              <div className="trending_card">
-                <div id="ti">
-                  <img className="trending_img" src={item.images} alt={item.event_name} />
-                </div>
-                <div id="name_loc">
-                  <h4>
-                    {item.event_name.toUpperCase()}|({item.start_time.split(" ")[0]})
-                  </h4>
-
-                  <p>{item.start_time.split(" ")[1]}hrs</p>
-                  <p>{item.location}</p>
-                  <button id="btn">GET TICKETS</button>
-                </div>
-                <div id="calenda">
-                  <add-to-calendar-button
-                    name={item.event_name}
-                    startDate="2023-11-27"
-                    startTime={item.start_time.split(" ")[1]}
-                    endTime="23:30"
-                    timeZone="Africa/Nairobi"
-                    description={item.description}
-                    options="'Google','Apple','Outlook.com'"
-                    location={item.location}
-                    buttonsList
-                    hideTextLabelButton
-                    buttonStyle=""
-                    size="2px"
-                    lightMode="bodyScheme"
-                  ></add-to-calendar-button>
-                </div>
+            <div className="trending_card" key={index}>
+              <div id="ti">
+                <img className="trending_img" src={item.images} alt={item.event_name} />
               </div>
-            
+              <div id="name_loc">
+                <h4>
+                  {item.event_name.toUpperCase()}|({item.start_time.split(" ")[0]})
+                </h4>
+                <p>{item.start_time.split(" ")[1]}hrs</p>
+                <p>{item.location}</p>
+                <button id="btn">GET TICKETS</button>
+              </div>
+              <div id="calenda">
+                <add-to-calendar-button
+                  name={item.event_name}
+                  startDate="2023-11-27"
+                  startTime={item.start_time.split(" ")[1]}
+                  endTime="23:30"
+                  timeZone="Africa/Nairobi"
+                  description={item.description}
+                  options="'Google','Apple','Outlook.com'"
+                  location={item.location}
+                  buttonsList
+                  hideTextLabelButton
+                  buttonStyle=""
+                  size="2px"
+                  lightMode="bodyScheme"
+                ></add-to-calendar-button>
+              </div>
+            </div>
           ))}
         </div>
         <button className="btn" onClick={handleRightArrowClick}>
@@ -107,7 +105,7 @@ export default function LandingPage() {
 
       <Filter handlename={handleName} />
 
-      <div id="upcoming">
+      <div id="upcoming" className="upcoming-card">
         {ticketsDisplay.map((ticket) => {
           if (!ticket) {
             return "Loading...";
