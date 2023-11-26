@@ -76,7 +76,9 @@ export default function LandingPage() {
                 </h4>
                 <p>{item.start_time.split(" ")[1]}hrs</p>
                 <p>{item.location}</p>
-                <button id="btn">GET TICKETS</button>
+                <Link to={`/events/${item.id}`}>
+              <button id="btn">get tickets</button>
+            </Link>
               </div>
               <div id="calenda">
                 <add-to-calendar-button

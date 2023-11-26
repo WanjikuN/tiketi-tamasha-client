@@ -12,6 +12,7 @@ export default function TicketItem({ name, location, time, image, description, s
           <h4>{name.toUpperCase()} {startDate}</h4>
           <p>{time}</p>
           <p>{location}</p>
+          <p>{buttonText}</p>
           <button className='btnTicket'>Buy Ticket</button>
 
         </div>
