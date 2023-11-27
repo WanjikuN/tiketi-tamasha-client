@@ -1,41 +1,63 @@
-/* body {
-    font-family: 'Arial', sans-serif;
-    background-color: aquamarine;
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
 }
-  
-div {
-    max-width: 400px;
-    margin: 0 auto;
+.signup-form {
+  width: 300px;
 }
-  
-h2 {
-    text-align: center;
+.input-field {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
 }
-  
-form {
-    display: flex;
-    flex-direction: column;
+.password-input {
+  display: flex;
+  align-items: center;
 }
-  
-label {
-    margin-top: 10px;
+.password-toggle {
+  cursor: pointer;
+  margin-left: 5px;
 }
-  
-input {
-    margin-bottom: 15px;
-    padding: 8px;
-    width: 100%;
+.signup-button {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
 }
-  
-button {
-    background-color: #4c5baf;
-    color: white;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
+
+.login-link {
+  color: #3498db;
+  cursor: pointer;
 }
-  
-button:hover {
-    background-color: #a04598;
+.input-field[type="tel"],
+.input-field[type="email"] {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
 }
-   */
+.password-input input {
+  width: calc(100% - 30px); 
+  margin-bottom: 10px;
+  padding: 8px;
+}
+.password-input span {
+  margin-left: 5px;
+  cursor: pointer;
+}
+.password-input input {
+  width: calc(100% - 40px); 
+  margin-bottom: 8px;
+  padding: 8px;
+}
+.confirm-password-input input {
+  width: calc(100% - 10px); 
+  margin-bottom: 8px;
+  padding: 8px;
+}
+.confirm-password-input span {
+  margin-left: 5px;
+  cursor: pointer;
+}
