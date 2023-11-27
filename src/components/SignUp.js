@@ -33,7 +33,7 @@ function Signup({ isLoggedIn, setIsLoggedIn }) {
 
     try {
       //  API request for signup
-      const response = await fetch("/signup", {
+      const response = await fetch("http://localhost:5000/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

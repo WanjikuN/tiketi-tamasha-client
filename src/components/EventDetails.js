@@ -9,7 +9,7 @@ const EventDetails = () => {
   const [eventDetails, setEventDetails] = useState(null);
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:5000/events/${eventId}`)
+    fetch(`http://localhost:5000/events/${eventId}`)
       .then((res) => res.json())
       .then((data) => {
         setEventDetails(data);
