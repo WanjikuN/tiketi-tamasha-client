@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import "./SignUp.css";
+import "../styles/SignUp.css";
+import { useNavigate } from "react-router-dom"; 
 
 const SignUp = ({ isLoggedIn, setIsLoggedIn }) => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
   const [signupFormData, setSignupFormData] = useState({
@@ -49,6 +51,9 @@ const SignUp = ({ isLoggedIn, setIsLoggedIn }) => {
           password: "",
           confirmPassword: "",
         });
+
+        setIsLoggedIn(true);
+
         alert(`Hello, ${data.name} Account created successfully`);
 
         
@@ -59,6 +64,10 @@ const SignUp = ({ isLoggedIn, setIsLoggedIn }) => {
     } catch (error) {
       alert("Error during signup: " + error.message);
     }
+  };
+  const handleLoginLinkClick = () => {
+    
+    navigate("/login");
   };
 
   return (
@@ -152,8 +161,11 @@ const SignUp = ({ isLoggedIn, setIsLoggedIn }) => {
           Sign Up
         </button>
         <p>
-          Already have an account? <span className="login-link">Login</span>
-        </p>
+        Already have an account?{" "}
+        <span className="login-link" onClick={handleLoginLinkClick}>
+          Login
+        </span>
+      </p>
       </div>
     </div>
   );
