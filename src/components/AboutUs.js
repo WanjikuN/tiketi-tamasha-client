@@ -4,8 +4,7 @@ const AboutUs = () => {
   return (
     <div className="about-us-page">
       <div className="container">
-        <h1>About Us</h1>
-        <p>Revolutionize Your Ticketing Experience with Tiketi Tamasha.</p>
+        <h1>Revolutionize Your Ticketing Experience with Tiketi Tamasha.</h1>
         <section className="who-we-are">
           <h2>Thrive With Us!...</h2>
           <p>Unlock the potential of your online trade effortlessly with Tiketi Tamasha. Our platform, designed with simplicity in mind, empowers you to swiftly launch into the world of online trading. In just minutes, you can go live using our user-friendly backend dashboard, providing you with unparalleled control over your virtual storefront.</p>

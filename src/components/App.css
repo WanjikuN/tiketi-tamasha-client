@@ -88,7 +88,7 @@ body {
 .footer-section h2 {
   font-size: 1.5rem;
   margin-bottom: 10px;
-
+  text-align: left;
 }
 
 .footer-section p {
@@ -154,8 +154,8 @@ body {
 }
 
 .container {
-  padding: 20px;
-  max-width: 800px;
+  padding: 0px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
@@ -166,9 +166,10 @@ body {
 }
 
 h1 {
-  font-size: 32px;
+  font-size: 50px;
   font-weight: bold;
   text-align: center;
+  color: #BE3728;
 }
 
 p {
@@ -186,3 +187,9 @@ h2 {
   font-weight: bold;
   text-align: center;
 }
+
+
+
+
+/* TRIAL MODE */
+
