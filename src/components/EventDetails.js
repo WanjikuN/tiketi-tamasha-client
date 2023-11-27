@@ -9,7 +9,7 @@ const EventDetails = () => {
   const [eventDetails, setEventDetails] = useState(null);
 
   useEffect(() => {
-    fetch(`/events/${eventId}`)
+    fetch(`https://tiketi-tamasha-backend.onrender.com/events/${eventId}`)
       .then((res) => res.json())
       .then((data) => {
         setEventDetails(data);

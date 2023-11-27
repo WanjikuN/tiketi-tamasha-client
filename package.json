@@ -2,7 +2,7 @@
   "name": "tiketi-tamasha-client",
   "version": "0.1.0",
   "private": true,
-  "proxy":"https://tiketi-tamasha-backend.onrender.com",
+  "proxy":"https://tiketi-tamasha-backend.onrender.com/",
   "dependencies": {
     "@chakra-ui/react": "^2.8.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",

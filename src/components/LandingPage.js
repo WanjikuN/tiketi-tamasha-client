@@ -50,7 +50,7 @@ export default function LandingPage() {
   });
 
   useEffect(() => {
-    fetch("/events")
+    fetch("https://tiketi-tamasha-backend.onrender.com/events")
       .then((res) => res.json())
       .then((data) => {
         setTickets(data);
