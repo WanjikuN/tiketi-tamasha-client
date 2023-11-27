@@ -14,11 +14,9 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2px;
-  background-color: #BE3728;
-  margin: 20px;
-  border-radius: 10px;
-  margin-top: 0;
+  padding: 3px;
+  background-color: #be3728;
+  height: 8vh;
 }
 
 .navbar-brand {
@@ -70,6 +68,7 @@ body {
   position: fixed;
   bottom: 0;
   width: 100%;
+  height: 12vh;
   
 }
 
