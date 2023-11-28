@@ -1,16 +1,14 @@
-/* Base styles */
+
 .shopping-cart {
     position: fixed;
     top: 0;
-    right: -0%; /* Initially off-screen */
+    right: -0%; 
     width: 300px;
     height: 100%;
     background-color: rgba(255, 255, 255, 0.934);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     transition: right 0.3s ease-out;
   }
-  
-  /* Header styles */
   .cart-header {
     background-color: #BE3728;
     color: white;
@@ -18,8 +16,7 @@
     display: flex;
     justify-content: space-between;
   }
-  
-  /* Cart items styles */
+
   .cart-items {
     padding: 10px;
     border: 1px solid rgba(0, 0, 0, 0.333);
@@ -31,7 +28,6 @@
     
   }
   
-  /* Individual item styles */
   .cart-item {
     margin-bottom: 15px;
     padding: 10px;
@@ -39,7 +35,7 @@
     border-radius: 5px;
   }
   
-  /* Add more styles as needed */
+  
   
   /* Media query for responsiveness */
   @media (max-width: 768px) {
@@ -69,10 +65,7 @@
     width: 90%;
     margin: 5px;
     border-radius: 5px;
-    line-height: 12px;
-    
-
-    
+    line-height: 12px;  
 
 }
 #cart_dets{

@@ -1,4 +1,3 @@
-// CartContext.js
 import React, { createContext, useContext, useState } from 'react';
 
 const CartContext = createContext();
@@ -7,22 +6,17 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
 
   const addToCart = (item) => {
-    // Generate a unique ID based on item ID and ticket type
     const cartItemId = `${item.id}_${item.ticketType}`;
 
-    // Check if the item is already in the cart
     const existingItem = cart.find((cartItem) => cartItem.cartItemId === cartItemId);
 
     if (existingItem) {
-      // If the item is already in the cart, update the quantity or perform other actions
-      // For example, you might want to increase the quantity instead of adding a duplicate
-      setCart((prevCart) =>
+     setCart((prevCart) =>
         prevCart.map((cartItem) =>
           cartItem.cartItemId === cartItemId ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
         )
       );
     } else {
-      // If the item is not in the cart, add it with a quantity of 1
       setCart((prevCart) => [...prevCart, { ...item, cartItemId, quantity: 1 }]);
     }
   };

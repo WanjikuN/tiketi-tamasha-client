@@ -1,4 +1,3 @@
-import { AddToCalendarButton } from 'add-to-calendar-button-react';
 import './TicketItem.css';
 
 export default function TicketItem({ name, location, time, image, description, startDate, buttonText }) {

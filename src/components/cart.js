@@ -5,7 +5,6 @@ import {  NavLink } from "react-router-dom"
 
 export default function ShoppingCart({ cart, onClose, removeFromCart }) {
   console.log('Cart items:', cart);
-   const [quantity,setQuantity] = useState(1)
   const calculateAmount = (item) => {
     if (item.ticketType === 'Regular') {
       return parseFloat(item.regular_price);
@@ -18,7 +17,6 @@ export default function ShoppingCart({ cart, onClose, removeFromCart }) {
   const calculateTotalPrice = () => {
     return cart.reduce((total, item) => total + calculateAmount(item), 0);
 };
-const [totalPrice, setTotalPrice] = useState(0);
   return (
     <div className="shopping-cart">
       <div className="cart-header">
