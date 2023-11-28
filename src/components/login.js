@@ -44,9 +44,8 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
   };
 
   const handleSignUp = () => {
-    window.location.href = 'http://localhost:5000/signup'; // Redirect to the signup page
-    // Replace '/signup' with your actual signup page URL
-    // You can also use the <Link> component from react-router-dom if appropriate
+    window.location.href = 'http://localhost:5000/signup'; 
+    
   };
 
   return (
