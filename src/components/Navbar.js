@@ -1,7 +1,17 @@
 import React from 'react';
 import './App.css'; 
+import { useState } from 'react';
+import ShoppingCart from './cart';
 
-const Navbar = () => {
+const Navbar = ({cartLength,cart, removeFromCart}) => {
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const handleOpenCart = () => {
+    setIsCartOpen(true);
+  };
+  const handleCloseCart = () => {
+    console.log(cart)
+    setIsCartOpen(false);
+  };
   return (
     <nav className="navbar">
       <div className="navbar-brand">
@@ -16,9 +26,14 @@ const Navbar = () => {
           <a href="/login" className="nav-link">Login</a>
         </li>
         <li className="nav-item-cart">
-          <a href="/cart" className="nav-link">
+          
+          <a onClick={handleOpenCart}className="nav-link">
             <img src="./Cart.png" alt="Cart" className="cart-icon" />
+            <p id="count">{cartLength}</p>
           </a>
+            {isCartOpen && (
+              <ShoppingCart cart={cart} onClose={handleCloseCart} removeFromCart={removeFromCart}/>
+            )}
         </li>
       </ul>
     </nav>
