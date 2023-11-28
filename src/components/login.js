@@ -30,6 +30,10 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
         setLoginFormData({ username: "", password: "" });
         enqueueSnackbar("Login Successful", { variant: "success" });
         setIsLoggedIn(true);
+      } else if (response.status === 401) {
+        enqueueSnackbar("Invalid username or password. Please sign up first.", {
+          variant: "error",
+        });
       } else {
         enqueueSnackbar("Login Failed", { variant: "error" });
       }
@@ -37,6 +41,12 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
       console.error("Error during login:", error);
       enqueueSnackbar("Error during login", { variant: "error" });
     }
+  };
+
+  const handleSignUp = () => {
+    window.location.href = 'http://localhost:5000/signup'; // Redirect to the signup page
+    // Replace '/signup' with your actual signup page URL
+    // You can also use the <Link> component from react-router-dom if appropriate
   };
 
   return (
@@ -87,7 +97,7 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
             <Button
               colorScheme="blue"
               variant={"ghost"}
-              onClick={() => {}}
+              onClick={handleSignUp}
             >
               Sign Up
             </Button>
@@ -100,4 +110,4 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
   );
 }
 
-export default Login;
+export default React.memo(Login);
