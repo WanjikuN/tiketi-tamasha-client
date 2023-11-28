@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import "./SignUp.css";
+import "../styles/SignUp.css";
+import { useNavigate } from "react-router-dom"; 
 
-function Signup({ isLoggedIn, setIsLoggedIn }) {
+const SignUp = ({ isLoggedIn, setIsLoggedIn }) => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
   const [signupFormData, setSignupFormData] = useState({
@@ -32,8 +34,8 @@ function Signup({ isLoggedIn, setIsLoggedIn }) {
     }
 
     try {
-      //  API request for signup
-      const response = await fetch("http://localhost:5000/signup", {
+      
+      const response = await fetch("/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -49,9 +51,12 @@ function Signup({ isLoggedIn, setIsLoggedIn }) {
           password: "",
           confirmPassword: "",
         });
+
+        setIsLoggedIn(true);
+
         alert(`Hello, ${data.name} Account created successfully`);
 
-        // Additional logic after successful signup if needed
+        
 
       } else {
         alert("Signup failed");
@@ -60,11 +65,15 @@ function Signup({ isLoggedIn, setIsLoggedIn }) {
       alert("Error during signup: " + error.message);
     }
   };
+  const handleLoginLinkClick = () => {
+    
+    navigate("/login");
+  };
 
   return (
-    <div className="login-container">
+    <div className="signup-container">
       <h1>Signup</h1>
-      <div className="form">
+      <div className="signup-form">
         <h2>Sign Up</h2>
         <input
           type="text"
@@ -73,6 +82,7 @@ function Signup({ isLoggedIn, setIsLoggedIn }) {
           onChange={(e) =>
             setSignupFormData({ ...signupFormData, name: e.target.value })
           }
+          className="input-field"
         />
         <input
           type="text"
@@ -84,7 +94,34 @@ function Signup({ isLoggedIn, setIsLoggedIn }) {
               username: e.target.value,
             })
           }
+          className="input-field"
         />
+        
+        <input
+            type="tel"
+            placeholder="Phone Number"
+            value={signupFormData.phone_number}
+            onChange={(e) =>
+              setSignupFormData({
+                ...signupFormData,
+                phone_number: e.target.value,
+              })
+            }
+            className="input-field"
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={signupFormData.email}
+            onChange={(e) =>
+              setSignupFormData({
+                ...signupFormData,
+                email: e.target.value,
+              })
+            }
+            className="input-field"
+          />
+
         <div className="password-input">
           <input
             type={showPassword ? "text" : "password"}
@@ -96,12 +133,9 @@ function Signup({ isLoggedIn, setIsLoggedIn }) {
                 password: e.target.value,
               })
             }
+            className="input-field"
           />
-          <span onClick={togglePasswordVisibility}>
-            {showPassword ? "Hide" : "Show"}
-          </span>
-        </div>
-        <div className="password-input">
+          <div className="confirm-password-input">
           <input
             type={showPassword ? "text" : "password"}
             placeholder="Confirm Password"
@@ -112,19 +146,29 @@ function Signup({ isLoggedIn, setIsLoggedIn }) {
                 confirmPassword: e.target.value,
               })
             }
+            className="input-field"
           />
-          <span onClick={togglePasswordVisibility}>
+          <span onClick={togglePasswordVisibility} className="password-toggle">
             {showPassword ? "Hide" : "Show"}
           </span>
         </div>
-        <button onClick={handleSignup}>Sign Up</button>
+          <span onClick={togglePasswordVisibility} className="password-toggle">
+            {showPassword ? "Hide" : "Show"}
+          </span>
+        </div>
+        
+        <button onClick={handleSignup} className="signup-button">
+          Sign Up
+        </button>
         <p>
-          Already have an account? <span>Login</span>
-        </p>
+        Already have an account?{" "}
+        <span className="login-link" onClick={handleLoginLinkClick}>
+          Login
+        </span>
+      </p>
       </div>
     </div>
   );
-}
+};
 
-export default Signup;
-
+export default SignUp;
