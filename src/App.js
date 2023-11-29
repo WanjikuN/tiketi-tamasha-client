@@ -10,7 +10,7 @@ import Checkout from './components/checkout';
 import EventDetails from './components/EventDetails';
 import { useCart } from './components/CartContext';
 import ShoppingCart from './components/cart';
-
+import OrdersHistory from './components/OrdersHistory';
 const App = () => {
   const { cart, addToCart, removeFromCart, emptyCart } = useCart();
 console.log(cart)
@@ -26,6 +26,7 @@ console.log(cart)
         <Route exact path="/signup" element={<SignUp />} />
         <Route exact path="/login" element={<Login />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/orders" element={< OrdersHistory />} />
         <Route path="/events/:eventId" element={<EventDetails carts={cart} removeFromCart={removeFromCart}/>} />
         <Route
           path="/cart"

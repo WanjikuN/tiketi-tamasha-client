@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css'; 
 import { useState } from 'react';
 import ShoppingCart from './cart';
+import { Link } from 'react-router-dom';
 
 const Navbar = ({cartLength,cart, removeFromCart}) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -24,6 +25,9 @@ const Navbar = ({cartLength,cart, removeFromCart}) => {
         </li>
         <li className="nav-item">
           <a href="/login" className="nav-link">Login</a>
+        </li>
+        <li className="nav-item">
+        <Link to="/orders" className="nav-link">Orders</Link>
         </li>
         <li className="nav-item-cart">
           
