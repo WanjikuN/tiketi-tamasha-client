@@ -1,20 +1,44 @@
-import React, { useState } from "react";
+import React, {useEffect, useState } from "react";
 import "../styles/SignUp.css";
 import { useNavigate } from "react-router-dom"; 
 
 const SignUp = ({ setIsLoggedIn }) => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-
+  const [roleOptions, setRoleOptions] = useState([]);
   const [signupFormData, setSignupFormData] = useState({
     username: "",
-    password: "",
+    _password_hash: "",
     confirmPassword: "",
     phone_number: "",
     email: "",
-    role: "", 
+    role_id: "", 
   });
+  const fetchRoles = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/roles");
+      const data = await response.json();
+      if (response.ok) {
+        return data;
+      } else {
+        console.error("Failed to fetch roles:", data.error);
+        return [];
+      }
+    } catch (error) {
+      console.error("Error fetching roles:", error);
+      return [];
+    }
+  };
+  useEffect(() => {
+    const fetchAndSetRoles = async () => {
+      const roles = await fetchRoles();
 
+      setRoleOptions(roles);
+      console.log(roleOptions)
+    };
+
+    fetchAndSetRoles();
+  }, []);
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -23,20 +47,20 @@ const SignUp = ({ setIsLoggedIn }) => {
     const passwordRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 
-    if (!passwordRegex.test(signupFormData.password)) {
+    if (!passwordRegex.test(signupFormData._password_hash)) {
       alert(
         "Password must include at least one uppercase letter, one lowercase letter, one special character, and be at least six characters long."
       );
       return;
     }
 
-    if (signupFormData.password !== signupFormData.confirmPassword) {
+    if (signupFormData._password_hash !== signupFormData.confirmPassword) {
       alert("Password and confirmation do not match.");
       return;
     }
 
     try {
-      const response = await fetch("/signup", {
+      const response = await fetch("http://localhost:5000/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -48,7 +72,7 @@ const SignUp = ({ setIsLoggedIn }) => {
         const data = await response.json();
         setSignupFormData({
           username: "",
-          password: "",
+          _password_hash: "",
           confirmPassword: "",
           phone_number: "",
           email: "",
@@ -56,7 +80,7 @@ const SignUp = ({ setIsLoggedIn }) => {
         });
 
         setIsLoggedIn(true);
-
+        navigate("/");
         alert(`Hello, ${data.username}! Account created successfully`);
       } else {
         alert("Signup failed");
@@ -89,20 +113,26 @@ const SignUp = ({ setIsLoggedIn }) => {
         />
 
         
-        <input
-          type="text"
-          placeholder="Role"
+      <select
           value={signupFormData.role}
           onChange={(e) =>
             setSignupFormData({
               ...signupFormData,
-              role: e.target.value,
+              role_id: e.target.value,
             })
           }
           className="input-field"
-        />
+        >
+          <option value="" disabled>Select a role</option>
+          {roleOptions.map((role) => (
+            
+            <option key={role.id} value={role.id}>
+              {role.name}
+            </option>
+          ))}
+        </select>
 
-<input
+    <input
             type="tel"
             placeholder="Phone Number"
             value={signupFormData.phone_number}
@@ -131,11 +161,11 @@ const SignUp = ({ setIsLoggedIn }) => {
           <input
             type={showPassword ? "text" : "password"}
             placeholder="Password"
-            value={signupFormData.password}
+            value={signupFormData._password_hash}
             onChange={(e) =>
               setSignupFormData({
                 ...signupFormData,
-                password: e.target.value,
+                _password_hash: e.target.value,
               })
             }
             className="input-field"

@@ -3,12 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@chakra-ui/react";
 import { useSnackbar } from "notistack";
-
+import './login.css'
 function Login({ isLoggedIn, setIsLoggedIn }) {
   const [showPassword, setShowPassword] = useState(false);
   const [loginFormData, setLoginFormData] = useState({
-    username: "",
-    password: "",
+    email: "",
+    _password_hash: "",
   });
   const { enqueueSnackbar } = useSnackbar();
 
@@ -16,27 +16,21 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
     setShowPassword(!showPassword);
   };
 
-  const handleLogin = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/login", {
+  const handleLogin = () => {
+    
+      fetch("http://localhost:5000/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(loginFormData),
-      });
-
-      if (response.ok) {
-        setLoginFormData({ username: "", password: "" });
-        enqueueSnackbar("Login Successful", { variant: "success" });
-        setIsLoggedIn(true);
-      } else {
-        enqueueSnackbar("Login Failed", { variant: "error" });
-      }
-    } catch (error) {
-      console.error("Error during login:", error);
-      enqueueSnackbar("Error during login", { variant: "error" });
-    }
+        
+      }).then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error:', error));
+      
+    
   };
 
   return (
@@ -47,12 +41,12 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
           <h2>Login</h2>
           <input
             type="text"
-            placeholder="Username"
-            value={loginFormData.username}
+            placeholder="email"
+            value={loginFormData.email}
             onChange={(e) =>
               setLoginFormData({
                 ...loginFormData,
-                username: e.target.value,
+                email: e.target.value,
               })
             }
           />
@@ -60,11 +54,11 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Password"
-              value={loginFormData.password}
+              value={loginFormData._password_hash}
               onChange={(e) =>
                 setLoginFormData({
                   ...loginFormData,
-                  password: e.target.value,
+                  _password_hash: e.target.value,
                 })
               }
             />
