@@ -1,0 +1,109 @@
+.event-details-container {
+  margin: 0 auto;
+  padding: 20px;
+  width: 60%;
+}
+
+.general-details {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.general-details h2 {
+  color: #007bff;
+}
+
+.general-details p {
+  margin: 10px 0;
+}
+
+.tickets-section {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 10px;
+  height: auto;
+  width:100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tickets-section h3 {
+  color: #007bff;
+}
+
+.ticket-list {
+  display: flex;
+  justify-content: space-between;
+  /* flex-wrap: wrap; Added to wrap tickets on smaller screens */
+}
+
+#eventDetails {
+  /* border: 1px solid black; */
+  margin: 20px;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap; /* Added to wrap image and details on smaller screens */
+  height:70vh; 
+}
+
+#details_img {
+  /* border: 1px solid black; */
+  flex: 1; /* Allow the image to take up the available space */
+  /* max-width: 100%; Ensure the image does not exceed its container */
+  margin-right: 20px; /* Add some space between the image and details */
+  display: flex;
+  /* height:90vh; */
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  height: 100%;
+  width:45%;
+}
+
+.img_det{
+  height:45%;
+  width: 100%;
+  border-radius: 4px;
+}
+#back:hover{
+  cursor: pointer;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .event-details-container {
+    width: 70%; /* Adjust the width on smaller screens */
+  }
+  .ticket-list {
+    flex-wrap: wrap; /* Stack tickets vertically on smaller screens */
+    overflow: scroll;
+    justify-content: center;
+    height: 180px;
+  }
+  .ticketi{
+    /* border: 1px solid black; */
+    height: auto;
+    width: 40%;
+    padding: 2px;
+    
+  }
+  #details_img {
+    margin-right: 0; /* Remove the margin on smaller screens */
+    margin-bottom: 20px; /* Add space below the image on smaller screens */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+  }
+}
+
+@media (max-width: 576px) {
+  .ticket-list {
+    flex-direction: column; /* Stack tickets vertically on smaller screens */
+  }
+  #ticket {
+    width: 100%; /* Adjust width for smaller screens */
+  }
+}

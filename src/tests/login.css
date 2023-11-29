@@ -1,41 +1,57 @@
 body {
     font-family: 'Arial', sans-serif;
     background-color: aquamarine;
-}
+  }
   
-div {
+  div {
     max-width: 400px;
     margin: 0 auto;
-}
+  }
   
-h2 {
+  h1, h2 {
     text-align: center;
-}
+  }
   
-form {
+  form {
     display: flex;
     flex-direction: column;
-}
+  }
   
-label {
+  label {
     margin-top: 10px;
-}
+  }
   
-input {
+  input {
     margin-bottom: 15px;
     padding: 8px;
     width: 100%;
-}
+  }
   
-button {
+  button {
     background-color: #4c5baf;
     color: white;
     padding: 10px;
     border: none;
     cursor: pointer;
-}
+  }
   
-button:hover {
+  button:hover {
     background-color: #a04598;
-}
+  }
+  
+  .password-input {
+    position: relative;
+  }
+  
+  .password-input input {
+    padding-right: 30px;
+  }
+  
+  .password-input span {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
   

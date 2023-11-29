@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "../styles/SignUp.css";
 import { useNavigate } from "react-router-dom"; 
 
-const SignUp = ({ setIsLoggedIn }) => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -37,6 +36,7 @@ const SignUp = ({ setIsLoggedIn }) => {
     }
 
     try {
+
       const response = await fetch("/signup", {
         method: "POST",
         headers: {
@@ -56,7 +56,6 @@ const SignUp = ({ setIsLoggedIn }) => {
           role: "", 
         });
 
-        setIsLoggedIn(true);
 
         alert(`Hello, ${data.username}! Account created successfully`);
       } else {
@@ -65,6 +64,10 @@ const SignUp = ({ setIsLoggedIn }) => {
     } catch (error) {
       alert("Error during signup: " + error.message);
     }
+  };
+  const handleLoginLinkClick = () => {
+    
+    navigate("/login");
   };
 
   const handleLoginLinkClick = () => {
@@ -103,8 +106,6 @@ const SignUp = ({ setIsLoggedIn }) => {
           className="input-field"
         />
 
- 
-        <input
             type="email"
             placeholder="Email"
             value={signupFormData.email}
@@ -144,22 +145,7 @@ const SignUp = ({ setIsLoggedIn }) => {
             className="input-field"
           />
           <span onClick={togglePasswordVisibility} className="password-toggle">
-            {showPassword ? "Hide" : "Show"}
-          </span>
-        </div>
-          <span onClick={togglePasswordVisibility} className="password-toggle">
-            {showPassword ? "Hide" : "Show"}
-          </span>
-        </div>
-        <button onClick={handleSignup} className="signup-button">
-          Sign Up
-        </button>
-        <p>
-          Already have an account?{" "}
-          <span className="login-link" onClick={handleLoginLinkClick}>
-            Login
-          </span>
-        </p>
+
       </div>
     </div>
   );
