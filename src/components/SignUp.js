@@ -1,14 +1,18 @@
 import React, { useState } from "react";
-import "./SignUp.css";
+import "../styles/SignUp.css";
+import { useNavigate } from "react-router-dom"; 
 
-function Signup({ isLoggedIn, setIsLoggedIn }) {
+const SignUp = ({ setIsLoggedIn }) => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
   const [signupFormData, setSignupFormData] = useState({
-    name: "",
     username: "",
     password: "",
     confirmPassword: "",
+    phone_number: "",
+    email: "",
+    role: "", 
   });
 
   const togglePasswordVisibility = () => {
@@ -16,6 +20,7 @@ function Signup({ isLoggedIn, setIsLoggedIn }) {
   };
 
   const handleSignup = async () => {
+    
     const passwordRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 
@@ -32,7 +37,6 @@ function Signup({ isLoggedIn, setIsLoggedIn }) {
     }
 
     try {
-      //  API request for signup
       const response = await fetch("/signup", {
         method: "POST",
         headers: {
@@ -44,15 +48,17 @@ function Signup({ isLoggedIn, setIsLoggedIn }) {
       if (response.ok) {
         const data = await response.json();
         setSignupFormData({
-          name: "",
           username: "",
           password: "",
           confirmPassword: "",
+          phone_number: "",
+          email: "",
+          role: "", 
         });
-        alert(`Hello, ${data.name} Account created successfully`);
 
-        // Additional logic after successful signup if needed
+        setIsLoggedIn(true);
 
+        alert(`Hello, ${data.username}! Account created successfully`);
       } else {
         alert("Signup failed");
       }
@@ -61,19 +67,15 @@ function Signup({ isLoggedIn, setIsLoggedIn }) {
     }
   };
 
+  const handleLoginLinkClick = () => {
+    navigate("/login");
+  };
+
   return (
-    <div className="login-container">
+    <div className="signup-container">
       <h1>Signup</h1>
-      <div className="form">
+      <div className="signup-form">
         <h2>Sign Up</h2>
-        <input
-          type="text"
-          placeholder="Full Name"
-          value={signupFormData.name}
-          onChange={(e) =>
-            setSignupFormData({ ...signupFormData, name: e.target.value })
-          }
-        />
         <input
           type="text"
           placeholder="Username"
@@ -84,7 +86,37 @@ function Signup({ isLoggedIn, setIsLoggedIn }) {
               username: e.target.value,
             })
           }
+          className="input-field"
         />
+
+        
+        <input
+          type="text"
+          placeholder="Role"
+          value={signupFormData.role}
+          onChange={(e) =>
+            setSignupFormData({
+              ...signupFormData,
+              role: e.target.value,
+            })
+          }
+          className="input-field"
+        />
+
+ 
+        <input
+            type="email"
+            placeholder="Email"
+            value={signupFormData.email}
+            onChange={(e) =>
+              setSignupFormData({
+                ...signupFormData,
+                email: e.target.value,
+              })
+            }
+            className="input-field"
+          />
+
         <div className="password-input">
           <input
             type={showPassword ? "text" : "password"}
@@ -96,12 +128,9 @@ function Signup({ isLoggedIn, setIsLoggedIn }) {
                 password: e.target.value,
               })
             }
+            className="input-field"
           />
-          <span onClick={togglePasswordVisibility}>
-            {showPassword ? "Hide" : "Show"}
-          </span>
-        </div>
-        <div className="password-input">
+          <div className="confirm-password-input">
           <input
             type={showPassword ? "text" : "password"}
             placeholder="Confirm Password"
@@ -112,19 +141,28 @@ function Signup({ isLoggedIn, setIsLoggedIn }) {
                 confirmPassword: e.target.value,
               })
             }
+            className="input-field"
           />
-          <span onClick={togglePasswordVisibility}>
+          <span onClick={togglePasswordVisibility} className="password-toggle">
             {showPassword ? "Hide" : "Show"}
           </span>
         </div>
-        <button onClick={handleSignup}>Sign Up</button>
+          <span onClick={togglePasswordVisibility} className="password-toggle">
+            {showPassword ? "Hide" : "Show"}
+          </span>
+        </div>
+        <button onClick={handleSignup} className="signup-button">
+          Sign Up
+        </button>
         <p>
-          Already have an account? <span>Login</span>
+          Already have an account?{" "}
+          <span className="login-link" onClick={handleLoginLinkClick}>
+            Login
+          </span>
         </p>
       </div>
     </div>
   );
-}
+};
 
-export default Signup;
-
+export default SignUp;
