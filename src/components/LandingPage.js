@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import TicketItem from "./TicketItem";
 import Filter from "./Filter";
 import { Link } from "react-router-dom";
+import { AddToCalendarButton } from 'add-to-calendar-button-react';
 
 export default function LandingPage() {
   
@@ -77,8 +78,9 @@ export default function LandingPage() {
                 </h4>
                 <p>{item.start_time.split(" ")[1]}hrs</p>
                 <p>{item.location}</p>
+                <p>{item.description}</p>
                 <Link to={`/events/${item.id}`}>
-              <button id="btn">get tickets</button>
+              <button id="btn">GET TICKET</button>
             </Link>
               </div>
               <div id="calenda">

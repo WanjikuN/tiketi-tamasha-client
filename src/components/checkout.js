@@ -6,6 +6,10 @@ import Axios from 'axios';
 
 const CheckoutContainer = styled.div`
   padding: 40px;
+  
+  margin-top:150px;
+  margin-bottom:50px;
+
 `;
 
 const CheckoutForm = styled.form`
@@ -37,8 +41,8 @@ const Select = styled.select`
 `;
 
 const SubmitButton = styled.button`
-  background-color: #BE3728;
-  border: 1px solid #be372894;
+  background-color: #D69F3A;
+  border: 1px solid #be372824;
   color: black;
   padding: 10px 20px;
   border: none;
@@ -46,7 +50,7 @@ const SubmitButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: #be372894;
+    border: 3px solid #be372824; 
     
   }
 `;
@@ -55,7 +59,7 @@ const SuccessMsg = styled.p`
   font-weight: 1000;
 `;
 
-function Checkout() {
+function Checkout({totalAmount}) {
   const[order, setOrder] = useState({
     name: "",
     email: "",
@@ -78,7 +82,7 @@ function Checkout() {
     event.preventDefault();
   
     try {
-      const res = await Axios.get(`http://localhost:5000/lnmo?amount=1&phone=${order.paymentDetails}`);
+      const res = await Axios.get(`http://localhost:5000/lnmo?amount=${totalAmount}&phone=${order.paymentDetails}`);
       console.log(res);
   
       if (res.status === 200) {
@@ -173,7 +177,7 @@ function Checkout() {
           </FormField>
         )}
         
-        <SubmitButton type="submit" >GET TICKET</SubmitButton>
+        <SubmitButton type="submit" >Make Payment</SubmitButton>
       </CheckoutForm>
       {showSuccessMsg && (
           <SuccessMsg>

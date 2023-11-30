@@ -40,7 +40,7 @@ const App = () => {
 
         <Route
           path="/checkout"
-          element={<PrivateRoute path="/checkout" element={<Checkout />} />}
+          element={<PrivateRoute path="/checkout" element={<Checkout  />} />}
         />
         <Route
           path="/orders"

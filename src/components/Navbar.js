@@ -25,7 +25,9 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn}) 
     <nav className="navbar">
       <div className="navbar-brand">
         <img src="./Tamasha.png" alt="Tiketi Tamasha" />
-        <p>Tiketi Tamasha</p>
+       
+        <Link style={{padding:"20px", color:"white", textDecoration: "none","&:hover": {borderBottom:"1px-solid-white"}}} to="/" >Tiketi Tamasha</Link>
+
       </div>
       <ul className="navbar-nav">
         <li className="nav-item">
@@ -39,8 +41,8 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn}) 
             </li>
             <li className="nav-item-cart">
               <a onClick={handleOpenCart} className="nav-link">
-                <img src="./Cart.png" alt="Cart" className="cart-icon" />
-                <p id="count">{cartLength}</p>
+              <p id="count"> <img src="./Cart.png" alt="Cart" className="cart-icon" />
+                {cartLength}</p>
               </a>
               {isCartOpen && (
                 <ShoppingCart cart={cart} onClose={handleCloseCart} removeFromCart={removeFromCart}/>

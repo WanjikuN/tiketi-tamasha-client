@@ -45,12 +45,14 @@ export default function ShoppingCart({ cart, onClose, removeFromCart }) {
         </button>
       </div>
       <div className="cart-items">
-        <h2 id="total">Total: $ {calculateTotalPrice().toFixed(2)}</h2>
         {cart.length !== 0 && (
           <NavLink to="/checkout" style={{ color: 'black' }}>
-            <h2>Proceed to Checkout</h2>
+            <button id="btn">Checkout</button>
           </NavLink>
         )}
+        
+            <h2 id="total">Total: $ {calculateTotalPrice().toFixed(2)}</h2>
+
         {cart.length === 0 ? (
           <p>Cart is empty</p>
         ) : (
@@ -72,7 +74,7 @@ export default function ShoppingCart({ cart, onClose, removeFromCart }) {
               <div id="delete">
                 <button
                   id="close"
-                  style={{ backgroundColor: 'white', color: 'black' }}
+                  style={{color: 'black' }}
                   onClick={() => removeFromCart(item.cartItemId)}
                 >
                   X
