@@ -8,7 +8,9 @@ const OrderHistory = () => {
 
     useEffect(() => {
         // Fetch processed events from the backend
-        fetch('http://localhost:5000/payments')
+        fetch('http://localhost:5000/payments', {
+            credentials: 'include', // Include cookies for authentication
+        })
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
