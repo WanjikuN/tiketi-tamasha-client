@@ -4,6 +4,7 @@ import Filter from "./Filter";
 import { Link } from "react-router-dom";
 
 export default function LandingPage() {
+  
   const [tickets, setTickets] = useState([]);
   const [tname, setTname] = useState("");
   const [visibleTickets, setVisibleTickets] = useState(1);

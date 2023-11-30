@@ -1,0 +1,68 @@
+.authentication-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.authentication-form {
+  width: 400px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-field {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.password-input {
+  /* position: relative; */
+  /* width:90%; */
+  /* margin-right: 10px; */
+  display: flex;
+  justify-content: space-between;
+}
+
+.confirm-password-input {
+  /* margin-top: 15px; */
+  width:70%;
+}
+
+.password-toggle {
+  /* position: absolute; */
+  /* top: 50%; */
+  /* right: 10px; */
+  padding: 10px;
+  margin-left: 15px;
+  /* transform: translateY(-50%); */
+  cursor: pointer;
+  color: #BE3728;
+}
+
+.authentication-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #BE3728;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.toggle-link {
+  color: #BE3728;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .authentication-form {
+    width: 80%;
+  }
+}

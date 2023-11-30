@@ -2,7 +2,6 @@
   "name": "tiketi-tamasha-client",
   "version": "0.1.0",
   "private": true,
-  "proxy":"https://tiketi-tamasha-backend.onrender.com/",
   "dependencies": {
     "@chakra-ui/react": "^2.8.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
@@ -12,6 +11,7 @@
     "@testing-library/user-event": "^13.5.0",
     "add-to-calendar-button-react": "^2.4.3",
     "axios": "^1.6.2",
+    "js-cookie": "^3.0.5",
     "notistack": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

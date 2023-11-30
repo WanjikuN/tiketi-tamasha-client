@@ -1,0 +1,38 @@
+
+.order-history-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header style */
+.order-history-container h2 {
+    font-size: 24px;
+    color: #333;
+}
+
+/* Card style */
+.order-history-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.order-history-container li {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* Event details style */
+.order-history-container li > hr {
+    margin: 15px 0;
+}
+
+/* No events message style */
+.order-history-container p {
+    font-size: 16px;
+    color: #777;
+}
+
