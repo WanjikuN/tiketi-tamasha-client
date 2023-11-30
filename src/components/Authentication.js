@@ -9,6 +9,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [roleOptions, setRoleOptions] = useState([]);
+  const [type, setType] = useState(false)
   const [formData, setFormData] = useState({
     username: "",
     _password_hash: "",
@@ -39,7 +40,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
       return;
     }
     try {
-      const response = await fetch("https://tiketi-tamasha-backend.onrender.com/signup", {
+      const response = await fetch("http://localhost:5000/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,8 +51,8 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
       if (response.ok) {
     
         const data = await response.json();
-        setIsLoggedIn(true);
-        navigate("/");
+        
+        setType(true)
         enqueueSnackbar(`Hello, ${data.username}! Account created successfully`, {
           variant: "success",
         });
@@ -69,7 +70,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
     
 
     try {
-      const response = await fetch("https://tiketi-tamasha-backend.onrender.com/login", {
+      const response = await fetch("http://localhost:5000/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -80,10 +81,12 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
             _password_hash: formData._password_hash,
           }),
       });
+      console.log(response);
 
       if (response.ok) {
         
         const data = await response.json();
+        setType(false)
         setIsLoggedIn(true);
         navigate("/");
         enqueueSnackbar(`Hello, ${data.username}! Logged in successfully`, {
@@ -102,7 +105,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const response = await fetch("https://tiketi-tamasha-backend.onrender.com/roles");
+        const response = await fetch("http://localhost:5000/roles");
         const data = await response.json();
         if (response.ok) {
           setRoleOptions(data);
@@ -122,7 +125,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
    
       <div className="authentication-form">
         <h2>{isLoggedIn ? "Login" : "Sign Up"}</h2>
-        {!isLoggedIn && (
+        {!type && (
           <>
             <input
               type="text"
@@ -168,7 +171,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
             onChange={(e) => setFormData({ ...formData, _password_hash: e.target.value })}
             className="input-field"
           />
-          {!isLoggedIn && (
+          {!type && (
           <div className="confirm-password-input">
               <input
                 type={showPassword ? "text" : "password"}
@@ -186,16 +189,16 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
               />
           </span>
         </div>
-        <button onClick={isLoggedIn ? handleLogin : handleSignup} className="authentication-button">
-          {isLoggedIn ? "Login" : "Sign Up"}
+        <button onClick={type ? handleLogin : handleSignup} className="authentication-button">
+          {type ? "Login" : "Sign Up"}
         </button>
         <p>
-          {isLoggedIn ? "Don't have an account?" : "Already have an account?"}{" "}
+          {type? "Don't have an account?" : "Already have an account?"}{" "}
           <span
             className="toggle-link"
-            onClick={() => setIsLoggedIn(!isLoggedIn)}
+            onClick={() => setType(!type)}
           >
-            {isLoggedIn ? "Sign Up" : "Login"}
+            {type ? "Sign Up" : "Login"}
           </span>
         </p>
       </div>
