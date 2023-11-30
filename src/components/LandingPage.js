@@ -61,9 +61,10 @@ export default function LandingPage() {
   return (
     <>
       <div id="trending" style={{ display: "flex", overflow: "hidden" }}>
-        <button className="btn" onClick={handleLeftArrowClick}>
-          {"<<"}
-        </button>
+      <button className="fancy-btn" onClick={handleLeftArrowClick}>
+        <span>&lt;&lt;</span>
+      </button>
+
         <div style={{ display: "flex", overflow: "hidden" }}>
           {tickets.slice(startIndex, startIndex + visibleTickets).map((item, index) => (
             <div className="trending_card" key={index}>
@@ -100,9 +101,10 @@ export default function LandingPage() {
             </div>
           ))}
         </div>
-        <button className="btn" onClick={handleRightArrowClick}>
-          {">>"}
+        <button className="fancy-btn" onClick={handleRightArrowClick}>
+          <span>&gt;&gt;</span>
         </button>
+
       </div>
 
       <Filter handlename={handleName} />
