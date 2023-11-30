@@ -9,7 +9,7 @@ import Checkout from './components/checkout';
 import EventDetails from './components/EventDetails';
 import { useCart } from './components/CartContext';
 import ShoppingCart from './components/cart';
-
+import OrdersHistory from './components/OrdersHistory';
 const App = () => {
   
   const { cart, addToCart, removeFromCart, emptyCart } = useCart();
@@ -26,6 +26,7 @@ const App = () => {
         <Route exact path="/" element={<LandingPage />} />
         <Route path="/signup" element={<Authentication setIsLoggedIn={setIsLoggedIn}  isLoggedIn={isLoggedIn}/>} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/orders" element={< OrdersHistory />} />
         <Route path="/events/:eventId" element={<EventDetails carts={cart} removeFromCart={removeFromCart}/>} />
         <Route
           path="/cart"
