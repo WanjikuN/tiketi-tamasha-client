@@ -23,7 +23,7 @@ const Navbar = ({cartLength,cart, removeFromCart}) => {
           <a href="/about-us" className="nav-link">About Us</a>
         </li>
         <li className="nav-item">
-          <a href="/login" className="nav-link">Login</a>
+          <a href="/signup" className="nav-link">Login</a>
         </li>
         <li className="nav-item-cart">
           

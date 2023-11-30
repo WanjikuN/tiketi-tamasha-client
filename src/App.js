@@ -1,19 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './components/App.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import SignUp from './components/SignUp';
+import Authentication from './components/Authentication';
 import LandingPage from './components/LandingPage';
 import { Routes, Route, Link } from 'react-router-dom';
-import Login from './components/login';
 import Checkout from './components/checkout';
 import EventDetails from './components/EventDetails';
 import { useCart } from './components/CartContext';
 import ShoppingCart from './components/cart';
 
 const App = () => {
+  
   const { cart, addToCart, removeFromCart, emptyCart } = useCart();
-console.log(cart)
+  console.log(cart)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
     document.title = 'Tiketi Tamasha';
   }, []);
@@ -23,8 +24,7 @@ console.log(cart)
       <Navbar cartLength={cart.length} cart={cart} removeFromCart={removeFromCart}/>
       <Routes>
         <Route exact path="/" element={<LandingPage />} />
-        <Route exact path="/signup" element={<SignUp />} />
-        <Route exact path="/login" element={<Login />} />
+        <Route path="/signup" element={<Authentication setIsLoggedIn={setIsLoggedIn}  isLoggedIn={isLoggedIn}/>} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/events/:eventId" element={<EventDetails carts={cart} removeFromCart={removeFromCart}/>} />
         <Route
