@@ -8,7 +8,7 @@ const OrderHistory = () => {
 
     useEffect(() => {
         // Fetch processed events from the backend
-        fetch('http://localhost:5000/lnmo')
+        fetch('https://tiketi-tamasha-backend.onrender.com/lnmo')
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
