@@ -8,7 +8,7 @@ const OrderHistory = () => {
 
     useEffect(() => {
         // Fetch processed events from the backend
-        fetch('http://localhost:5000/lnmo')
+        fetch('http://localhost:5000/payments')
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -26,13 +26,17 @@ const OrderHistory = () => {
               {Array.isArray(orders) && orders.length > 0 ? (
                   orders.map(order => (
                       <li key={order.event_id} className="order-card">
-                          Event Name: {order.event_name}<br />
-                          Amount: {order.amount}<br />
-                          Phone: {order.phone}<br />
+                            <b>Event ID</b>: {order.event_id}<br />
+                            <b>Event Name</b>: {order.event_name}<br /> 
+                            <b>Payment Date</b>: {order.payment_date}<br />
+                            <b>Payment Type</b>: {order.payment_type}<br />
+                            <b>Payer Phone</b>: {order.payer_phone}<br />
+                            <b>Amount</b>: Kshs {order.amount}<br />
+                            <b>Status</b>: {order.status}<br />
                       </li>
                   ))
               ) : (
-                  <p>No processed events available.</p>
+                  <p>No processed orders available.</p>
               )}
           </ul>
       </div>
