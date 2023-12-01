@@ -9,6 +9,7 @@ import EventDetails from './components/EventDetails';
 import { useCart } from './components/CartContext';
 import ShoppingCart from './components/cart';
 import OrdersHistory from './components/OrdersHistory';
+import Dashboard from './components/Dashboard';
 
 const App = () => {
   const { cart, addToCart, removeFromCart, emptyCart } = useCart();
@@ -37,7 +38,7 @@ const App = () => {
         <Route path="/signup" element={<Authentication setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />} />
         <Route path="/events/:eventId" element={<EventDetails carts={cart} removeFromCart={removeFromCart} />} />
         <Route path="/cart" element={<ShoppingCart cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} />} />
-
+        <Route path="/dashboard" element={<PrivateRoute path="/dashboard" element={<Dashboard />} />} />
         <Route
           path="/checkout"
           element={<PrivateRoute path="/checkout" element={<Checkout />} />}

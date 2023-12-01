@@ -139,3 +139,136 @@ body {
   font-size: 0.8rem;
   margin: 0;
 }
+
+/* DASHBOARD */
+/*
+ * Dashboard Component Styles
+ */
+
+ .dashboard-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 50px;
+}
+
+.dashboard-container h1{
+  text-align: center;
+  color: #BE3728;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  
+}
+
+.button-container button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #BE3728;
+  color: #fff;
+}
+
+.create-event-form {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.create-event-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.create-event-form input,
+.create-event-form textarea {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.create-event-form button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+}
+
+.event-details {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.event-details p {
+  margin-bottom: 5px;
+}
+
+.event-details img {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.event-details h2 {
+  text-align: center;
+}
+.event-details strong {
+  font-weight: bold;
+}
+
+.event-details button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #BE3728;
+  color: #fff;
+}
+.event-list {
+  width: 100%;
+  margin: 40px 0;
+  padding: 20px;
+  border: 3px solid #ccc;
+  border-radius: 5px;
+  max-width: 750px;
+}
+
+.event-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.event-list h2 {
+  text-align: center;
+}
+
+.event-list li {
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.book label{
+  font-size: 12px;
+}
+
+.book input {
+  width: 30%;
+}

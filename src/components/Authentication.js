@@ -88,7 +88,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
         const data = await response.json();
         setType(false)
         setIsLoggedIn(true);
-        navigate("/");
+        navigate("/dashboard");
         enqueueSnackbar(`Hello, ${data.username}! Logged in successfully`, {
           variant: "success",
         });
