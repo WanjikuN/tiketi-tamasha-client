@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< HEAD
 import './App.css'; 
 import { useState } from 'react';
 import ShoppingCart from './cart';
@@ -20,6 +21,9 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn}) 
   const handleCloseCart = () => {
     setIsCartOpen(false);
   };
+=======
+import './App.css';
+>>>>>>> origin/Mugere-G
 
   return (
     <nav className="navbar">
@@ -28,6 +32,12 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn}) 
         <p>Tiketi Tamasha</p>
       </div>
       <ul className="navbar-nav">
+      <li className="nav-item">
+          <a href="/" className="nav-link">Dashboard</a>
+        </li>
+        <li className="nav-item">
+          <a href="/" className="nav-link">Home</a>
+        </li>
         <li className="nav-item">
           <a href="/about-us" className="nav-link">About Us</a>
         </li>
