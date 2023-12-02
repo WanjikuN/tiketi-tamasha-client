@@ -13,7 +13,7 @@ const OrderHistory = () => {
             payment_date: '2023-12-01',
             payment_type: 'Card',
             payer_phone: '123-456-7890',
-            amount: 100.00,
+            amount: 1500.00,
             status: 'Processed',
         },
         {
@@ -22,7 +22,7 @@ const OrderHistory = () => {
             payment_date: '2023-12-01',
             payment_type: 'Card',
             payer_phone: '123-456-7890',
-            amount: 100.00,
+            amount: 1000.00,
             status: 'Processed',
         },
         {
@@ -31,7 +31,7 @@ const OrderHistory = () => {
             payment_date: '2023-12-01',
             payment_type: 'Card',
             payer_phone: '123-456-7890',
-            amount: 100.00,
+            amount: 1000.00,
             status: 'Processed',
         },
         {
@@ -40,7 +40,7 @@ const OrderHistory = () => {
             payment_date: '2023-12-01',
             payment_type: 'Mpesa',
             payer_phone: '25470078923',
-            amount: 1000.00,
+            amount: 1500.00,
             status: 'Processed',
         },
         {
@@ -49,7 +49,7 @@ const OrderHistory = () => {
             payment_date: '2024-12-01',
             payment_type: 'Card',
             payer_phone: '123-456-7890',
-            amount: 100.00,
+            amount: 1500.00,
             status: 'Processed',
         },
         {
@@ -58,7 +58,7 @@ const OrderHistory = () => {
             payment_date: '2023-12-01',
             payment_type: 'Card',
             payer_phone: '123-456-7890',
-            amount: 100.00,
+            amount: 1500.00,
             status: 'Processed',
         },
        
