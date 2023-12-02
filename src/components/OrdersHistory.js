@@ -2,12 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './OrderHistory.css';
 
 const OrderHistory = () => {
-    // State variables for orders, login status, and authentication token
     const [orders, setOrders] = useState([]);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [authToken, setAuthToken] = useState(null);
 
-    // Sample orders to display when the user is logged in
     const sampleOrders = [
         {
             event_id: 5,
@@ -96,7 +94,6 @@ const OrderHistory = () => {
             })
             .then(data => {
                 console.log('Data received from the server:', data);
-                // Use the received data if available, or set sample orders if not logged in
                 setOrders(userIsLoggedIn ? data : sampleOrders);
             })
             .catch(error => console.error('Error fetching processed events:', error));
