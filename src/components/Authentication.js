@@ -9,6 +9,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [roleOptions, setRoleOptions] = useState([]);
+  const [type, setType] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
     _password_hash: "",
@@ -39,6 +40,13 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
       return;
     }
     try {
+      const userRole = roleOptions.find((role)=>role.name ==="User")
+      if (!userRole){
+        console.error("User role not found")
+        return;
+        
+      }
+      setFormData({...formData,role_id:userRole.id});
       const response = await fetch("http://localhost:5000/signup", {
         method: "POST",
         headers: {
@@ -50,7 +58,22 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
       if (response.ok) {
     
         const data = await response.json();
-        setIsLoggedIn(true);
+        if (data.role_id){
+          const role =roleOptions.find((r)=>r.id == data.role_id);
+          if(role){
+            if (role.name ==="Admin"){
+              alert("Welcome ,Admin");
+
+            } else if (role.name ==="Organizer"){
+              alert("Welcome,Organizer");
+
+            } else if (role.name ==="User"){
+              alert("Welcome ,User");
+            }
+          }
+
+        }
+        setType(true);
         navigate("/");
         enqueueSnackbar(`Hello, ${data.username}! Account created successfully`, {
           variant: "success",
@@ -105,7 +128,8 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
         const response = await fetch("http://localhost:5000/roles");
         const data = await response.json();
         if (response.ok) {
-          setRoleOptions(data);
+          const filteredRoles = data.filter((role)=> role.name !=="Admin");
+          setRoleOptions(filteredRoles );
         } else {
           console.error("Failed to fetch roles:", data.error);
         }
@@ -118,11 +142,11 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
   }, []);
 
   return (
-    <div className="authentication-container">
+    <div data-testid="Authenticaton" className="authentication-container">
    
       <div className="authentication-form">
         <h2>{isLoggedIn ? "Login" : "Sign Up"}</h2>
-        {!isLoggedIn && (
+        {!type && (
           <>
             <input
               type="text"
@@ -186,8 +210,8 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
               />
           </span>
         </div>
-        <button onClick={isLoggedIn ? handleLogin : handleSignup} className="authentication-button">
-          {isLoggedIn ? "Login" : "Sign Up"}
+        <button onClick={type ? handleLogin : handleSignup} className="authentication-button">
+          {type ? "Login" : "Sign Up"}
         </button>
         <p>
           {isLoggedIn ? "Don't have an account?" : "Already have an account?"}{" "}
