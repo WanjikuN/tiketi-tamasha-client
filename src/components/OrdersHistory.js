@@ -2,10 +2,67 @@ import React, { useState, useEffect } from 'react';
 import './OrderHistory.css';
 
 const OrderHistory = () => {
-    // State variables for orders, login status, and authentication token
     const [orders, setOrders] = useState([]);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [authToken, setAuthToken] = useState(null);
+
+    const sampleOrders = [
+        {
+            event_id: 5,
+            event_name: 'Champee',
+            payment_date: '2023-12-01',
+            payment_type: 'Card',
+            payer_phone: '123-456-7890',
+            amount: 1500.00,
+            status: 'Processed',
+        },
+        {
+            event_id: 2,
+            event_name: 'Tamasha',
+            payment_date: '2023-12-01',
+            payment_type: 'Card',
+            payer_phone: '123-456-7890',
+            amount: 1000.00,
+            status: 'Processed',
+        },
+        {
+            event_id: 3,
+            event_name: 'Ticket Washa',
+            payment_date: '2023-12-01',
+            payment_type: 'Card',
+            payer_phone: '123-456-7890',
+            amount: 1000.00,
+            status: 'Processed',
+        },
+        {
+            event_id: 4,
+            event_name: 'Octobafest',
+            payment_date: '2023-12-01',
+            payment_type: 'Mpesa',
+            payer_phone: '25470078923',
+            amount: 1500.00,
+            status: 'Processed',
+        },
+        {
+            event_id: 1,
+            event_name: 'NovFest',
+            payment_date: '2024-12-01',
+            payment_type: 'Card',
+            payer_phone: '123-456-7890',
+            amount: 1500.00,
+            status: 'Processed',
+        },
+        {
+            event_id: 6,
+            event_name: 'Dec Tamasha',
+            payment_date: '2023-12-01',
+            payment_type: 'Card',
+            payer_phone: '123-456-7890',
+            amount: 1500.00,
+            status: 'Processed',
+        },
+       
+    ];
 
     useEffect(() => {
         // Check if the user is logged in and get the authentication token from localStorage
@@ -17,7 +74,9 @@ const OrderHistory = () => {
         setAuthToken(userAuthToken);
 
         // Fetch processed events from the backend
-        const apiUrl = isLoggedIn ? 'http://localhost:5000/payments' : 'http://localhost:5000/payments';
+        const apiUrl = 'http://localhost:5000/payments';
+
+        console.log('Before fetch:', apiUrl);
 
         fetch(apiUrl, {
             credentials: 'include',
@@ -27,12 +86,16 @@ const OrderHistory = () => {
             },
         })
             .then(response => {
+                console.log('Fetch response:', response);
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
                 return response.json();
             })
-            .then(data => setOrders(data))
+            .then(data => {
+                console.log('Data received from the server:', data);
+                setOrders(userIsLoggedIn ? data : sampleOrders);
+            })
             .catch(error => console.error('Error fetching processed events:', error));
     }, [isLoggedIn, authToken]);
 
@@ -61,6 +124,8 @@ const OrderHistory = () => {
 };
 
 export default OrderHistory;
+
+
 
 
 
