@@ -21,6 +21,8 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
     role_id: "",
   });
   const { enqueueSnackbar } = useSnackbar();
+  const [successMessage, setSuccessMessage] = useState('');
+  const [failMessage, setFailMessage] = useState('');
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -31,9 +33,9 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 
     if (!passwordRegex.test(formData._password_hash)) {
-      alert(
-        "Password must include at least one uppercase letter, one lowercase letter, one special character, and be at least six characters long."
-      );
+      
+      setFailMessage("Password must include at least one uppercase letter, one lowercase letter, one special character, and be at least six characters long.(Tiketi@123)"
+      )
       return;
     }
 
@@ -56,6 +58,9 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
         enqueueSnackbar(`Hello, ${data.username}! Account created successfully`, {
           variant: "success",
         });
+      
+        setSuccessMessage('Signup successful! You can now log in.');
+        
         // Clear form data on successful signup
         setFormData({
           username: "",
@@ -65,14 +70,20 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
           email: "",
           role_id: "",
         });
-        alert("Signup successful");
+        
+        // alert("Signup successful");
       } else {
-        alert("Signup failed");
+        setFailMessage('Signup failed: Username,role and email required');
+        // alert("Signup failed");
+        setTimeout(() => {
+            setFailMessage('')
+        }, 2000);
         enqueueSnackbar("Signup failed", { variant: "error" });
       }
     } catch (error) {
       console.error("Error during signup:", error);
-      alert("Error during signup");
+    //   alert("Error during signup");
+      setFailMessage('Signup failed');
       enqueueSnackbar("Error during signup", { variant: "error" });
     }
   };
@@ -103,7 +114,12 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
         setType(false)
         setIsLoggedIn(true);
         saveUserToStorage(userData);
-        navigate("/");
+        setSuccessMessage('Login successful!');
+
+        setTimeout(() => {
+            navigate("/");
+        }, 2000);
+        
         enqueueSnackbar(`Hello, ${userData.username}! Logged in successfully`, {
           variant: "success",
         });
@@ -116,14 +132,21 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
           email: "",
           role_id: "",
         });
-        alert("Login successful");
+        // alert("Login successful");
       } else {
-        alert("Login failed");
+        // alert("Login failed");
         enqueueSnackbar("Login failed", { variant: "error" });
-      }
+        setFailMessage('Invalid Credentials');
+        setTimeout(() => {
+            setFailMessage('')
+        }, 2000);
+    }
     } catch (error) {
       console.error("Error during login:", error);
-      alert("Invalid credentials");
+      setFailMessage('Invalid Credentials');
+      setTimeout(() => {
+        setFailMessage('')
+    }, 2000);
       enqueueSnackbar("Error during login", { variant: "error" });
     }
   };
@@ -151,6 +174,8 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
    
       <div className="authentication-form">
         <h2>{type ? "Login" : "Sign Up"}</h2>
+        {failMessage && <div style={{color:"red",fontWeight:"1000"}}>{failMessage}</div>}
+
         {!type && (
           <>
             <input
@@ -159,6 +184,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
               value={formData.username}
               onChange={(e) => setFormData({ ...formData, username: e.target.value })}
               className="input-field"
+              required
             />
             <select
               value={formData.role_id}
@@ -178,6 +204,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
               value={formData.phone_number}
               onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })}
               className="input-field"
+              
             />
             
           </>
@@ -188,6 +215,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           className="input-field"
+          required
         />
         <div className="password-input">
           <input
@@ -196,6 +224,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
             value={formData._password_hash}
             onChange={(e) => setFormData({ ...formData, _password_hash: e.target.value })}
             className="input-field"
+            required
           />
           {!type && (
           <div className="confirm-password-input">
@@ -205,6 +234,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
                 value={formData.confirmPassword}
                 onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                 className="input-field"
+                required
               />
             </div>)}
          
@@ -227,6 +257,8 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
             {type ? "Sign Up" : "Login"}
           </span>
         </p>
+        {successMessage && <div style={{color:"green",fontWeight:"1000"}}>{successMessage}</div>}
+
       </div>
     </div>
   );

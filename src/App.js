@@ -16,6 +16,8 @@ const App = () => {
   const { cart, addToCart, removeFromCart, emptyCart } = useCart();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState(null);
+  const [successMessage, setSuccessMessage] = useState('');
+
   useEffect(() => {
     document.title = 'Tiketi Tamasha';
   }, []);
@@ -27,6 +29,7 @@ const App = () => {
     return isLoggedIn ? (
       element
     ) : (
+      setSuccessMessage('Redirecting to Login/signup...'),
       <Navigate to="/signup" />
     );
   };
@@ -38,17 +41,18 @@ const App = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="/signup" element={<Authentication setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} updateUserData={updateUserData}/>} />
         <Route path="/events/:eventId" element={<EventDetails carts={cart} removeFromCart={removeFromCart} />} />
-        <Route path="/cart" element={<ShoppingCart cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} />} />
+        <Route path="/cart" element={<ShoppingCart cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} successMessage={successMessage} />} />
+        <Route path="/dashboard" element={<Dashboard />}  />
 
         <Route
           path="/checkout"
-          element={<PrivateRoute path="/checkout" element={<Checkout  userData={userData} emptyCart={emptyCart}/>} />}
+          element={<PrivateRoute path="/checkout" element={<Checkout  userData={userData} emptyCart={emptyCart} />} />}
         />
        
-        <Route
+        {/* <Route
           path="/dashboard"
           element={<PrivateRoute path="/dashboard" element={<Dashboard />} />}
-        />
+        /> */}
         <Route
           path="/orders"
           element={<PrivateRoute path="/orders" element={<OrdersHistory />} />}

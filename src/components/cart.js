@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './ShoppingCart.css';
 import { useNavigate } from 'react-router-dom';
 
-export default function ShoppingCart({ cart, onClose, removeFromCart }) {
+export default function ShoppingCart({ cart, onClose, removeFromCart,successMessage }) {
   const navigate = useNavigate();
   const [quantities, setQuantities] = useState({});
   const [totalPrice, setTotalPrice] = useState(0);
+
   const navigateToCheckout = () => {
     navigate('/checkout', { state: { quantities, totalPrice } });  };
   
@@ -64,6 +65,7 @@ export default function ShoppingCart({ cart, onClose, removeFromCart }) {
         )}
         
             <h2 id="total">Total: $ {totalPrice.toFixed(2)}</h2>
+            {successMessage && <div style={{color:"green",fontWeight:"1000"}}>{successMessage}</div>}
 
         {cart.length === 0 ? (
           <p>Cart is empty</p>
