@@ -26,7 +26,9 @@ code {
 #upcoming{
   /* border: 1px solid black; */
   /* margin: 10px ; */
-  height: 40vh;
+  height: 42vh;
+  margin: 10px;
+  margin-bottom: 50px;
   display: flex;
   flex-wrap: wrap;
   padding: 9.5px;
@@ -55,14 +57,14 @@ code {
   padding: 2px;
   margin: 10px;
   width: 250px;
-  height: 89%;
+  height: 95%;
   line-height: 12px;
 
   
 }
 #ticket:hover{
   cursor: pointer;
-  border: 2px solid #d69f3a37
+  border: 2px solid #8760d02c
 }
 /* Hide scroll bar */
 ::-webkit-scrollbar {
@@ -100,7 +102,7 @@ justify-content: space-between;
   padding: 7px;
   margin: 10px;
   border-radius: 4px;
-  width: 500px;
+  width: 400px;
   height: 70%;
   
 }
@@ -173,8 +175,10 @@ justify-content: space-between;
   padding: 7px;
   border-radius: 4px;
   font-size: 17px;
-  background-color: #D69F3A;
-  border: 1px solid #be372824;
+  background: linear-gradient(to right, #8760d02c, #3aafa9a0);
+
+  /* background-color: #D69F3A; */
+  border: 1px solid #8760d02c;
   
 }
 .btn:hover, #btn:hover{

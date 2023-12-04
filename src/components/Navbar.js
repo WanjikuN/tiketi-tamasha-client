@@ -8,9 +8,6 @@ import { useSnackbar } from "notistack";
 const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn}) => {
   const { enqueueSnackbar } = useSnackbar(); 
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const clearUserFromStorage = () => {
-    localStorage.removeItem('user');
-  };
   
   const handleLogout = async () => {
     try {
@@ -20,7 +17,7 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn}) 
       });
   
       if (response.ok) {
-        clearUserFromStorage();
+        
         setIsLoggedIn(false);
         enqueueSnackbar('User logged out successfully', { variant: 'success' });
       } else {
@@ -54,9 +51,15 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn}) 
 
       </div>
       <ul className="navbar-nav">
-        <li className="nav-item">
-          <a href="/about-us" className="nav-link">About Us</a>
-        </li>
+      {/* <li className="nav-item">
+          <a href="/" className="nav-link">Dashboard</a>
+        </li> */}
+        <Link to='/' className="nav-item nav-link">
+         Home
+        </Link>
+        <Link className="nav-item nav-link" to='/about-us'>
+        About Us
+        </Link>
         
        
           <>

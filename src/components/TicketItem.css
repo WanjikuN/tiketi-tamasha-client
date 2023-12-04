@@ -27,7 +27,7 @@
   }
   
   .btnTicket {
-    background-color: #D69F3A;
+    background: linear-gradient(to right, #8760d02c, #3aafa9a0);
     border: 1px solid #be372824;
     color: black;
     border: none;
@@ -38,7 +38,7 @@
   }
   
   .btnTicket:hover {
-    border: 3px solid #be372824;
+    border: 3px solid #8760d02c;
   }
   /* .event-image {
     width: 100%; 
