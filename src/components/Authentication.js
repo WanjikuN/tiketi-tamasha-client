@@ -44,7 +44,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
       return;
     }
     try {
-      const response = await fetch("http://localhost:5000/signup", {
+      const response = await fetch("https://tiketi-tamasha-backend.onrender.com/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -93,7 +93,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch("http://localhost:5000/login", {
+      const response = await fetch("https://tiketi-tamasha-backend.onrender.com/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -154,7 +154,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const response = await fetch("http://localhost:5000/roles");
+        const response = await fetch("https://tiketi-tamasha-backend.onrender.com/roles");
         const data = await response.json();
         if (response.ok) {
           setRoleOptions(data);
