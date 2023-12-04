@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import TicketItem from "./TicketItem";
 import Filter from "./Filter";
 import { Link } from "react-router-dom";
+import { AddToCalendarButton } from 'add-to-calendar-button-react';
 
 export default function LandingPage() {
   
@@ -62,9 +63,10 @@ export default function LandingPage() {
   return (
     <>
       <div id="trending" style={{ display: "flex", overflow: "hidden" }}>
-        <button className="btn" onClick={handleLeftArrowClick}>
-          {"<<"}
-        </button>
+      <button className="fancy-btn" onClick={handleLeftArrowClick}>
+        <span>&lt;&lt;</span>
+      </button>
+
         <div style={{ display: "flex", overflow: "hidden" }}>
           {tickets.slice(startIndex, startIndex + visibleTickets).map((item, index) => (
             <div className="trending_card" key={index}>
@@ -77,8 +79,9 @@ export default function LandingPage() {
                 </h4>
                 <p>{item.start_time.split(" ")[1]}hrs</p>
                 <p>{item.location}</p>
+                <p>{item.description}</p>
                 <Link to={`/events/${item.id}`}>
-              <button id="btn">get tickets</button>
+              <button id="btn">GET TICKET</button>
             </Link>
               </div>
               <div id="calenda">
@@ -101,9 +104,10 @@ export default function LandingPage() {
             </div>
           ))}
         </div>
-        <button className="btn" onClick={handleRightArrowClick}>
-          {">>"}
+        <button className="fancy-btn" onClick={handleRightArrowClick}>
+          <span>&gt;&gt;</span>
         </button>
+
       </div>
 
       <Filter handlename={handleName} />

@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useNavigate} from "react-router-dom"
+import { useNavigate, useLocation} from "react-router-dom"
 import Axios from 'axios';
 
 
 const CheckoutContainer = styled.div`
   padding: 40px;
+  
+  margin-top:150px;
+  margin-bottom:50px;
+
 `;
 
 const CheckoutForm = styled.form`
@@ -37,8 +41,8 @@ const Select = styled.select`
 `;
 
 const SubmitButton = styled.button`
-  background-color: #BE3728;
-  border: 1px solid #be372894;
+  background-color: #D69F3A;
+  border: 1px solid #be372824;
   color: black;
   padding: 10px 20px;
   border: none;
@@ -46,7 +50,7 @@ const SubmitButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: #be372894;
+    border: 3px solid #be372824; 
     
   }
 `;
@@ -55,7 +59,8 @@ const SuccessMsg = styled.p`
   font-weight: 1000;
 `;
 
-function Checkout() {
+function Checkout({userData, emptyCart}) {
+    console.log(userData)
   const[order, setOrder] = useState({
     name: "",
     email: "",
@@ -63,6 +68,7 @@ function Checkout() {
     paymentDetails:"",
     orderId: "",
   });
+  
   function handleChange(e) {
     e.preventDefault();
     const { id, value } = e.target;
@@ -73,7 +79,10 @@ function Checkout() {
   }
  
   const [showSuccessMsg, setShowSuccessMessage] = useState(false);
- 
+  const location = useLocation();
+  const { quantities, totalPrice } = location.state;
+  console.log(quantities, totalPrice)
+  console.log(userData)
   const handleSubmit = async (event) => {
     event.preventDefault();
   
@@ -83,8 +92,12 @@ function Checkout() {
   
       if (res.status === 200) {
         console.log("STK push initiated successfully");
+        
         setShowSuccessMessage(true);
-  
+
+        setTimeout(() => {
+                emptyCart();
+            }, 3000);
         // Clear the form
         setOrder({
           name: "",
@@ -118,7 +131,7 @@ function Checkout() {
           <Input
             type="text"
             id="name"
-            value={order.name}
+            value={userData.username}
             onChange={handleChange}
             required
           />
@@ -128,7 +141,7 @@ function Checkout() {
           <Input
             type="email"
             id="email"
-            value={order.email}
+            value={userData.email}
             onChange={handleChange}
             required
           />
@@ -173,11 +186,11 @@ function Checkout() {
           </FormField>
         )}
         
-        <SubmitButton type="submit" >GET TICKET</SubmitButton>
+        <SubmitButton type="submit" >Make Payment</SubmitButton>
       </CheckoutForm>
       {showSuccessMsg && (
           <SuccessMsg>
-            Check your phone for M-PESA payment
+            Check your phone for M-PESA payment of kes: {totalPrice}
           </SuccessMsg>
         )}
     </CheckoutContainer>
