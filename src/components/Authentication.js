@@ -3,7 +3,104 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import "../styles/SignUp.css";
+
+const OrderHistory = () =>{
+  return <div>Order History</div>
+};
+const Server = () =>{
+  return <div>Server</div>
+};
+const Cart= () =>{
+  return <div>Cart</div>
+};
+const Checkout= () =>{
+  return <div>Checkout</div>
+};
+const EventDetail = () =>{
+  return <div>Events Details</div>
+};
+const Filter = () =>{
+  return <div>Filter</div>
+};
+const LandingPageTicketItems = () =>{
+  return <div>Landing Page Ticket Items </div>
+};
+const Navbar= () =>{
+  return <div>Navbar</div>
+};
+ const AdminDashboard =() =>{
+  return(
+    <div>
+      <AdminNavigationMenu/>
+      <h2>Admin Dashboard</h2>
+      <OrderHistory/>
+      <Server/>
+      <Cart/>
+      <Checkout/>
+      <EventDetail/>
+      <Filter/>
+      <LandingPageTicketItems/>
+      <Navbar/>
+    </div>
+  );
+};
+const OrganizerDashboard =()=>{
+  return(
+    <div>
+      <OrganizerNavigationMenu />
+      <h2>Organizer Dashboard</h2>
+
+    </div>
+  );
+
+};
+
+const UserDashboard =()=>{
+  return(
+    <div>
+      <UserNavigationMenu />
+      <h2>User Dashboard</h2>
+      
+    </div>
+  );
+
+};
+const AdminNavigationMenu =()=>{
+  return(
+    <div>
+       <h2>Admin Navigation</h2>
+       <Link to="/admin/order-history">Order History</Link>
+       <Link to="/admin/server">Server</Link>
+       <Link to="/admin/cart">Cart</Link>
+       <Link to="/admin/checkout">Checkout</Link>
+       <Link to="/admin/evennt-details">Event DetailS</Link> 
+       <Link to="/admin/filter">Filter</Link>
+       <Link to="/admin/ticketitems">Landing Page Ticket Items</Link>
+       <Link to="/admin/navbar">Navbar</Link>
+      
+    </div>
+  );
+};
+
+const OrganizerNavigationMenu = ()=>{
+  return(
+  <div>
+    <h2>Organizer Navigation Menu</h2>
+    <Link to="/organizer/"></Link>
+  </div>
+  );
+};
+const UserNavigationMenu = () =>{
+  return(
+    <div>
+      <h2>User Navigation Menu</h2>
+      <Link to="/user/"></Link>
+    </div>
+  );
+};
+
 
 const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
   const navigate = useNavigate();
@@ -132,7 +229,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
         enqueueSnackbar("Login failed", { variant: "error" });
       }
     } catch (error) {
-      console.error("Error during login:", error);
+      //console.error("Error during login:", error);
       enqueueSnackbar("Error during login", { variant: "error" });
     }
   };
@@ -225,6 +322,9 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
               />
           </span>
         </div>
+        {isLoggedIn && formData.role_id === 'admin' && <AdminDashboard/>}
+        {isLoggedIn && formData.role_id === 'organizer' && <OrganizerDashboard/>}
+        {isLoggedIn && formData.role_id === 'user' && <UserDashboard/>}
         <button onClick={type ? handleLogin : handleSignup} className="authentication-button">
           {type ? "Login" : "Sign Up"}
         </button>
