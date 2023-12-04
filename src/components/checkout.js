@@ -59,7 +59,8 @@ const SuccessMsg = styled.p`
   font-weight: 1000;
 `;
 
-function Checkout({userData}) {
+function Checkout({userData, emptyCart}) {
+    console.log(userData)
   const[order, setOrder] = useState({
     name: "",
     email: "",
@@ -67,6 +68,7 @@ function Checkout({userData}) {
     paymentDetails:"",
     orderId: "",
   });
+  
   function handleChange(e) {
     e.preventDefault();
     const { id, value } = e.target;
@@ -90,8 +92,12 @@ function Checkout({userData}) {
   
       if (res.status === 200) {
         console.log("STK push initiated successfully");
+        
         setShowSuccessMessage(true);
-  
+
+        setTimeout(() => {
+                emptyCart();
+            }, 3000);
         // Clear the form
         setOrder({
           name: "",
@@ -125,7 +131,7 @@ function Checkout({userData}) {
           <Input
             type="text"
             id="name"
-            value={order.name}
+            value={userData.username}
             onChange={handleChange}
             required
           />
@@ -135,7 +141,7 @@ function Checkout({userData}) {
           <Input
             type="email"
             id="email"
-            value={order.email}
+            value={userData.email}
             onChange={handleChange}
             required
           />

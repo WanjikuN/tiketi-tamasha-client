@@ -8,7 +8,9 @@ export default function ShoppingCart({ cart, onClose, removeFromCart }) {
   const [totalPrice, setTotalPrice] = useState(0);
   const navigateToCheckout = () => {
     navigate('/checkout', { state: { quantities, totalPrice } });  };
-  const calculateAmount = (item) => {
+  
+  
+    const calculateAmount = (item) => {
     if (item.ticketType === 'Regular') {
       return parseFloat(item.regular_price);
     } else if (item.ticketType === 'VIP') {

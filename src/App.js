@@ -40,7 +40,7 @@ const App = () => {
 
         <Route
           path="/checkout"
-          element={<PrivateRoute path="/checkout" element={<Checkout  userData={userData}/>} />}
+          element={<PrivateRoute path="/checkout" element={<Checkout  userData={userData} emptyCart={emptyCart}/>} />}
         />
         <Route
           path="/orders"

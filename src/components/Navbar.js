@@ -39,11 +39,11 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn}) 
   const handleCloseCart = () => {
     setIsCartOpen(false);
   };
-  useEffect(() => {
-    // Check if there's a user in local storage when the component mounts
-    const userFromStorage = JSON.parse(localStorage.getItem('user'));
-    setIsLoggedIn(!!userFromStorage); // Set isLoggedIn to true if there's a user, otherwise false
-  }, []); // Empty dependency array to run this effect only once when the component mounts
+  // useEffect(() => {
+  //   // Check if there's a user in local storage when the component mounts
+  //   const userFromStorage = JSON.parse(localStorage.getItem('user'));
+  //   setIsLoggedIn(!!userFromStorage); // Set isLoggedIn to true if there's a user, otherwise false
+  // }, []); // Empty dependency array to run this effect only once when the component mounts
 
   return (
     <nav className="navbar">
