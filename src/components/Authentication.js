@@ -5,11 +5,11 @@ import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 import "../styles/SignUp.css";
 
-const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
+const Authentication = ({ setIsLoggedIn, isLoggedIn }) => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [roleOptions, setRoleOptions] = useState([]);
-  const [type, setType] = useState(false)
+  const [type, setType] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
     _password_hash: "",
@@ -49,26 +49,33 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
       });
 
       if (response.ok) {
-    
         const data = await response.json();
-        
-        setType(true)
+        setType(true);
         enqueueSnackbar(`Hello, ${data.username}! Account created successfully`, {
           variant: "success",
         });
+        // Clear form data on successful signup
+        setFormData({
+          username: "",
+          _password_hash: "",
+          confirmPassword: "",
+          phone_number: "",
+          email: "",
+          role_id: "",
+        });
+        alert("Signup successful");
       } else {
-       
+        alert("Signup failed");
         enqueueSnackbar("Signup failed", { variant: "error" });
       }
     } catch (error) {
       console.error("Error during signup:", error);
+      alert("Error during signup");
       enqueueSnackbar("Error during signup", { variant: "error" });
     }
   };
 
   const handleLogin = async () => {
-    
-
     try {
       const response = await fetch("http://localhost:5000/login", {
         method: "POST",
@@ -77,27 +84,36 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
         },
         credentials: "include",
         body: JSON.stringify({
-            email: formData.email,
-            _password_hash: formData._password_hash,
-          }),
+          email: formData.email,
+          _password_hash: formData._password_hash,
+        }),
       });
-      console.log(response);
 
       if (response.ok) {
-        
         const data = await response.json();
-        setType(false)
+        setType(false);
         setIsLoggedIn(true);
         navigate("/");
         enqueueSnackbar(`Hello, ${data.username}! Logged in successfully`, {
           variant: "success",
         });
+        // Clear form data on successful login
+        setFormData({
+          username: "",
+          _password_hash: "",
+          confirmPassword: "",
+          phone_number: "",
+          email: "",
+          role_id: "",
+        });
+        alert("Login successful");
       } else {
-       
+        alert("Login failed");
         enqueueSnackbar("Login failed", { variant: "error" });
       }
     } catch (error) {
       console.error("Error during login:", error);
+      alert("Invalid credentials");
       enqueueSnackbar("Error during login", { variant: "error" });
     }
   };
