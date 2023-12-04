@@ -55,7 +55,7 @@ const SubmitButton = styled.button`
   }
 `;
 const SuccessMsg = styled.p`
-  color: #be372862;
+  color: green;
   font-weight: 1000;
 `;
 
@@ -68,7 +68,8 @@ function Checkout({userData, emptyCart}) {
     paymentDetails:"",
     orderId: "",
   });
-  
+  const [successMessage, setSuccessMessage] = useState('');
+
   function handleChange(e) {
     e.preventDefault();
     const { id, value } = e.target;
@@ -97,6 +98,7 @@ function Checkout({userData, emptyCart}) {
 
         setTimeout(() => {
                 emptyCart();
+                navigate('/')
             }, 3000);
         // Clear the form
         setOrder({

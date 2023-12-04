@@ -16,6 +16,7 @@ const EventDetails = ({carts, removeFromCart}) => {
   const [addedVIPToCart, setAddedVIPToCart] = useState(false);
   const [addedRegularToCart, setAddedRegularToCart] = useState(false);
   const [eventDetails, setEventDetails] = useState(null);
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     fetch(`http://localhost:5000/events/${eventId}`)
@@ -41,17 +42,34 @@ const EventDetails = ({carts, removeFromCart}) => {
   const handleAddRegularCart = (selectedTicket) => {
     addToCart(selectedTicket);
     setAddedRegularToCart(true);
-    alert(`Regular Ticket added to cart`);
+    setSuccessMessage(`Regular Ticket added to cart`);
+
+        setTimeout(() => {
+            setSuccessMessage('')
+        }, 2000);
+        
+   
   };
   const handleAddEarlyCart = (selectedTicket) => {
     addToCart(selectedTicket);
     setAddedEarlyToCart(true);
-    alert(`Early Bird Ticket added to cart`);
+    setSuccessMessage(`Early Bird  Ticket added to cart`);
+
+        setTimeout(() => {
+            setSuccessMessage('')
+        }, 2000);
+
   };
   const handleAddVIPCart = (selectedTicket) => {
     addToCart(selectedTicket);
     setAddedVIPToCart(true);
-    alert(`VIP Ticket added to cart`);
+
+    setSuccessMessage(`VIP  Ticket added to cart`);
+
+        setTimeout(() => {
+            setSuccessMessage('')
+        }, 2000);
+
   };
   const handleGoBack = () => {
     navigate(-1);
@@ -116,7 +134,10 @@ const EventDetails = ({carts, removeFromCart}) => {
             <button className="btnTicket" onClick={addedVIPToCart ? () => {(handleOpenCart())}: () => handleAddVIPCart({ ...eventDetails, ticketType: 'VIP' })} style={{ width: "80%" }}><FontAwesomeIcon icon={faShoppingCart} /> {addedVIPToCart ? " View Cart" : " Buy Ticket"}</button>
           </div>
         </div>
+
       </div>
+      {successMessage && <div style={{color:"green",fontWeight:"1000"}}>{successMessage}</div>}
+
     </div>
     </div>
     
