@@ -16,6 +16,7 @@ const EventDetails = ({carts, removeFromCart}) => {
   const [addedVIPToCart, setAddedVIPToCart] = useState(false);
   const [addedRegularToCart, setAddedRegularToCart] = useState(false);
   const [eventDetails, setEventDetails] = useState(null);
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     fetch(`https://tiketi-tamasha-backend.onrender.com/events/${eventId}`)
@@ -41,14 +42,34 @@ const EventDetails = ({carts, removeFromCart}) => {
   const handleAddRegularCart = (selectedTicket) => {
     addToCart(selectedTicket);
     setAddedRegularToCart(true);
+    setSuccessMessage(`Regular Ticket added to cart`);
+
+        setTimeout(() => {
+            setSuccessMessage('')
+        }, 2000);
+        
+   
   };
   const handleAddEarlyCart = (selectedTicket) => {
     addToCart(selectedTicket);
     setAddedEarlyToCart(true);
+    setSuccessMessage(`Early Bird  Ticket added to cart`);
+
+        setTimeout(() => {
+            setSuccessMessage('')
+        }, 2000);
+
   };
   const handleAddVIPCart = (selectedTicket) => {
     addToCart(selectedTicket);
     setAddedVIPToCart(true);
+
+    setSuccessMessage(`VIP  Ticket added to cart`);
+
+        setTimeout(() => {
+            setSuccessMessage('')
+        }, 2000);
+
   };
   const handleGoBack = () => {
     navigate(-1);
@@ -65,7 +86,7 @@ const EventDetails = ({carts, removeFromCart}) => {
         </div>
     <div className="event-details-container">
       <div className="general-details">
-        <h2>{eventDetails.event_name}</h2>
+        <h2>{eventDetails.event_name.toUpperCase()}</h2>
         <p>Location: {eventDetails.location}</p>
         <p>Date: {startDate}</p>
         <p>Start Time: {startTime}</p>
@@ -113,7 +134,10 @@ const EventDetails = ({carts, removeFromCart}) => {
             <button className="btnTicket" onClick={addedVIPToCart ? () => {(handleOpenCart())}: () => handleAddVIPCart({ ...eventDetails, ticketType: 'VIP' })} style={{ width: "80%" }}><FontAwesomeIcon icon={faShoppingCart} /> {addedVIPToCart ? " View Cart" : " Buy Ticket"}</button>
           </div>
         </div>
+
       </div>
+      {successMessage && <div style={{color:"green",fontWeight:"1000"}}>{successMessage}</div>}
+
     </div>
     </div>
     

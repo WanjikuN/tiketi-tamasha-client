@@ -5,10 +5,13 @@ import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 import "../styles/SignUp.css";
 
-const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
+
+const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
+
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [roleOptions, setRoleOptions] = useState([]);
+  const [type, setType] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
     _password_hash: "",
@@ -18,6 +21,8 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
     role_id: "",
   });
   const { enqueueSnackbar } = useSnackbar();
+  const [successMessage, setSuccessMessage] = useState('');
+  const [failMessage, setFailMessage] = useState('');
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -28,9 +33,9 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 
     if (!passwordRegex.test(formData._password_hash)) {
-      alert(
-        "Password must include at least one uppercase letter, one lowercase letter, one special character, and be at least six characters long."
-      );
+      
+      setFailMessage("Password must include at least one uppercase letter, one lowercase letter, one special character, and be at least six characters long.(Tiketi@123)"
+      )
       return;
     }
 
@@ -48,26 +53,45 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
       });
 
       if (response.ok) {
-    
         const data = await response.json();
-        setIsLoggedIn(true);
-        navigate("/");
+        setType(true);
         enqueueSnackbar(`Hello, ${data.username}! Account created successfully`, {
           variant: "success",
         });
+      
+        setSuccessMessage('Signup successful! You can now log in.');
+        
+        // Clear form data on successful signup
+        setFormData({
+          username: "",
+          _password_hash: "",
+          confirmPassword: "",
+          phone_number: "",
+          email: "",
+          role_id: "",
+        });
+        
+        // alert("Signup successful");
       } else {
-       
+        setFailMessage('Signup failed: Username,role and email required');
+        // alert("Signup failed");
+        setTimeout(() => {
+            setFailMessage('')
+        }, 2000);
         enqueueSnackbar("Signup failed", { variant: "error" });
       }
     } catch (error) {
       console.error("Error during signup:", error);
+    //   alert("Error during signup");
+      setFailMessage('Signup failed');
       enqueueSnackbar("Error during signup", { variant: "error" });
     }
   };
+  const saveUserToStorage = (userData) => {
+    localStorage.setItem('user', JSON.stringify(userData));
+  };
 
   const handleLogin = async () => {
-    
-
     try {
       const response = await fetch("https://tiketi-tamasha-backend.onrender.com/login", {
         method: "POST",
@@ -76,25 +100,53 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
         },
         credentials: "include",
         body: JSON.stringify({
-            email: formData.email,
-            _password_hash: formData._password_hash,
-          }),
+          email: formData.email,
+          _password_hash: formData._password_hash,
+        }),
       });
 
+      console.log(response);
+      const responseData = await response.json();
+      console.log(responseData.id);
       if (response.ok) {
-        
-        const data = await response.json();
+        updateUserData(responseData)
+        const userData = responseData;
+        setType(false)
         setIsLoggedIn(true);
-        navigate("/");
-        enqueueSnackbar(`Hello, ${data.username}! Logged in successfully`, {
+        saveUserToStorage(userData);
+        setSuccessMessage('Login successful!');
+
+        setTimeout(() => {
+            navigate("/");
+        }, 2000);
+        
+        enqueueSnackbar(`Hello, ${userData.username}! Logged in successfully`, {
           variant: "success",
         });
+        // Clear form data on successful login
+        setFormData({
+          username: "",
+          _password_hash: "",
+          confirmPassword: "",
+          phone_number: "",
+          email: "",
+          role_id: "",
+        });
+        // alert("Login successful");
       } else {
-       
+        // alert("Login failed");
         enqueueSnackbar("Login failed", { variant: "error" });
-      }
+        setFailMessage('Invalid Credentials');
+        setTimeout(() => {
+            setFailMessage('')
+        }, 2000);
+    }
     } catch (error) {
       console.error("Error during login:", error);
+      setFailMessage('Invalid Credentials');
+      setTimeout(() => {
+        setFailMessage('')
+    }, 2000);
       enqueueSnackbar("Error during login", { variant: "error" });
     }
   };
@@ -121,8 +173,10 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
     <div className="authentication-container">
    
       <div className="authentication-form">
-        <h2>{isLoggedIn ? "Login" : "Sign Up"}</h2>
-        {!isLoggedIn && (
+        <h2>{type ? "Login" : "Sign Up"}</h2>
+        {failMessage && <div style={{color:"red",fontWeight:"1000"}}>{failMessage}</div>}
+
+        {!type && (
           <>
             <input
               type="text"
@@ -130,6 +184,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
               value={formData.username}
               onChange={(e) => setFormData({ ...formData, username: e.target.value })}
               className="input-field"
+              required
             />
             <select
               value={formData.role_id}
@@ -149,6 +204,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
               value={formData.phone_number}
               onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })}
               className="input-field"
+              
             />
             
           </>
@@ -159,6 +215,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           className="input-field"
+          required
         />
         <div className="password-input">
           <input
@@ -167,8 +224,9 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
             value={formData._password_hash}
             onChange={(e) => setFormData({ ...formData, _password_hash: e.target.value })}
             className="input-field"
+            required
           />
-          {!isLoggedIn && (
+          {!type && (
           <div className="confirm-password-input">
               <input
                 type={showPassword ? "text" : "password"}
@@ -176,6 +234,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
                 value={formData.confirmPassword}
                 onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                 className="input-field"
+                required
               />
             </div>)}
          
@@ -186,18 +245,20 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
               />
           </span>
         </div>
-        <button onClick={isLoggedIn ? handleLogin : handleSignup} className="authentication-button">
-          {isLoggedIn ? "Login" : "Sign Up"}
+        <button onClick={type ? handleLogin : handleSignup} className="authentication-button">
+          {type ? "Login" : "Sign Up"}
         </button>
         <p>
-          {isLoggedIn ? "Don't have an account?" : "Already have an account?"}{" "}
+          {type? "Don't have an account?" : "Already have an account?"}{" "}
           <span
             className="toggle-link"
-            onClick={() => setIsLoggedIn(!isLoggedIn)}
+            onClick={() => setType(!type)}
           >
-            {isLoggedIn ? "Sign Up" : "Login"}
+            {type ? "Sign Up" : "Login"}
           </span>
         </p>
+        {successMessage && <div style={{color:"green",fontWeight:"1000"}}>{successMessage}</div>}
+
       </div>
     </div>
   );
