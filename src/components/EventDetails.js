@@ -41,14 +41,17 @@ const EventDetails = ({carts, removeFromCart}) => {
   const handleAddRegularCart = (selectedTicket) => {
     addToCart(selectedTicket);
     setAddedRegularToCart(true);
+    alert(`Regular Ticket added to cart`);
   };
   const handleAddEarlyCart = (selectedTicket) => {
     addToCart(selectedTicket);
     setAddedEarlyToCart(true);
+    alert(`Early Bird Ticket added to cart`);
   };
   const handleAddVIPCart = (selectedTicket) => {
     addToCart(selectedTicket);
     setAddedVIPToCart(true);
+    alert(`VIP Ticket added to cart`);
   };
   const handleGoBack = () => {
     navigate(-1);
