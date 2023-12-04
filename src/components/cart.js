@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ShoppingCart.css';
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function ShoppingCart({ cart, onClose, removeFromCart }) {
+  const navigate = useNavigate();
   const [quantities, setQuantities] = useState({});
-
+  const [totalPrice, setTotalPrice] = useState(0);
+  const navigateToCheckout = () => {
+    navigate('/checkout', { state: { quantities, totalPrice } });  };
   const calculateAmount = (item) => {
     if (item.ticketType === 'Regular') {
       return parseFloat(item.regular_price);
@@ -14,12 +17,14 @@ export default function ShoppingCart({ cart, onClose, removeFromCart }) {
       return parseFloat(item.early_booking_price);
     }
   };
-
+ 
   const calculateTotalPrice = () => {
-    return cart.reduce(
-      (total, item) => total + (calculateAmount(item)* (quantities[item.cartItemId] || 1)) ,
+    const total = cart.reduce(
+      (acc, item) => acc + calculateAmount(item) * (quantities[item.cartItemId] || 1),
       0
     );
+    setTotalPrice(total);
+    return total;
   };
 
   const incrementQuantity = (cartItemId) => {
@@ -35,7 +40,10 @@ export default function ShoppingCart({ cart, onClose, removeFromCart }) {
       [cartItemId]: Math.max((prevQuantities[cartItemId] || 1) - 1, 0),
     }));
   };
-
+  useEffect(() => {
+    setTotalPrice(calculateTotalPrice());
+  }, [quantities, cart]);
+  console.log(cart)
   return (
     <div className="shopping-cart">
       <div className="cart-header">
@@ -46,12 +54,14 @@ export default function ShoppingCart({ cart, onClose, removeFromCart }) {
       </div>
       <div className="cart-items">
         {cart.length !== 0 && (
-          <NavLink to="/checkout" style={{ color: 'black' }}>
-            <button id="btn">Checkout</button>
-          </NavLink>
+          
+            <button style={{ color: 'black' }} id="btn" onClick={navigateToCheckout}>
+            Checkout
+          </button>
+        
         )}
         
-            <h2 id="total">Total: $ {calculateTotalPrice().toFixed(2)}</h2>
+            <h2 id="total">Total: $ {totalPrice.toFixed(2)}</h2>
 
         {cart.length === 0 ? (
           <p>Cart is empty</p>

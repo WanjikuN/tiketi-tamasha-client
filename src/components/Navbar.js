@@ -1,15 +1,34 @@
 import React from 'react';
 import './App.css'; 
-import { useState } from 'react';
+import { useState , useEffect} from 'react';
 import ShoppingCart from './cart';
 import { Link } from 'react-router-dom';
 import { NavLink } from "react-router-dom";
+import { useSnackbar } from "notistack"; 
 const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn}) => {
+  const { enqueueSnackbar } = useSnackbar(); 
   const [isCartOpen, setIsCartOpen] = useState(false);
-
-  const handleLogout = () => {
-    if (isLoggedIn ) {
-      setIsLoggedIn(!isLoggedIn)
+  const clearUserFromStorage = () => {
+    localStorage.removeItem('user');
+  };
+  
+  const handleLogout = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/logout", {
+        method: "DELETE",
+        credentials: "include",
+      });
+  
+      if (response.ok) {
+        clearUserFromStorage();
+        setIsLoggedIn(false);
+        enqueueSnackbar('User logged out successfully', { variant: 'success' });
+      } else {
+        enqueueSnackbar('Logout failed', { variant: 'error' });
+      }
+    } catch (error) {
+      console.error('Error during logout:', error);
+      enqueueSnackbar('Error during logout', { variant: 'error' });
     }
   };
 
@@ -20,6 +39,11 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn}) 
   const handleCloseCart = () => {
     setIsCartOpen(false);
   };
+  useEffect(() => {
+    // Check if there's a user in local storage when the component mounts
+    const userFromStorage = JSON.parse(localStorage.getItem('user'));
+    setIsLoggedIn(!!userFromStorage); // Set isLoggedIn to true if there's a user, otherwise false
+  }, []); // Empty dependency array to run this effect only once when the component mounts
 
   return (
     <nav className="navbar">

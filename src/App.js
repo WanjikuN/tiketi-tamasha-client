@@ -13,14 +13,14 @@ import OrdersHistory from './components/OrdersHistory';
 const App = () => {
   const { cart, addToCart, removeFromCart, emptyCart } = useCart();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const [userData, setUserData] = useState(null);
   useEffect(() => {
     document.title = 'Tiketi Tamasha';
   }, []);
-  const handleLogout = () => {
-    setIsLoggedIn(false);
+ 
+  const updateUserData = (data) => {
+    setUserData(data);
   };
-
   const PrivateRoute = ({ path, element }) => {
     return isLoggedIn ? (
       element
@@ -34,13 +34,13 @@ const App = () => {
       <Navbar cartLength={cart.length} cart={cart} removeFromCart={removeFromCart} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/signup" element={<Authentication setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />} />
+        <Route path="/signup" element={<Authentication setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} updateUserData={updateUserData}/>} />
         <Route path="/events/:eventId" element={<EventDetails carts={cart} removeFromCart={removeFromCart} />} />
         <Route path="/cart" element={<ShoppingCart cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} />} />
 
         <Route
           path="/checkout"
-          element={<PrivateRoute path="/checkout" element={<Checkout  />} />}
+          element={<PrivateRoute path="/checkout" element={<Checkout  userData={userData}/>} />}
         />
         <Route
           path="/orders"

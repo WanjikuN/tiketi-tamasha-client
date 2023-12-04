@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useNavigate} from "react-router-dom"
+import { useNavigate, useLocation} from "react-router-dom"
 import Axios from 'axios';
 
 
@@ -59,7 +59,7 @@ const SuccessMsg = styled.p`
   font-weight: 1000;
 `;
 
-function Checkout({totalAmount}) {
+function Checkout({userData}) {
   const[order, setOrder] = useState({
     name: "",
     email: "",
@@ -77,12 +77,15 @@ function Checkout({totalAmount}) {
   }
  
   const [showSuccessMsg, setShowSuccessMessage] = useState(false);
- 
+  const location = useLocation();
+  const { quantities, totalPrice } = location.state;
+  console.log(quantities, totalPrice)
+  console.log(userData)
   const handleSubmit = async (event) => {
     event.preventDefault();
   
     try {
-      const res = await Axios.get(`http://localhost:5000/lnmo?amount=${totalAmount}&phone=${order.paymentDetails}`);
+      const res = await Axios.get(`http://localhost:5000/lnmo?amount=1&phone=${order.paymentDetails}`);
       console.log(res);
   
       if (res.status === 200) {
@@ -181,7 +184,7 @@ function Checkout({totalAmount}) {
       </CheckoutForm>
       {showSuccessMsg && (
           <SuccessMsg>
-            Check your phone for M-PESA payment
+            Check your phone for M-PESA payment of kes: {totalPrice}
           </SuccessMsg>
         )}
     </CheckoutContainer>

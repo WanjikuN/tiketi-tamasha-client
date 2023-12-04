@@ -5,7 +5,7 @@ import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 import "../styles/SignUp.css";
 
-const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
+const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [roleOptions, setRoleOptions] = useState([]);
@@ -65,6 +65,9 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
       enqueueSnackbar("Error during signup", { variant: "error" });
     }
   };
+  const saveUserToStorage = (userData) => {
+    localStorage.setItem('user', JSON.stringify(userData));
+  };
 
   const handleLogin = async () => {
     
@@ -82,14 +85,16 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
           }),
       });
       console.log(response);
-
+      const responseData = await response.json();
+      console.log(responseData.id);
       if (response.ok) {
-        
-        const data = await response.json();
+        updateUserData(responseData)
+        const userData = responseData;
         setType(false)
         setIsLoggedIn(true);
+        saveUserToStorage(userData);
         navigate("/");
-        enqueueSnackbar(`Hello, ${data.username}! Logged in successfully`, {
+        enqueueSnackbar(`Hello, ${userData.username}! Logged in successfully`, {
           variant: "success",
         });
       } else {
@@ -124,7 +129,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn}) => {
     <div className="authentication-container">
    
       <div className="authentication-form">
-        <h2>{isLoggedIn ? "Login" : "Sign Up"}</h2>
+        <h2>{type ? "Login" : "Sign Up"}</h2>
         {!type && (
           <>
             <input
