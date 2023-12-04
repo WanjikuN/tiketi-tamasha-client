@@ -68,7 +68,7 @@ const EventDetails = ({carts, removeFromCart}) => {
         </div>
     <div className="event-details-container">
       <div className="general-details">
-        <h2>{eventDetails.event_name}</h2>
+        <h2>{eventDetails.event_name.toUpperCase()}</h2>
         <p>Location: {eventDetails.location}</p>
         <p>Date: {startDate}</p>
         <p>Start Time: {startTime}</p>

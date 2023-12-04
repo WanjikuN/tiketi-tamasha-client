@@ -30,9 +30,11 @@ export const CartProvider = ({ children }) => {
       prevCart.map((item) => (item.cartItemId === cartItemId ? { ...item, quantity: newQuantity } : item))
     );
   };
-
+  const emptyCart =()=>{
+    setCart([]);
+  }
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, emptyCart }}>
       {children}
     </CartContext.Provider>
   );
