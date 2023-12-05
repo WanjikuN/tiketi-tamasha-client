@@ -1,0 +1,50 @@
+
+.order-history-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    
+}
+
+/* Header style */
+.order-history-container h2 {
+    font-size: 24px;
+    color: #333;
+    width: 100%;
+}
+
+/* Card style */
+.order-history-container ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.order-history-container li {
+    flex: 0 0 calc(33.33% - 20px); 
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+/* Event details style */
+.order-history-container li > hr {
+    margin: 15px 0;
+}
+
+/* No events message style */
+.order-history-container p {
+    font-size: 16px;
+    color: #777;
+}
+

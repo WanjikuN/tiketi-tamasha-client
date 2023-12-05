@@ -1,4 +1,3 @@
-import { AddToCalendarButton } from 'add-to-calendar-button-react';
 import './TicketItem.css';
 
 export default function TicketItem({ name, location, time, image, description, startDate, buttonText }) {
@@ -13,8 +12,8 @@ export default function TicketItem({ name, location, time, image, description, s
           <p>{time}</p>
           <p>{location}</p>
           <p>{buttonText}</p>
-          <button className='btnTicket'>Buy Ticket</button>
-            
+          <button className='btnTicket'>Get Ticket</button>
+
         </div>
       </div>
     </div>
