@@ -19,7 +19,7 @@ const EventDetails = ({carts, removeFromCart}) => {
   const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
-    fetch(`https://tiketi-tamasha-backend.onrender.com/events/${eventId}`)
+    fetch(`http://localhost:5000/events/${eventId}`)
       .then((res) => res.json())
       .then((data) => {
         setEventDetails(data);
