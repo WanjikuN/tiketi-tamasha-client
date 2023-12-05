@@ -42,7 +42,7 @@ const App = () => {
         <Route path="/signup" element={<Authentication setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} updateUserData={updateUserData}/>} />
         <Route path="/events/:eventId" element={<EventDetails carts={cart} removeFromCart={removeFromCart} />} />
         <Route path="/cart" element={<ShoppingCart cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} successMessage={successMessage} />} />
-        <Route path="/dashboard" element={<Dashboard />}  />
+        <Route path="/dashboard" element={<Dashboard userData={userData} />}  />
 
         <Route
           path="/checkout"

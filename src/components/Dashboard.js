@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-const Dashboard = () => {
+const Dashboard = ({userData}) => {
   const [events, setEvents] = useState([]);
   const [isCreateEventFormVisible, setIsCreateEventFormVisible] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [categoryOptions, setCategoryOptions] = useState([]);
-
+  console.log(userData)
   // Create a single formData state to hold all form data
   const [formData, setFormData] = useState({
     event_name: '',
@@ -20,15 +20,14 @@ const Dashboard = () => {
     available_tickets: '',
     images: '',
     category_id: '',
+    user_id:userData.id
   });
 
   const handleCreateEventButtonClick = () => {
     setIsCreateEventFormVisible(true);
   };
 
-  const handleViewEventsButtonClick = () => {
-    setIsCreateEventFormVisible(false);
-  };
+  
   const formatDateTime = (dateTimeString) => {
     const date = new Date(dateTimeString);
   
@@ -54,6 +53,7 @@ const Dashboard = () => {
       category_id: formData.category_id,
       available_tickets: formData.available_tickets,
       images: formData.images,
+      user_id:userData.id
     };
     console.log(newEvent)
     try {
@@ -67,7 +67,7 @@ const Dashboard = () => {
   
       if (response.ok) {
         const responseData = await response.json();
-        setEvents([...events, responseData]); // Assuming the response contains the newly created event
+        setEvents([...events, responseData]); 
         setIsCreateEventFormVisible(false);
       } else {
         console.error('Failed to create event:', response.statusText);
@@ -75,6 +75,7 @@ const Dashboard = () => {
     } catch (error) {
       console.error('Error creating event:', error);
     }
+    
     };
 
   const handleCancelCreateEventForm = () => {
@@ -82,13 +83,32 @@ const Dashboard = () => {
   };
 
   const handleEventSummaryClick = (event) => {
-    const selectedEvent = events.find((e) => e.eventName === event.eventName);
+    const selectedEvent = events.find((e) => e.event_name === event.event_name);
     setSelectedEvent(selectedEvent);
   };
 
   const handleCloseEventDetails = () => {
     setSelectedEvent(null);
   };
+    const fetchEvents = async () => {
+      try {
+        const user_id = userData.id;
+        const response = await fetch(`http://localhost:5000/events?user_id=${user_id}`);
+        const data = await response.json();
+        if (response.ok) {
+          setEvents(data);
+        } else {
+          console.error('Failed to fetch events:', data.error);
+        }
+      } catch (error) {
+        console.error('Error fetching events:', error);
+      }
+    };
+
+    const handleViewEventsButtonClick = () => {
+      setIsCreateEventFormVisible(false);
+      fetchEvents();
+    };
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -185,31 +205,31 @@ required />
         <div className="event-details">
           <h2>Event Details</h2>
           <p>
-            <strong>Event Name:</strong> {selectedEvent.eventName}
+            <strong>Event Name:</strong> {selectedEvent.event_name}
           </p>
           <p>
             <strong>Description:</strong> {selectedEvent.description}
           </p>
           <p>
-            <strong>Tags:</strong> {selectedEvent.tags.join(', ')}
+            <strong>Tags:</strong> {selectedEvent.tags}
           </p>
           <p>
             <strong>Location:</strong> {selectedEvent.location}
           </p>
           <p>
-            <strong>Start Time:</strong> {selectedEvent.startTime}
+            <strong>Start Time:</strong> {selectedEvent.start_time}
           </p>
           <p>
-            <strong>End Time:</strong> {selectedEvent.endTime}
+            <strong>End Time:</strong> {selectedEvent.end_time}
           </p>
           <p>
             <strong>Booking Prices:</strong>{' '}
-            {`${selectedEvent.bookingPrices.earlyBookingPrice}, ${selectedEvent.bookingPrices.regularPrice}, ${selectedEvent.bookingPrices.mvpPrice}`}
+            {`${selectedEvent.early_booking_price}, ${selectedEvent.regular_price}, ${selectedEvent.MVP_price}`}
           </p>
           <p>
-            <strong>Available Tickets:</strong> {selectedEvent.availableTickets}
+            <strong>Available Tickets:</strong> {selectedEvent.available_tickets}
           </p>
-          <img src={selectedEvent.eventImage} alt="Event Image" />
+          <img src={selectedEvent.images} alt="Event Image" />
           <button onClick={handleCloseEventDetails}>Close Details</button>
         </div>
       )}
@@ -220,7 +240,7 @@ required />
           <ul>
             {events.map((event, index) => (
               <li key={index} onClick={() => handleEventSummaryClick(event)}>
-                {event.eventName}
+                {event.event_name}
               </li>
             ))}
           </ul>

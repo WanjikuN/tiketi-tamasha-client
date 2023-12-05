@@ -64,7 +64,7 @@ code {
 }
 #ticket:hover{
   cursor: pointer;
-  border: 2px solid #8760d02c
+  border: 2px solid #d69f3a37
 }
 /* Hide scroll bar */
 ::-webkit-scrollbar {
@@ -74,7 +74,7 @@ code {
 #ticket_details{
   display: flex;
   justify-content: space-between;
-  height: 170px;
+  
 
 }
 #name_loc{
@@ -197,3 +197,91 @@ justify-content: space-between;
     
     width:9%;
   }}
+/* Add this CSS to your existing styles or create a new stylesheet */
+
+.dashboard-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  color: #333;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.create-event-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.create-event-form label {
+  margin-top: 10px;
+}
+
+.create-event-form input,
+.create-event-form textarea,
+.create-event-form select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.create-event-form button {
+  width: auto;
+  margin-top: 10px;
+}
+
+.event-details {
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.event-details img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  margin-top: 10px;
+}
+
+.event-list {
+  margin-top: 20px;
+}
+
+.event-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.event-list li {
+  background-color: #f9f9f9;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.event-list li:hover {
+  background-color: #ddd;
+}
