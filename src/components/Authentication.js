@@ -6,105 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import "../styles/SignUp.css";
 
-
-// const OrderHistory = () =>{
-//   return <div>Order History</div>
-// };
-// const Server = () =>{
-//   return <div>Server</div>
-// };
-// const Cart= () =>{
-//   return <div>Cart</div>
-// };
-// const Checkout= () =>{
-//   return <div>Checkout</div>
-// };
-// const EventDetail = () =>{
-//   return <div>Events Details</div>
-// };
-// const Filter = () =>{
-//   return <div>Filter</div>
-// };
-// const LandingPageTicketItems = () =>{
-//   return <div>Landing Page Ticket Items </div>
-// };
-// const Navbar= () =>{
-//   return <div>Navbar</div>
-// };
-//  const AdminDashboard =() =>{
-//   return(
-//     <div>
-//       <AdminNavigationMenu/>
-//       <h2>Admin Dashboard</h2>
-//       <OrderHistory/>
-//       <Server/>
-//       <Cart/>
-//       <Checkout/>
-//       <EventDetail/>
-//       <Filter/>
-//       <LandingPageTicketItems/>
-//       <Navbar/>
-//     </div>
-//   );
-// };
-// const OrganizerDashboard =()=>{
-//   return(
-//     <div>
-//       <OrganizerNavigationMenu />
-//       <h2>Organizer Dashboard</h2>
-
-//     </div>
-//   );
-
-// };
-
-// const UserDashboard =()=>{
-//   return(
-//     <div>
-//       <UserNavigationMenu />
-//       <h2>User Dashboard</h2>
-      
-//     </div>
-//   );
-
-// };
-// const AdminNavigationMenu =()=>{
-//   return(
-//     <div>
-//        <h2>Admin Navigation</h2>
-//        <Link to="/admin/order-history">Order History</Link>
-//        <Link to="/admin/server">Server</Link>
-//        <Link to="/admin/cart">Cart</Link>
-//        <Link to="/admin/checkout">Checkout</Link>
-//        <Link to="/admin/evennt-details">Event DetailS</Link> 
-//        <Link to="/admin/filter">Filter</Link>
-//        <Link to="/admin/ticketitems">Landing Page Ticket Items</Link>
-//        <Link to="/admin/navbar">Navbar</Link>
-      
-//     </div>
-//   );
-// };
-
-// const OrganizerNavigationMenu = ()=>{
-//   return(
-//   <div>
-//     <h2>Organizer Navigation Menu</h2>
-//     <Link to="/organizer/"></Link>
-//   </div>
-//   );
-// };
-// const UserNavigationMenu = () =>{
-//   return(
-//     <div>
-//       <h2>User Navigation Menu</h2>
-//       <Link to="/user/"></Link>
-//     </div>
-//   );
-// };
-
-
-
-
 const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -158,26 +59,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
 
       if (response.ok) {
         const data = await response.json();
-
-        
-        setType(true)
-        if (data.role_id){
-          const role = roleOptions.find((r)=>r.id === data.role_id);
-          if(role){
-            if (role.name ==="Admin"){
-              alert("Welcome,Admin");
-            }else if(role.name ==="Organizer"){
-              alert("Welcome,Organizer");
-            }else if(role.name ==="User"){
-              alert("Welcome,User");
-            }
-          }
-        }
         setType(true);
-        navigate("/");
-
-        setType(true);
-
         enqueueSnackbar(`Hello, ${data.username}! Account created successfully`, {
           variant: "success",
         });
@@ -232,37 +114,34 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
       const responseData = await response.json();
       console.log(responseData.id);
       if (response.ok) {
-
-        
-        const data = await response.json();
-        if (data.role_id){
-          const role = roleOptions.find((r)=>r.id === data.role_id);
-          if(role){
-            if(role.name ==="Admin"){
-              alert("Welcome, Admin");
-              navigate("/admin/dashboard");
-            }else if(role.name ==="Organizer"){
-              alert("Welcome, Organizer");
-              navigate("/organizer/dashboard");
-            }else if(role.name ==="User"){
-              alert("Welcome, User");
-              navigate("/user/dashboard");
-            }
-          }
-        }
-
         updateUserData(responseData)
         const userData = responseData;
 
         setType(false)
         setIsLoggedIn(true);
         saveUserToStorage(userData);
-        setSuccessMessage('Login successful!');
-
-        setTimeout(() => {
-            navigate("/");
-        }, 2000);
         
+        if (responseData.role_id){
+          const role = roleOptions.find((r)=>r.id === responseData.role_id);
+          if(role){
+            if(role.name ==="Admin"){
+                setSuccessMessage('Login to admin dashboard successful!');
+                setTimeout(() => {
+                  navigate("/admin/dashboard");
+              }, 2000);
+            }else if(role.name ==="Moderator"){
+                  setSuccessMessage('Login to organizer dashboard successful!');
+                  setTimeout(() => {
+                    navigate("/dashboard");
+                }, 2000);
+            }else if(role.name ==="User"){
+                  setSuccessMessage('Login successful!');
+                  setTimeout(() => {
+                    navigate("/");
+                }, 2000);
+            }
+          }
+        }        
         enqueueSnackbar(`Hello, ${userData.username}! Logged in successfully`, {
           variant: "success",
         });
