@@ -109,43 +109,41 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
           _password_hash: formData._password_hash,
         }),
       });
-
+  
       console.log(response);
       const responseData = await response.json();
       console.log(responseData.id);
       if (response.ok) {
-        updateUserData(responseData)
+        updateUserData(responseData);
         const userData = responseData;
-
-        setType(false)
+  
+        setType(false);
         setIsLoggedIn(true);
         saveUserToStorage(userData);
-        
+  
         if (responseData.role_id) {
-          const role = roleOptions.find((r) => r.id === responseData.role_id);
-          if (role) {
-            if (role.name === "Admin") {
-              setSuccessMessage('Login to admin dashboard successful!');
-              setTimeout(() => {
-                navigate("/admin/dashboard");
-              }, 2000);
-            } else if (role.name === "Moderator") {
-              setSuccessMessage('Login to organizer dashboard successful!');
-              setTimeout(() => {
-                navigate("/dashboard");
-              }, 2000);
-            } else if (role.name === "User") {
-              setSuccessMessage('Login successful!');
-              setTimeout(() => {
-                navigate("/");
-              }, 2000);
-            }
+          if (responseData.role_id === "admin") {
+            setSuccessMessage("Login to admin dashboard successful!");
+            setTimeout(() => {
+              navigate("/admin/dashboard");
+            }, 2000);
+          } else if (responseData.role_id === "organizer") {
+            setSuccessMessage("Login to organizer dashboard successful!");
+            setTimeout(() => {
+              navigate("/dashboard");
+            }, 2000);
+          } else if (responseData.role_id === "user") {
+            setSuccessMessage("Login successful!");
+            setTimeout(() => {
+              navigate("/");
+            }, 2000);
+
           }
-        }       
+        }
         enqueueSnackbar(`Hello, ${userData.username}! Logged in successfully`, {
           variant: "success",
         });
-        // Clear form data on successful login
+
         setFormData({
           username: "",
           _password_hash: "",
@@ -154,28 +152,29 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
           email: "",
           role_id: "",
         });
-        // alert("Login successful");
+
       } else {
-        // alert("Login failed");
+
         enqueueSnackbar("Login failed", { variant: "error" });
-        setFailMessage('Invalid Credentials');
+        setFailMessage("Invalid Credentials");
         setTimeout(() => {
-            setFailMessage('')
+          setFailMessage("");
         }, 2000);
-    }
+      }
     } catch (error) {
 
-      //console.error("Error during login:", error);
+
 
       console.error("Error during login:", error);
-      setFailMessage('Invalid Credentials');
+      setFailMessage("Invalid Credentials");
       setTimeout(() => {
-        setFailMessage('')
-    }, 2000);
-
+        setFailMessage("");
+      }, 2000);
+      
       enqueueSnackbar("Error during login", { variant: "error" });
     }
   };
+  
 
   useEffect(() => {
     const fetchRoles = async () => {
