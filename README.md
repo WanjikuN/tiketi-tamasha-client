@@ -24,14 +24,13 @@ To run this project locally, follow these steps:
 
 1. Clone the repository:
 
-   ```bash
-   git clone https://github.com/WanjikuN/tiketi-tamasha-client.git
+   ```git clone https://github.com/WanjikuN/tiketi-tamasha-client.git```
 
-2. cd tiketi-tamasha
+2. ```cd tiketi-tamasha```
 
-3. npm install
+3. ```npm install```
 
-4. npm start
+4. ```npm start```
 
 ## Usage
 The application provides a user-friendly interface for exploring events, managing a shopping cart, and making purchases. Make sure to check out the private routes, such as the checkout and order history, after logging in.
