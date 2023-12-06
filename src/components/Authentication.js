@@ -121,27 +121,27 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
         setIsLoggedIn(true);
         saveUserToStorage(userData);
         
-        if (responseData.role_id){
-          const role = roleOptions.find((r)=>r.id === responseData.role_id);
-          if(role){
-            if(role.name ==="Admin"){
-                setSuccessMessage('Login to admin dashboard successful!');
-                setTimeout(() => {
-                  navigate("/admin/dashboard");
+        if (responseData.role_id) {
+          const role = roleOptions.find((r) => r.id === responseData.role_id);
+          if (role) {
+            if (role.name === "Admin") {
+              setSuccessMessage('Login to admin dashboard successful!');
+              setTimeout(() => {
+                navigate("/admin/dashboard");
               }, 2000);
-            }else if(role.name ==="Moderator"){
-                  setSuccessMessage('Login to organizer dashboard successful!');
-                  setTimeout(() => {
-                    navigate("/dashboard");
-                }, 2000);
-            }else if(role.name ==="User"){
-                  setSuccessMessage('Login successful!');
-                  setTimeout(() => {
-                    navigate("/");
-                }, 2000);
+            } else if (role.name === "Moderator") {
+              setSuccessMessage('Login to organizer dashboard successful!');
+              setTimeout(() => {
+                navigate("/dashboard");
+              }, 2000);
+            } else if (role.name === "User") {
+              setSuccessMessage('Login successful!');
+              setTimeout(() => {
+                navigate("/");
+              }, 2000);
             }
           }
-        }        
+        }       
         enqueueSnackbar(`Hello, ${userData.username}! Logged in successfully`, {
           variant: "success",
         });
