@@ -152,7 +152,7 @@ h1 {
   font-size: 50px;
   font-weight: bold;
   text-align: center;
-  color: #BE3728;
+  color: black;
 }
 
 p {
@@ -258,13 +258,7 @@ h2 {
  * Dashboard Component Styles
  */
 
- .dashboard-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
+
 
 .button-container {
   display: flex;
@@ -338,6 +332,7 @@ h2 {
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  
 }
 
 .event-list ul {
@@ -352,17 +347,21 @@ h2 {
  */
 
  .dashboard-container {
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 100%;
+  margin: 40px;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-top: 50px;
+  display:flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
 }
 
-.dashboard-container h1{
+.dashboard-container h2{
   text-align: center;
-  color: #BE3728;
+  color: black;
 }
 
 .button-container {
@@ -377,8 +376,9 @@ h2 {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background-color: #BE3728;
-  color: #fff;
+  background: linear-gradient(to right, #8760d02c, #3aafa9a0);
+  color: black;
+  font-size: 18px;
 }
 
 .create-event-form {
@@ -409,14 +409,14 @@ h2 {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background-color: #007bff;
-  color: #fff;
+  background: linear-gradient(to right, #8760d02c, #3aafa9a0);
+  color: black;
 }
 
 .event-details {
   display: flex;
   flex-direction: column;
-  width: 500px;
+  width: 80%;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ccc;
@@ -451,9 +451,14 @@ h2 {
   width: 100%;
   margin: 40px 0;
   padding: 20px;
-  border: 3px solid #ccc;
+  /* border: 3px solid #ccc; */
   border-radius: 5px;
-  max-width: 750px;
+  max-width: 95%;
+
+}
+#listy{
+  display: flex;
+  align-items: center; 
 }
 
 .event-list ul {

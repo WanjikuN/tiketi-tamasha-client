@@ -29,7 +29,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
 
   const handleSignup = async () => {
     const passwordRegex =
-      /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]{6,}$/;
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 
     if (!passwordRegex.test(formData._password_hash)) {
       
@@ -271,9 +271,6 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
               />
           </span>
         </div>
-        {/* {isLoggedIn && formData.role_id === 'admin' && <AdminDashboard/>}
-        {isLoggedIn && formData.role_id === 'organizer' && <OrganizerDashboard/>}
-        {isLoggedIn && formData.role_id === 'user' && <UserDashboard/>} */}
         <button onClick={type ? handleLogin : handleSignup} className="authentication-button">
           {type ? "Login" : "Sign Up"}
         </button>

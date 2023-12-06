@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import Filter from "./Filter";
 
 const Dashboard = ({userData}) => {
   const [events, setEvents] = useState([]);
   const [isCreateEventFormVisible, setIsCreateEventFormVisible] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [categoryOptions, setCategoryOptions] = useState([]);
+  const [tname, setTname] = useState("");
+
   console.log(userData)
   // Create a single formData state to hold all form data
   const [formData, setFormData] = useState({
@@ -90,6 +93,21 @@ const Dashboard = ({userData}) => {
   const handleCloseEventDetails = () => {
     setSelectedEvent(null);
   };
+  function handleName(e) {
+    e.preventDefault();
+    setTname(e.target.value);
+  }
+  const eventsDisplay = events.filter((ticket) => {
+    if (ticket === "") return true;
+    const eventNameMatch = ticket.event_name
+      .toLowerCase()
+      .includes(tname.toLowerCase());
+    const locationMatch = ticket.location
+      .toLowerCase()
+      .includes(tname.toLowerCase());
+
+    return eventNameMatch || locationMatch;
+  });
     const fetchEvents = async () => {
       try {
         const user_id = userData.id;
@@ -129,8 +147,8 @@ const Dashboard = ({userData}) => {
   }, []);
   return (
     <div className="dashboard-container">
-      <h1>Event Management Dashboard</h1>
-
+      <h2>Event Management Dashboard</h2>
+    
       <div className="button-container">
         <button onClick={handleCreateEventButtonClick}>Create Event</button>
         <button onClick={handleViewEventsButtonClick}>View Events</button>
@@ -235,18 +253,23 @@ required />
       )}
 
       {events.length > 0 && (
-        <div className="event-list">
+        <div id='listy'>
+          <div className="event-list">
+         
+
           <h2>Event List</h2>
+          <Filter handlename={handleName} showTicketFilter={false} showEventFilter={true}/>
           <ul>
-            {events.map((event, index) => (
+            {eventsDisplay.map((event, index) => (
               <li key={index} onClick={() => handleEventSummaryClick(event)}>
                 {event.event_name}
               </li>
             ))}
           </ul>
-        </div>
+        </div></div>
       )}
     </div>
+    
   );
 };
 
