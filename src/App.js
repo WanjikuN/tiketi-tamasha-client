@@ -44,6 +44,7 @@ const App = () => {
         <Route path="/cart" element={<ShoppingCart cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} successMessage={successMessage} />} />
         <Route path="/dashboard" element={<Dashboard />}  />
 
+        
         <Route
           path="/checkout"
           element={<PrivateRoute path="/checkout" element={<Checkout  userData={userData} emptyCart={emptyCart} />} />}
