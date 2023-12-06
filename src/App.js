@@ -11,6 +11,7 @@ import { useCart } from './components/CartContext';
 import ShoppingCart from './components/cart';
 import OrdersHistory from './components/OrdersHistory';
 import Dashboard from './components/Dashboard';
+import AdminDashboard from './dashboard';
 
 const App = () => {
   const { cart, addToCart, removeFromCart, emptyCart } = useCart();
@@ -38,6 +39,7 @@ const App = () => {
     <div className="App">
       <Navbar setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} cartLength={cart.length} cart={cart} removeFromCart={removeFromCart} />
       <Routes>
+        <Route path="/admin/dashboard" element={<AdminDashboard/>} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/signup" element={<Authentication setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} updateUserData={updateUserData}/>} />
         <Route path="/events/:eventId" element={<EventDetails carts={cart} removeFromCart={removeFromCart} />} />
