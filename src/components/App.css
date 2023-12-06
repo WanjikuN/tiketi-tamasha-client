@@ -278,11 +278,12 @@ h2 {
 .create-event-form {
   display: flex;
   flex-direction: column;
-  width: 500px;
+  width: 90%;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  overflow: auto;
 }
 
 .create-event-form label {
@@ -347,16 +348,19 @@ h2 {
  */
 
  .dashboard-container {
-  max-width: 100%;
+  width: 80%;
   margin: 40px;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-top: 50px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-bottom: 20px;
   display:flex;
   flex-direction: column;
   /* align-items: center; */
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .dashboard-container h2{
@@ -382,9 +386,10 @@ h2 {
 }
 
 .create-event-form {
+  
   display: flex;
   flex-direction: column;
-  width: 500px;
+  width: 90%;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ccc;
@@ -397,11 +402,15 @@ h2 {
 }
 
 .create-event-form input,
-.create-event-form textarea {
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+.create-event-form textarea,
+.create-event-form select {
   width: 100%;
+  padding: 12px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 .create-event-form button {
@@ -428,8 +437,9 @@ h2 {
 }
 
 .event-details img {
-  width: 100%;
+  width: 40%;
   margin-bottom: 10px;
+  padding:15px;
 }
 
 .event-details h2 {
@@ -483,3 +493,56 @@ h2 {
 .book input {
   width: 30%;
 }
+#dashboard{
+  border: 1px solid black;
+  display: flex;
+  height:92vh;
+  padding:30px;
+  padding-left:10px;
+}
+#left_nav{
+  width: 20%;
+  margin: 0px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 50px;
+  display:flex;
+  background-color: #3aafa915;
+
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
+}
+.left_nav{
+  margin: 10px;
+  background-color: #3AAFA9;
+  color: black;
+
+}
+.left_nav:hover{
+  cursor: pointer;
+  font-size: 18px;
+}
+/* Dashboard.css */
+
+.table-container {
+  overflow-x: auto;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.orders-table th, .orders-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.orders-table th {
+  background-color: #f2f2f2;
+}
+

@@ -1,13 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import Filter from "./Filter";
 
+const OrdersTable = ({ orders }) => {
+  return (
+    <div className="table-container">
+      <table className="orders-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Event Name</th>
+            <th>Amount</th>
+            <th>Phone number</th>
+            <th>Payment Date</th>
+            <th>Payment Type</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.map((order) => (
+            <tr key={order.id}>
+              <td>{order.id}</td>
+              <td>{order.event_name}</td>
+              <td>{order.amount}</td>
+              <td>{order.payer_phone}</td>
+              <td>{order.payment_date}</td>
+              <td>{order.payment_type}</td>
+              <td>{order.status}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
 const Dashboard = ({userData}) => {
   const [events, setEvents] = useState([]);
   const [isCreateEventFormVisible, setIsCreateEventFormVisible] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [tname, setTname] = useState("");
-
+  const [isViewEventsVisible, setIsViewEventsVisible] = useState(false);
+  const[orders, setOrders] =useState([])
   console.log(userData)
   // Create a single formData state to hold all form data
   const [formData, setFormData] = useState({
@@ -28,6 +62,8 @@ const Dashboard = ({userData}) => {
 
   const handleCreateEventButtonClick = () => {
     setIsCreateEventFormVisible(true);
+    setIsViewEventsVisible(false);
+    setEvents([])
   };
 
   
@@ -66,16 +102,19 @@ const Dashboard = ({userData}) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(newEvent),
-      });
+      }
+      );
   
       if (response.ok) {
         const responseData = await response.json();
         setEvents([...events, responseData]); 
         setIsCreateEventFormVisible(false);
-      } else {
+
+      }
+      else {
         console.error('Failed to create event:', response.statusText);
       }
-    } catch (error) {
+    }catch (error) {
       console.error('Error creating event:', error);
     }
     
@@ -108,7 +147,18 @@ const Dashboard = ({userData}) => {
 
     return eventNameMatch || locationMatch;
   });
-    const fetchEvents = async () => {
+  // const ordersDisplay = orders.filter((ticket) => {
+  //   if (ticket === "") return true;
+  //   const eventNameMatch = ticket.event_name
+  //     .toLowerCase()
+  //     .includes(tname.toLowerCase());
+  //   const locationMatch = ticket.location
+  //     .toLowerCase()
+  //     .includes(tname.toLowerCase());
+
+  //   return eventNameMatch || locationMatch;
+  // });
+  const fetchEvents = async () => {
       try {
         const user_id = userData.id;
         const response = await fetch(`http://localhost:5000/events?user_id=${user_id}`);
@@ -123,11 +173,18 @@ const Dashboard = ({userData}) => {
       }
     };
 
-    const handleViewEventsButtonClick = () => {
-      setIsCreateEventFormVisible(false);
-      fetchEvents();
+  const handleViewEventsButtonClick = () => {
+    setIsViewEventsVisible(true);  
+    setIsCreateEventFormVisible(false);
+    fetchEvents();
+      
     };
-
+  const handleCancelViewEventsButtonClick = () => {
+      setIsViewEventsVisible(false);
+      setEvents([])
+      } 
+  
+   
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -145,132 +202,170 @@ const Dashboard = ({userData}) => {
 
     fetchCategories();
   }, []);
-  return (
-    <div className="dashboard-container">
-      <h2>Event Management Dashboard</h2>
-    
-      <div className="button-container">
-        <button onClick={handleCreateEventButtonClick}>Create Event</button>
-        <button onClick={handleViewEventsButtonClick}>View Events</button>
-      </div>
+  useEffect(() => {
+    fetch("http://localhost:5000/payments")
+      .then((res) => res.json())
+      .then((data) => {
+        setOrders(data);
+      });
+  }, []);
+  console.log(orders)
+  const handleOrdersButtonClick = () => {
+    setIsCreateEventFormVisible(false);
+    setIsViewEventsVisible(false);
+    setEvents([])
+  };
+    return (
+      <div id="dashboard">
+        <div id='left_nav'>
 
-      {isCreateEventFormVisible && (
-        <form className="create-event-form" onSubmit={handleCreateEventFormSubmit}>
-          <label>Event Name:</label>
-          <input type="text" name="event_name" onChange={(e) => setFormData({ ...formData, event_name: e.target.value })}
- required />
-
-          <label>Description:</label>
-          <textarea name="description" onChange={(e) => setFormData({ ...formData, description: e.target.value })}
- required></textarea>
-
-          <label>Tags (separate with commas):</label>
-          <input type="text" name="tags" onChange={(e) => setFormData({ ...formData, tags: e.target.value })} required />
-
-          <label>Location:</label>
-          <input type="text" name="location" onChange={(e) => setFormData({ ...formData, location: e.target.value })}required />
-
-          <select
-              value={formData.category_id}
-              onChange={(e) => setFormData({ ...formData, category_id: e.target.value })}
-              className="input-field"
-            >
-              <option value="" disabled>Select a Category</option>
-                    {categoryOptions.map((category) => (
-                        
-                        <option key={category.id} value={category.id}>
-                        {category.name}
-            </option>))}
-            </select>
-
-          <label>Start Time:</label>
-          <input type="datetime-local" name="start_time"  onChange={(e) => setFormData({ ...formData, start_time: e.target.value })} required />
-
-          <label>End Time:</label>
-          <input type="datetime-local" name="end_time" onChange={(e) => setFormData({ ...formData, end_time: e.target.value })}
- required />
-
-          <label>Booking Prices:</label>
-          <div className='book'>
-            <label>Early Booking Price:</label>
-            <input type="number" name="early_booking_price" onChange={(e) => setFormData({ ...formData, early_booking_price: e.target.value })}
- required />
-          </div>
-          <div className='book'>
-            <label>Regular Price:</label>
-            <input type="number" name="regular_price"  onChange={(e) => setFormData({ ...formData, regular_price: e.target.value })}
-required />
-          </div>
-          <div className='book'>
-            <label>MVP Price:</label>
-            <input type="number" name="MVP_price" onChange={(e) => setFormData({ ...formData, MVP_price: e.target.value })}
-required />
-          </div>
-
-          <label>Available Tickets:</label>
-          <input type="number" name="available_tickets" onChange={(e) => setFormData({ ...formData, available_tickets: e.target.value })}
-required />
-
-          <label>Event Image:</label>
-          <input type="file" name="images" onChange={(e) => setFormData({ ...formData, images: e.target.value })}required />
-
-          <button type="submit">Create Event</button>
-          <button onClick={handleCancelCreateEventForm}>Cancel</button>
-        </form>
-      )}
-
-      {selectedEvent && (
-        <div className="event-details">
-          <h2>Event Details</h2>
-          <p>
-            <strong>Event Name:</strong> {selectedEvent.event_name}
-          </p>
-          <p>
-            <strong>Description:</strong> {selectedEvent.description}
-          </p>
-          <p>
-            <strong>Tags:</strong> {selectedEvent.tags}
-          </p>
-          <p>
-            <strong>Location:</strong> {selectedEvent.location}
-          </p>
-          <p>
-            <strong>Start Time:</strong> {selectedEvent.start_time}
-          </p>
-          <p>
-            <strong>End Time:</strong> {selectedEvent.end_time}
-          </p>
-          <p>
-            <strong>Booking Prices:</strong>{' '}
-            {`${selectedEvent.early_booking_price}, ${selectedEvent.regular_price}, ${selectedEvent.MVP_price}`}
-          </p>
-          <p>
-            <strong>Available Tickets:</strong> {selectedEvent.available_tickets}
-          </p>
-          <img src={selectedEvent.images} alt="Event Image" />
-          <button onClick={handleCloseEventDetails}>Close Details</button>
+            <button className='left_nav'>Profile</button>
+            <button className='left_nav' onClick={handleCreateEventButtonClick}>Create Event</button>
+            <button className='left_nav'onClick={handleViewEventsButtonClick}>View Events</button>
+            <button className='left_nav' onClick={handleOrdersButtonClick}>Orders</button>
         </div>
-      )}
+      
+        <div className="dashboard-container">
+          <h2>Event Management Dashboard</h2>
+        
+          <div className="button-container">
+            <button onClick={handleCreateEventButtonClick}>Create Event</button>
+            {!isViewEventsVisible && (
+              <button onClick={handleViewEventsButtonClick}>View Events</button>
+            )}
+            {isViewEventsVisible && (
+              <button onClick={handleCancelViewEventsButtonClick}>Cancel View</button>
+            )}      </div>
+            {!isCreateEventFormVisible && !isViewEventsVisible && (
+            <div id='orders'>
+            <h4>Orders</h4>
+            <Filter handlename={handleName} showTicketFilter={false} showEventFilter={true}/>
+              <div id='order_details'>
+                  
+              <OrdersTable orders={ orders} />
+                      
+            </div>
+            </div>
+            )}   
 
-      {events.length > 0 && (
-        <div id='listy'>
-          <div className="event-list">
-         
+          {isCreateEventFormVisible && (
+            <form className="create-event-form" onSubmit={handleCreateEventFormSubmit}>
+              <label>Event Name:</label>
+              <input type="text" name="event_name" onChange={(e) => setFormData({ ...formData, event_name: e.target.value })}
+    required />
 
-          <h2>Event List</h2>
-          <Filter handlename={handleName} showTicketFilter={false} showEventFilter={true}/>
-          <ul>
-            {eventsDisplay.map((event, index) => (
-              <li key={index} onClick={() => handleEventSummaryClick(event)}>
-                {event.event_name}
-              </li>
-            ))}
-          </ul>
-        </div></div>
-      )}
-    </div>
+              <label>Description:</label>
+              <textarea name="description" onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+    required></textarea>
+
+              <label>Tags (separate with commas):</label>
+              <input type="text" name="tags" onChange={(e) => setFormData({ ...formData, tags: e.target.value })} required />
+
+              <label>Location:</label>
+              <input type="text" name="location" onChange={(e) => setFormData({ ...formData, location: e.target.value })}required />
+
+              <select
+                  value={formData.category_id}
+                  onChange={(e) => setFormData({ ...formData, category_id: e.target.value })}
+                  className="input-field"
+                >
+                  <option value="" disabled>Select a Category</option>
+                        {categoryOptions.map((category) => (
+                            
+                            <option key={category.id} value={category.id}>
+                            {category.name}
+                </option>))}
+                </select>
+
+              <label>Start Time:</label>
+              <input type="datetime-local" name="start_time"  onChange={(e) => setFormData({ ...formData, start_time: e.target.value })} required />
+
+              <label>End Time:</label>
+              <input type="datetime-local" name="end_time" onChange={(e) => setFormData({ ...formData, end_time: e.target.value })}
+    required />
+
+              <label>Booking Prices:</label>
+              <div className='book'>
+                <label>Early Booking Price:</label>
+                <input type="number" name="early_booking_price" onChange={(e) => setFormData({ ...formData, early_booking_price: e.target.value })}
+    required />
+              </div>
+              <div className='book'>
+                <label>Regular Price:</label>
+                <input type="number" name="regular_price"  onChange={(e) => setFormData({ ...formData, regular_price: e.target.value })}
+    required />
+              </div>
+              <div className='book'>
+                <label>MVP Price:</label>
+                <input type="number" name="MVP_price" onChange={(e) => setFormData({ ...formData, MVP_price: e.target.value })}
+    required />
+              </div>
+
+              <label>Available Tickets:</label>
+              <input type="number" name="available_tickets" onChange={(e) => setFormData({ ...formData, available_tickets: e.target.value })}
+    required />
+
+              <label>Event Image:</label>
+              <input type="file" name="images" onChange={(e) => setFormData({ ...formData, images: e.target.value })}required />
+
+              <button type="submit">Create Event</button>
+              <button onClick={handleCancelCreateEventForm}>Cancel</button>
+            </form>
+          )}
+
+          {selectedEvent && (
+            <div className="event-details">
+              <h2>Event Details</h2>
+              <p>
+                <strong>Event Name:</strong> {selectedEvent.event_name}
+              </p>
+              <p>
+                <strong>Description:</strong> {selectedEvent.description}
+              </p>
+              <p>
+                <strong>Tags:</strong> {selectedEvent.tags}
+              </p>
+              <p>
+                <strong>Location:</strong> {selectedEvent.location}
+              </p>
+              <p>
+                <strong>Start Time:</strong> {selectedEvent.start_time}
+              </p>
+              <p>
+                <strong>End Time:</strong> {selectedEvent.end_time}
+              </p>
+              <p>
+                <strong>Booking Prices:</strong>{' '}
+                {`${selectedEvent.early_booking_price}, ${selectedEvent.regular_price}, ${selectedEvent.MVP_price}`}
+              </p>
+              <p>
+                <strong>Available Tickets:</strong> {selectedEvent.available_tickets}
+              </p>
+              <img src={selectedEvent.images} alt="Event Image" />
+              <button onClick={handleCloseEventDetails}>Close Details</button>
+            </div>
+          )}
+
+          {events.length > 0 && (
+            <div id='listy'>
+              <div className="event-list">
+            
+
+              <h2>Event List</h2>
+              <Filter handlename={handleName} showTicketFilter={false} showEventFilter={true}/>
+              <ul>
+                {eventsDisplay.map((event, index) => (
+                  <li key={index} onClick={() => handleEventSummaryClick(event)}>
+                    {event.event_name}
+                  </li>
+                ))}
+              </ul>
+            </div></div>
+          )}
+        </div>
+        </div>
     
-  );
-};
+    );
+  }
 
 export default Dashboard;
