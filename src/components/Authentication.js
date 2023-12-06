@@ -112,7 +112,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
   
       console.log(response);
       const responseData = await response.json();
-      console.log(responseData.id);
+      console.log(responseData);
       if (response.ok) {
         updateUserData(responseData);
         const userData = responseData;
@@ -121,23 +121,26 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
         setIsLoggedIn(true);
         saveUserToStorage(userData);
   
-        if (responseData.role_id) {
-          if (responseData.role_id === "admin") {
-            setSuccessMessage("Login to admin dashboard successful!");
-            setTimeout(() => {
-              navigate("/admin/dashboard");
-            }, 2000);
-          } else if (responseData.role_id === "organizer") {
-            setSuccessMessage("Login to organizer dashboard successful!");
-            setTimeout(() => {
-              navigate("/dashboard");
-            }, 2000);
-          } else if (responseData.role_id === "user") {
-            setSuccessMessage("Login successful!");
-            setTimeout(() => {
-              navigate("/");
-            }, 2000);
-
+        if (responseData.role_id){
+          const role = roleOptions.find((r)=>r.id === responseData.role_id);
+          console.log(role)
+          if(role){
+            if(responseData.role_id === 1){
+                setSuccessMessage('Login to admin dashboard successful!');
+                setTimeout(() => {
+                  navigate("/admin");
+              }, 2000);
+            }else if(role.name ==="Moderator"){
+                  setSuccessMessage('Login to organizer dashboard successful!');
+                  setTimeout(() => {
+                    navigate("/dashboard");
+                }, 2000);
+            }else if(role.name ==="User"){
+                  setSuccessMessage('Login successful!');
+                  setTimeout(() => {
+                    navigate("/");
+                }, 2000);
+            }
           }
         }
         enqueueSnackbar(`Hello, ${userData.username}! Logged in successfully`, {
@@ -182,7 +185,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
         const response = await fetch("http://localhost:5000/roles");
         const data = await response.json();
         if (response.ok) {
-          const filteredRoles = data.filter((role)=>role.name !=="Admin");
+          const filteredRoles = data.filter((role)=>role.name !=="admin");
           setRoleOptions(filteredRoles);
         } else {
           console.error("Failed to fetch roles:", data.error);
@@ -217,9 +220,10 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
               className="input-field"
             >
               <option value="" disabled>Select a role</option>
-                    {roleOptions.map((role) => (
-                        
-                        <option key={role.id} value={role.id}>
+                    {roleOptions
+                    .filter((role) => role.id !== 1) 
+                    .map((role) => (
+                      <option key={role.id} value={role.id}>
                         {role.name}
             </option>))}
             </select>
@@ -270,9 +274,6 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
               />
           </span>
         </div>
-        {/* {isLoggedIn && formData.role_id === 'admin' && <AdminDashboard/>}
-        {isLoggedIn && formData.role_id === 'organizer' && <OrganizerDashboard/>}
-        {isLoggedIn && formData.role_id === 'user' && <UserDashboard/>} */}
         <button onClick={type ? handleLogin : handleSignup} className="authentication-button">
           {type ? "Login" : "Sign Up"}
         </button>

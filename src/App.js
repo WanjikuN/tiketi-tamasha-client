@@ -11,7 +11,7 @@ import { useCart } from './components/CartContext';
 import ShoppingCart from './components/cart';
 import OrdersHistory from './components/OrdersHistory';
 import Dashboard from './components/Dashboard';
-import AdminDashboard from './dashboard';
+import AdminDashboard from './components/AdminDashboard';
 
 const App = () => {
   const { cart, addToCart, removeFromCart, emptyCart } = useCart();
@@ -39,16 +39,21 @@ const App = () => {
     <div className="App">
       <Navbar setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} cartLength={cart.length} cart={cart} removeFromCart={removeFromCart} />
       <Routes>
-        <Route path="/admin/dashboard" element={<AdminDashboard/>} />
-        <Route path="/" element={<LandingPage />} />
+        <Route exact path="/" element={<LandingPage />} />
         <Route path="/signup" element={<Authentication setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} updateUserData={updateUserData}/>} />
         <Route path="/events/:eventId" element={<EventDetails carts={cart} removeFromCart={removeFromCart} />} />
         <Route path="/cart" element={<ShoppingCart cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} successMessage={successMessage} />} />
-        <Route path="/dashboard" element={<Dashboard />}  />
+        <Route path="/dashboard" element={<Dashboard userData={userData} />}  />
+        {/* <Route path="/admin" element={<AdminDashboard />} /> */}
 
         <Route
           path="/checkout"
           element={<PrivateRoute path="/checkout" element={<Checkout  userData={userData} emptyCart={emptyCart} />} />}
+        />
+        
+        <Route
+          path="/admin"
+          element={<PrivateRoute path="/admin"element={<AdminDashboard/>} />}
         />
        
         {/* <Route
