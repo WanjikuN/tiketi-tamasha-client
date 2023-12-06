@@ -48,3 +48,21 @@
     color: #777;
 }
 
+/* Filter Box style */
+.order-history-container input[type="text"] {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 16px;
+    color: #333;
+}
+
+.order-history-container input[type="text"]:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+
