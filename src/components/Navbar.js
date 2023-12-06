@@ -47,7 +47,7 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn}) 
       <div className="navbar-brand">
         <img src="./Tamasha.png" alt="Tiketi Tamasha" />
        
-        <Link style={{padding:"20px", color:"white", textDecoration: "none","&:hover": {borderBottom:"1px-solid-white"}}} to="/" >Tiketi Tamasha</Link>
+        <Link style={{padding:"2px", fontSize: "20px",fontWeight: "bolder",color:"white", textDecoration: "none","&:hover": {borderBottom:"1px-solid-white"}}} to="/" >Tiketi Tamasha</Link>
 
       </div>
       <ul className="navbar-nav">
@@ -68,8 +68,8 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn}) 
             </li>
             <li className="nav-item-cart">
               <a onClick={handleOpenCart} className="nav-link">
-              <p id="count"> <img src="./Cart.png" alt="Cart" className="cart-icon" />
-                {cartLength}</p>
+                <img src="./Cart.png" alt="Cart" className="cart-icon" />
+                <span className="cart-counter">{cartLength}</span>
               </a>
               {isCartOpen && (
                 <ShoppingCart cart={cart} onClose={handleCloseCart} removeFromCart={removeFromCart}/>
@@ -78,7 +78,10 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn}) 
           </>
         
           <li className="nav-item">
-          <NavLink style={{padding:"20px", color:"white", textDecoration: "none","&:hover": {borderBottom:"1px-solid-white"}}} to="/signup" onClick={handleLogout}>{isLoggedIn? "Logout":"Login"}</NavLink>
+            <NavLink style={{ padding: "20px", color: "white", fontWeight: "bold", textDecoration: "none", "&:hover": { borderBottom: "1px solid white" } }} to="/signup" onClick={handleLogout}>
+              {isLoggedIn ? "Logout" : "Login"}
+            </NavLink>
+
           </li>
        
       </ul>

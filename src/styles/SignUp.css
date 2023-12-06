@@ -3,23 +3,36 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh;
+  height: 90vh;
+  background-image: url("https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-size: cover;
+  background-position: center;
+
 }
 
 .authentication-form {
-  width: 400px;
-  padding: 20px;
+  width:    300px;
+  padding: 6px;
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: transparent;
+  backdrop-filter: blur(20px);
+  align-items: center;
+  margin-bottom: 40px;
 }
 
+.authentication-form h2 {
+  text-align: center;
+  color: white;
+}
 .input-field {
-  width: 100%;
+  width: 70%;
   margin-bottom: 15px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  margin-left: 35px;
 }
 
 .password-input {
@@ -28,6 +41,11 @@
   /* margin-right: 10px; */
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
+}
+
+.password-toggle {
+  cursor: pointer;
 }
 
 .confirm-password-input {
@@ -39,29 +57,33 @@
   /* position: absolute; */
   /* top: 50%; */
   /* right: 10px; */
-  padding: 10px;
-  margin-left: 15px;
+  padding: 6px;
+  margin-left: 0px;
   /* transform: translateY(-50%); */
   cursor: pointer;
-
+  color: white;
 }
 
 .authentication-button {
-  width: 100%;
+  width: 50%;
   padding: 10px;
-  background: linear-gradient(to right, #8760d02c, #3aafa9a0);
-  border: 1px solid #be372824;
-  color: black;
+  background-color: #104579;
+  color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  margin-left: 80px;
 }
 
 .toggle-link {
-  color:#6a9f3f;
-
+  color: white;
   cursor: pointer;
   text-decoration: underline;
+}
+
+.para {
+  text-align: center;
+  color: white;
 }
 
 @media (max-width: 768px) {

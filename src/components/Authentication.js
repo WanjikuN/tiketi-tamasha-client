@@ -192,7 +192,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
         console.error("Error fetching roles:", error);
       }
     };
-
+ 
     fetchRoles();
   }, []);
   return (
@@ -244,40 +244,43 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
           required
         />
         <div className="password-input">
-          <input
-            type={showPassword ? "text" : "password"}
-            placeholder="Password"
-            value={formData._password_hash}
-            onChange={(e) => setFormData({ ...formData, _password_hash: e.target.value })}
-            className="input-field"
-            required
-          />
-          {!type && (
-          <div className="confirm-password-input">
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="Confirm Password"
-                value={formData.confirmPassword}
-                onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                className="input-field"
-                required
-              />
-            </div>)}
-         
-          <span onClick={togglePasswordVisibility} className="password-toggle">
-            <FontAwesomeIcon
-                icon={showPassword ? faEye : faEyeSlash}
-                style={{ fontSize: "16px" }}
-              />
-          </span>
-        </div>
-        {/* {isLoggedIn && formData.role_id === 'admin' && <AdminDashboard/>}
-        {isLoggedIn && formData.role_id === 'organizer' && <OrganizerDashboard/>}
-        {isLoggedIn && formData.role_id === 'user' && <UserDashboard/>} */}
+  <div className="password-field">
+    <input
+      type={showPassword ? "text" : "password"}
+      placeholder="Password"
+      value={formData._password_hash}
+      onChange={(e) => setFormData({ ...formData, _password_hash: e.target.value })}
+      className="input-field"
+      id="password"
+    />
+  </div>
+
+  {!type && (
+    <div className="confirm-password-field">
+      <input
+        type={showPassword ? "text" : "password"}
+        placeholder="Confirm Password"
+        value={formData.confirmPassword}
+        onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+        className="input-field"
+        id="confirm-password"
+      />
+      <span onClick={togglePasswordVisibility} className="password-toggle">
+        <FontAwesomeIcon
+          icon={showPassword ? faEye : faEyeSlash}
+          style={{ fontSize: "16px" }}
+        />
+      </span>
+    </div>
+  )}
+
+  
+</div>
+
         <button onClick={type ? handleLogin : handleSignup} className="authentication-button">
           {type ? "Login" : "Sign Up"}
         </button>
-        <p>
+        <p className="para">
           {type? "Don't have an account?" : "Already have an account?"}{" "}
           <span
             className="toggle-link"
@@ -286,7 +289,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
             {type ? "Sign Up" : "Login"}
           </span>
         </p>
-        {successMessage && <div style={{color:"green",fontWeight:"1000"}}>{successMessage}</div>}
+        {successMessage && <div style={{color:"white",fontWeight:"600"}}>{successMessage}</div>}
 
       </div>
     </div>

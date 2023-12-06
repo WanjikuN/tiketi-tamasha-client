@@ -10,7 +10,6 @@ import EventDetails from './components/EventDetails';
 import { useCart } from './components/CartContext';
 import ShoppingCart from './components/cart';
 import OrdersHistory from './components/OrdersHistory';
-import Dashboard from './components/Dashboard';
 
 const App = () => {
   const { cart, addToCart, removeFromCart, emptyCart } = useCart();
@@ -41,8 +40,8 @@ const App = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="/signup" element={<Authentication setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} updateUserData={updateUserData}/>} />
         <Route path="/events/:eventId" element={<EventDetails carts={cart} removeFromCart={removeFromCart} />} />
-        <Route path="/cart" element={<ShoppingCart cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} successMessage={successMessage} />} />
-        <Route path="/dashboard" element={<Dashboard />}  />
+        <Route path="/cart" element={<ShoppingCart cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} />} />
+        <Route path="/about-us" element={<AboutUs />} />
 
         
         <Route
@@ -58,7 +57,7 @@ const App = () => {
           path="/orders"
           element={<PrivateRoute path="/orders" element={<OrdersHistory />} />}
         />
-        <Route path='about-us' element={<AboutUs />} />
+        
       
       
       
