@@ -123,11 +123,12 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
   
         if (responseData.role_id){
           const role = roleOptions.find((r)=>r.id === responseData.role_id);
+          console.log(role)
           if(role){
             if(responseData.role_id === 1){
                 setSuccessMessage('Login to admin dashboard successful!');
                 setTimeout(() => {
-                  navigate("/");
+                  navigate("/admin");
               }, 2000);
             }else if(role.name ==="Moderator"){
                   setSuccessMessage('Login to organizer dashboard successful!');
@@ -184,7 +185,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
         const response = await fetch("http://localhost:5000/roles");
         const data = await response.json();
         if (response.ok) {
-          const filteredRoles = data.filter((role)=>role.name !=="Admin");
+          const filteredRoles = data.filter((role)=>role.name !=="admin");
           setRoleOptions(filteredRoles);
         } else {
           console.error("Failed to fetch roles:", data.error);
@@ -219,9 +220,10 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
               className="input-field"
             >
               <option value="" disabled>Select a role</option>
-                    {roleOptions.map((role) => (
-                        
-                        <option key={role.id} value={role.id}>
+                    {roleOptions
+                    .filter((role) => role.id !== 1) 
+                    .map((role) => (
+                      <option key={role.id} value={role.id}>
                         {role.name}
             </option>))}
             </select>

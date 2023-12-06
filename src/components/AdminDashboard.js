@@ -45,7 +45,7 @@ const AdminDashboard = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{margin:'80px'}}>
       <h1>Admin Dashboard</h1>
 
       {/* Display Events, Organizers, Customers, and Payments */}

@@ -44,11 +44,16 @@ const App = () => {
         <Route path="/events/:eventId" element={<EventDetails carts={cart} removeFromCart={removeFromCart} />} />
         <Route path="/cart" element={<ShoppingCart cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} successMessage={successMessage} />} />
         <Route path="/dashboard" element={<Dashboard userData={userData} />}  />
-        <Route path="/admin" element={<AdminDashboard />} />
+        {/* <Route path="/admin" element={<AdminDashboard />} /> */}
 
         <Route
           path="/checkout"
           element={<PrivateRoute path="/checkout" element={<Checkout  userData={userData} emptyCart={emptyCart} />} />}
+        />
+        
+        <Route
+          path="/admin"
+          element={<PrivateRoute path="/admin"element={<AdminDashboard/>} />}
         />
        
         {/* <Route
