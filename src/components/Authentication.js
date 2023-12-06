@@ -112,7 +112,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
   
       console.log(response);
       const responseData = await response.json();
-      console.log(responseData.id);
+      console.log(responseData);
       if (response.ok) {
         updateUserData(responseData);
         const userData = responseData;
@@ -121,23 +121,25 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
         setIsLoggedIn(true);
         saveUserToStorage(userData);
   
-        if (responseData.role_id) {
-          if (responseData.role_id === "admin") {
-            setSuccessMessage("Login to admin dashboard successful!");
-            setTimeout(() => {
-              navigate("/admin/dashboard");
-            }, 2000);
-          } else if (responseData.role_id === "organizer") {
-            setSuccessMessage("Login to organizer dashboard successful!");
-            setTimeout(() => {
-              navigate("/dashboard");
-            }, 2000);
-          } else if (responseData.role_id === "user") {
-            setSuccessMessage("Login successful!");
-            setTimeout(() => {
-              navigate("/");
-            }, 2000);
-
+        if (responseData.role_id){
+          const role = roleOptions.find((r)=>r.id === responseData.role_id);
+          if(role){
+            if(responseData.role_id === 1){
+                setSuccessMessage('Login to admin dashboard successful!');
+                setTimeout(() => {
+                  navigate("/");
+              }, 2000);
+            }else if(role.name ==="Moderator"){
+                  setSuccessMessage('Login to organizer dashboard successful!');
+                  setTimeout(() => {
+                    navigate("/dashboard");
+                }, 2000);
+            }else if(role.name ==="User"){
+                  setSuccessMessage('Login successful!');
+                  setTimeout(() => {
+                    navigate("/");
+                }, 2000);
+            }
           }
         }
         enqueueSnackbar(`Hello, ${userData.username}! Logged in successfully`, {
