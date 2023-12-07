@@ -1,14 +1,14 @@
-
+/* CSS Styles for Admin Dashboard Tables */
 h1 {
-  font-size: 35px; 
-  margin-bottom: 10px; 
+  font-size: 35px;
+  margin-bottom: 10px;
 }
 
 table {
   border-collapse: collapse;
   width: 100%;
   margin-bottom: 10px;
-  font-size: 14px; 
+  font-size: 14px;
 }
 
 table th,
@@ -28,4 +28,31 @@ table tbody tr:nth-child(even) {
 
 table tbody tr:hover {
   background-color: #f1f1f1;
+}
+
+/* Pagination Controls */
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  margin: 0 5px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.pagination button:hover {
+  background-color: #2980b9;
 }

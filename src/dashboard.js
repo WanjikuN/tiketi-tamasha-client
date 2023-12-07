@@ -4,34 +4,54 @@ import './styles/dashboard.css';
 const AdminDashboard = () => {
   const [events, setEvents] = useState([]);
   const [organizers, setOrganizers] = useState([]);
-  const [customers, setCustomers] = useState([]); // Define customers state
+  const [customers, setCustomers] = useState([]);
   const [payments, setPayments] = useState([]);
+
+  const itemsPerPage = 10; // Number of items per page
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1); // To store total available pages
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const eventsResponse = await fetch('http://localhost:5000/events');
+        const eventsResponse = await fetch(`http://localhost:5000/events?page=${currentPage}&limit=${itemsPerPage}`);
         const eventsData = await eventsResponse.json();
         setEvents(eventsData);
 
-        const organizersResponse = await fetch('http://localhost:5000/users?role_id=1');
+        const organizersResponse = await fetch(`http://localhost:5000/users?role_id=1&page=${currentPage}&limit=${itemsPerPage}`);
         const organizersData = await organizersResponse.json();
         setOrganizers(Array.isArray(organizersData) ? organizersData : []);
 
-        const customersResponse = await fetch('http://localhost:5000/users?role_id=2');
+        const customersResponse = await fetch(`http://localhost:5000/users?role_id=2&page=${currentPage}&limit=${itemsPerPage}`);
         const customersData = await customersResponse.json();
         setCustomers(Array.isArray(customersData) ? customersData : []);
 
-        const paymentsResponse = await fetch('http://localhost:5000/payments');
+        const paymentsResponse = await fetch(`http://localhost:5000/payments?page=${currentPage}&limit=${itemsPerPage}`);
         const paymentsData = await paymentsResponse.json();
         setPayments(paymentsData);
+
+       
+        const totalPagesFromData = Math.ceil(eventsData.length / itemsPerPage);
+        setTotalPages(totalPagesFromData);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [currentPage]);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
 
   return (
@@ -130,6 +150,17 @@ const AdminDashboard = () => {
             ))}
           </tbody>
         </table>
+      </div>
+      
+      {/* Pagination Controls */}
+      <div className="pagination">
+        <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+          Previous Page
+        </button>
+        <span>Page {currentPage} of {totalPages}</span>
+        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+          Next Page
+        </button>
       </div>
     </div>
   );
