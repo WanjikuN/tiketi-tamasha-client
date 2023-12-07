@@ -1,6 +1,6 @@
 /* CSS Styles for Admin Dashboard Tables */
 h1 {
-  font-size: 50px; /* Adjust the font size as needed */
+  font-size: 30px; /* Adjust the font size as needed */
   margin-bottom: 10px; /* Add spacing below the heading */
 }
 
@@ -8,12 +8,13 @@ table {
   border-collapse: collapse;
   width: 100%;
   margin-bottom: 10px;
+  font-size: 14px; /* Reduce the font size of table content */
 }
 
 table th,
 table td {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 4px; /* Reduce the padding around table cells */
   text-align: left;
 }
 
