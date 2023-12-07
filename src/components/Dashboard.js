@@ -1,9 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import Filter from "./Filter";
+import UserProfile from './UserProfile';
+const OrdersTable = ({orders}) => {
+  const [tname, setTname] = useState("");
 
-const OrdersTable = ({ orders }) => {
+  //  const ordersDisplay = orders.filter((ticket) => {
+  //     if (ticket === "") return true;
+  //     const eventNameMatch = ticket.event_name
+  //       .toLowerCase()
+  //       .includes(tname.toLowerCase());
+  //     const locationMatch = ticket.location
+  //       .toLowerCase()
+  //       .includes(tname.toLowerCase());
+  
+  //     return eventNameMatch || locationMatch;
+  //   });
+    function handleName(e) {
+      e.preventDefault();
+      setTname(e.target.value);
+    }
   return (
     <div className="table-container">
+      <Filter handlename={handleName} showTicketFilter={false} showEventFilter={true}/>
+
       <table className="orders-table">
         <thead>
           <tr>
@@ -42,7 +61,17 @@ const Dashboard = ({userData}) => {
   const [tname, setTname] = useState("");
   const [isViewEventsVisible, setIsViewEventsVisible] = useState(false);
   const[orders, setOrders] =useState([])
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedEvent, setEditedEvent] = useState({});
   console.log(userData)
+  const [isUserProfileModalOpen, setIsUserProfileModalOpen] = useState(false);
+  const handleUserProfileClick = () => {
+    setIsUserProfileModalOpen(true);
+  };
+
+  const handleCloseUserProfileModal = () => {
+    setIsUserProfileModalOpen(false);
+  };
   // Create a single formData state to hold all form data
   const [formData, setFormData] = useState({
     event_name: '',
@@ -127,10 +156,14 @@ const Dashboard = ({userData}) => {
   const handleEventSummaryClick = (event) => {
     const selectedEvent = events.find((e) => e.event_name === event.event_name);
     setSelectedEvent(selectedEvent);
+    // setIsViewEventsVisible(false);
+    setEvents([])
   };
 
   const handleCloseEventDetails = () => {
     setSelectedEvent(null);
+    setIsViewEventsVisible(true);
+    fetchEvents();
   };
   function handleName(e) {
     e.preventDefault();
@@ -147,17 +180,7 @@ const Dashboard = ({userData}) => {
 
     return eventNameMatch || locationMatch;
   });
-  // const ordersDisplay = orders.filter((ticket) => {
-  //   if (ticket === "") return true;
-  //   const eventNameMatch = ticket.event_name
-  //     .toLowerCase()
-  //     .includes(tname.toLowerCase());
-  //   const locationMatch = ticket.location
-  //     .toLowerCase()
-  //     .includes(tname.toLowerCase());
-
-  //   return eventNameMatch || locationMatch;
-  // });
+  
   const fetchEvents = async () => {
       try {
         const user_id = userData.id;
@@ -215,11 +238,40 @@ const Dashboard = ({userData}) => {
     setIsViewEventsVisible(false);
     setEvents([])
   };
+  const handleEditEventButtonClick = () => {
+    setIsEditing(true);
+    setEditedEvent(selectedEvent);
+  };
+  const handleEditEventFormSubmit = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/events/${selectedEvent.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(editedEvent),
+      });
+      
+      if (response.ok) {
+        const updatedEvent = await response.json();
+        console.log(updatedEvent)
+        setEvents(events.map((event) => (event.id === updatedEvent.id ? updatedEvent : event)));
+
+        setIsEditing(false);
+        handleCloseEventDetails()
+      } else {
+        console.error('Failed to update event:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error updating event:', error);
+    }
+  
+  };
     return (
       <div id="dashboard">
         <div id='left_nav'>
 
-            <button className='left_nav'>Profile</button>
+            <button className='left_nav' onClick={handleUserProfileClick}>Profile</button>
             <button className='left_nav' onClick={handleCreateEventButtonClick}>Create Event</button>
             <button className='left_nav'onClick={handleViewEventsButtonClick}>View Events</button>
             <button className='left_nav' onClick={handleOrdersButtonClick}>Orders</button>
@@ -239,10 +291,9 @@ const Dashboard = ({userData}) => {
             {!isCreateEventFormVisible && !isViewEventsVisible && (
             <div id='orders'>
             <h4>Orders</h4>
-            <Filter handlename={handleName} showTicketFilter={false} showEventFilter={true}/>
               <div id='order_details'>
                   
-              <OrdersTable orders={ orders} />
+              <OrdersTable orders={orders} />
                       
             </div>
             </div>
@@ -307,15 +358,18 @@ const Dashboard = ({userData}) => {
 
               <label>Event Image:</label>
               <input type="file" name="images" onChange={(e) => setFormData({ ...formData, images: e.target.value })}required />
-
+              <div className='btn_event'>
               <button type="submit">Create Event</button>
               <button onClick={handleCancelCreateEventForm}>Cancel</button>
-            </form>
+              </div>
+              </form>
           )}
 
           {selectedEvent && (
             <div className="event-details">
               <h2>Event Details</h2>
+              {!isEditing ? (
+            <>
               <p>
                 <strong>Event Name:</strong> {selectedEvent.event_name}
               </p>
@@ -341,8 +395,51 @@ const Dashboard = ({userData}) => {
               <p>
                 <strong>Available Tickets:</strong> {selectedEvent.available_tickets}
               </p>
-              <img src={selectedEvent.images} alt="Event Image" />
+              {/* <img src={selectedEvent.images} alt="Event Image" /> */}
+              <div className='btn_event'>
+              <button onClick={handleEditEventButtonClick}>Edit Event</button>
               <button onClick={handleCloseEventDetails}>Close Details</button>
+              </div></>
+          ) : (
+            <div className="create-event-form" >
+              <p>
+                <strong>Event Name:</strong> <input
+                type="text"
+                value={editedEvent.event_name}
+                onChange={(e) => setEditedEvent({ ...editedEvent, event_name: e.target.value })}
+                required
+              />
+              </p>
+              <p>
+                <strong>Description:</strong> <input
+                type="text"
+                value={editedEvent.description}
+                onChange={(e) => setEditedEvent({ ...editedEvent, description: e.target.value })}
+                required
+              />
+              </p>
+              <p>
+                <strong>Tags:</strong> <input
+                type="text"
+                value={editedEvent.tags}
+                onChange={(e) => setEditedEvent({ ...editedEvent, tags: e.target.value })}
+                required
+              />
+              </p>
+              <p>
+                <strong>Location:</strong> <input
+                type="text"
+                value={editedEvent.location}
+                onChange={(e) => setEditedEvent({ ...editedEvent, location: e.target.value })}
+                required
+              />
+              </p>
+              <div className='btn_event'>
+                <button onClick={handleEditEventFormSubmit}>Save Changes</button>
+              <button onClick={() => setIsEditing(false)}>Cancel</button>
+              </div>
+            </div>
+          )}
             </div>
           )}
 
@@ -363,6 +460,9 @@ const Dashboard = ({userData}) => {
             </div></div>
           )}
         </div>
+        {isUserProfileModalOpen && (
+        <UserProfile userData={userData} onClose={handleCloseUserProfileModal} />
+      )}
         </div>
     
     );
