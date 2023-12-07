@@ -1,0 +1,30 @@
+/* CSS Styles for Admin Dashboard Tables */
+h1 {
+  font-size: 50px; /* Adjust the font size as needed */
+  margin-bottom: 10px; /* Add spacing below the heading */
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+table th {
+  background-color: #f2f2f2;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+table tbody tr:hover {
+  background-color: #f1f1f1;
+}

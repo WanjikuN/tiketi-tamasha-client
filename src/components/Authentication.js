@@ -128,7 +128,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
             if(responseData.role_id === 1){
                 setSuccessMessage('Login to admin dashboard successful!');
                 setTimeout(() => {
-                  navigate("/admin");
+                  navigate("/admin/dashboard");
               }, 2000);
             }else if(role.name ==="Moderator"){
                   setSuccessMessage('Login to organizer dashboard successful!');
