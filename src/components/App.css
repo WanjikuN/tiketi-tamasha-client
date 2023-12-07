@@ -421,15 +421,28 @@ h2 {
   background: linear-gradient(to right, #8760d02c, #3aafa9a0);
   color: black;
 }
+.btn_event{
+  display: flex;
+  justify-content: space-around;
+  cursor: pointer;
+  
 
+}
+.btn_event button{
+  cursor: pointer;
+  background: linear-gradient(to right, #8760d02c, #3aafa9a0);
+  color: black;
+}
 .event-details {
   display: flex;
   flex-direction: column;
   width: 80%;
   margin: 0 auto;
-  padding: 20px;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  line-height: 10px;
+  overflow: scroll;
 }
 
 .event-details p {
@@ -454,8 +467,8 @@ h2 {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background-color: #BE3728;
-  color: #fff;
+  background: linear-gradient(to right, #8760d02c, #3aafa9a0);
+  color: black;
 }
 .event-list {
   width: 100%;
@@ -546,3 +559,45 @@ h2 {
   background-color: #f2f2f2;
 }
 
+/* App.css or your CSS file */
+
+.user-profile-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.user-profile-modal h2 {
+  margin-bottom: 10px;
+}
+
+.user-profile-modal p {
+  margin-bottom: 8px;
+}
+
+.user-profile-modal button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #3AAFA9;
+  color: #fff;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.user-profile-modal button:hover {
+  background-color: #276674;
+}
