@@ -179,7 +179,7 @@ const Authentication = ({ setIsLoggedIn, isLoggedIn, updateUserData }) => {
   const logout = () => {
     localStorage.removeItem("user");
     setIsLoggedIn(false);
-    navigate("/login"); 
+     navigate("/login"); 
   };
 
   const checkUserLoggedIn = () => {
@@ -210,7 +210,7 @@ const Authentication = ({ setIsLoggedIn, isLoggedIn, updateUserData }) => {
     };
 
     fetchRoles();
-  }, [updateUserData, setIsLoggedIn]);
+  }, []);
 
   return (
     <div className="authentication-container">
