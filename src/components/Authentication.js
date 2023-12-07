@@ -179,6 +179,7 @@ const Authentication = ({ setIsLoggedIn, isLoggedIn, updateUserData }) => {
   const logout = () => {
     localStorage.removeItem("user");
     setIsLoggedIn(false);
+    navigate("/login"); 
   };
 
   const checkUserLoggedIn = () => {
