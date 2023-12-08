@@ -44,7 +44,7 @@ const App = () => {
         <Route path="/events/:eventId" element={<EventDetails carts={cart} removeFromCart={removeFromCart} />} />
         <Route path="/cart" element={<ShoppingCart cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} successMessage={successMessage} />} />
         <Route path="/dashboard" element={<Dashboard userData={userData} />}  />
-        {/* <Route path="/admin" element={<AdminDashboard />} /> */}
+        <Route path="/admin" element={<AdminDashboard />} />
 
         <Route
           path="/checkout"
@@ -56,10 +56,10 @@ const App = () => {
           element={<PrivateRoute path="/admin"element={<AdminDashboard/>} />}
         />
        
-        {/* <Route
+        <Route
           path="/dashboard"
           element={<PrivateRoute path="/dashboard" element={<Dashboard />} />}
-        /> */}
+        />
         <Route
           path="/orders"
           element={<PrivateRoute path="/orders" element={<OrdersHistory />} />}
