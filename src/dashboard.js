@@ -106,7 +106,7 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      {/* ... (other tables and their pagination controls) ... */}
+
 
       {/* Payments Table */}
       <div>
