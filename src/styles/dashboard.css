@@ -1,25 +1,36 @@
-/* CSS Styles for Admin Dashboard Tables */
-h1 {
-  font-size: 35px;
-  margin-bottom: 10px;
+/* Dashboard Styles */
+
+/* General styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Table styles */
 table {
-  border-collapse: collapse;
   width: 100%;
-  margin-bottom: 10px;
-  font-size: 15px;
+  border-collapse: collapse;
+  margin-bottom: 20px;
 }
 
 table th,
 table td {
   border: 1px solid #ddd;
-  padding: 5px;
+  padding: 8px;
   text-align: left;
+  font-size: 14px; /* Adjust the font size as needed */
 }
 
 table th {
   background-color: #f2f2f2;
+  font-size: 14px; /* Adjust the font size as needed */
 }
 
 table tbody tr:nth-child(even) {
@@ -30,7 +41,7 @@ table tbody tr:hover {
   background-color: #f1f1f1;
 }
 
-/* Pagination Controls */
+/* Pagination styles */
 .pagination {
   margin-top: 20px;
   display: flex;
@@ -55,4 +66,9 @@ table tbody tr:hover {
 
 .pagination button:hover {
   background-color: #2980b9;
+}
+
+.pagination span {
+  margin: 0 10px;
+  font-weight: bold;
 }
