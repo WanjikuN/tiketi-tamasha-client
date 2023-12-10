@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate ,useNavigate} from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Authentication from './components/Authentication';
@@ -18,7 +18,7 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState(null);
   const [successMessage, setSuccessMessage] = useState('');
-
+  const navigate = useNavigate();
   useEffect(() => {
     document.title = 'Tiketi Tamasha';
   }, []);
@@ -34,11 +34,14 @@ const App = () => {
       <Navigate to="/signup" />
     );
   };
-
+  const currentRoute = window.location.pathname;
+  
   return (
     <div className="App">
-      <Navbar setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} cartLength={cart.length} cart={cart} removeFromCart={removeFromCart} />
-      <Routes>
+      {currentRoute !== '/signup' && (
+              <Navbar setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} cartLength={cart.length} cart={cart} removeFromCart={removeFromCart} userData={{userData}}/>
+            )}    
+        <Routes>
         <Route exact path="/" element={<LandingPage />} />
         <Route path="/signup" element={<Authentication setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} updateUserData={updateUserData}/>} />
         <Route path="/events/:eventId" element={<EventDetails carts={cart} removeFromCart={removeFromCart} />} />
@@ -69,7 +72,7 @@ const App = () => {
       
       
       </Routes>
-      <Footer />
+      {/* <Footer />/ */}
     </div>
   );
 };

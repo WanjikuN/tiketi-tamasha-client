@@ -50,6 +50,7 @@
     border:none;
     background-color: #f0efec;
     font-size: 20px;
+    color: black;
 }
 #closer:hover,#close:hover{
     cursor: pointer;
@@ -92,6 +93,7 @@
 #quantity-controls button{
     border: 1px solid rgba(0, 0, 0, 0.155);
     background-color: #f0efec;
+    color: black;
     border-radius: 4px;
 }
 #quantity-controls button:hover{
