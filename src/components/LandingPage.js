@@ -110,7 +110,7 @@ export default function LandingPage() {
 
       </div>
 
-      <Filter handlename={handleName} />
+      <Filter handlename={handleName} showEventFilter={false} showTicketFilter={true}/>
 
       <div id="upcoming" className="upcoming-card">
         {ticketsDisplay.map((ticket) => {

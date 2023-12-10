@@ -3,8 +3,10 @@ import './OrderHistory.css';
 
 const OrderHistory = () => {
     const [orders, setOrders] = useState([]);
+    const [filteredOrders, setFilteredOrders] = useState([]);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [authToken, setAuthToken] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
 
     const sampleOrders = [
         {
@@ -99,12 +101,32 @@ const OrderHistory = () => {
             .catch(error => console.error('Error fetching processed events:', error));
     }, [isLoggedIn, authToken]);
 
+     // Handle filtering based on the search term
+     useEffect(() => {
+        const filteredResults = orders.filter((order) => {
+            return (
+                order.event_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                order.payment_type.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                order.payer_phone.includes(searchTerm)
+                
+            );
+        });
+
+        setFilteredOrders(filteredResults);
+    }, [searchTerm, orders]);
+
     return (
         <div className="order-history-container">
             <h2>Processed Orders</h2>
+            <input
+                type="text"
+                placeholder="Search orders..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+            />
             <ul>
-                {Array.isArray(orders) && orders.length > 0 ? (
-                    orders.map(order => (
+            {Array.isArray(filteredOrders) && filteredOrders.length > 0 ? (
+                    filteredOrders.map((order) => (
                         <li key={order.event_id} className="order-card">
                             <b>Event ID</b>: {order.event_id}<br />
                             <b>Event Name</b>: {order.event_name}<br />

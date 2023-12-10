@@ -1,70 +1,80 @@
-# Getting Started with Create React App
+# Tiketi Tamasha
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Tiketi Tamasha is a React-based web application for discovering and purchasing event tickets. It includes features such as user authentication, event details, a shopping cart, and order history.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Components](#components)
+- [Contributing](#contributing)
+- [License](#license)
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **User Authentication:** Users can sign up or log in to access personalized features.
+- **Event Discovery:** Browse and view details of various events, including ticket information.
+- **Shopping Cart:** Add and remove items from the shopping cart for seamless checkout.
+- **Order History:** View a history of past orders for logged-in users.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Installation
 
-### `npm test`
+To run this project locally, follow these steps:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone the repository:
 
-### `npm run build`
+   ```git clone https://github.com/WanjikuN/tiketi-tamasha-client.git```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. ```cd tiketi-tamasha```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. ```npm install```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4. ```npm start```
 
-### `npm run eject`
+## Usage
+The application provides a user-friendly interface for exploring events, managing a shopping cart, and making purchases. Make sure to check out the private routes, such as the checkout and order history, after logging in.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Components
+1. App
+The main component that orchestrates the overall structure of the application. It includes routing, navigation, and the integration of various components.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. LandingPage
+Displays a carousel of trending events and allows users to filter and view upcoming events. Utilizes the Filter and TicketItem components.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3. Authentication
+Handles user authentication, including sign up and log in functionalities.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+4. Checkout
+Manages the checkout process, including the private route protection for authenticated users.
 
-## Learn More
+5. OrdersHistory
+Displays the order history for authenticated users.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+6. Navbar and Footer
+Reusable components for the application's navigation and footer sections.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Contributing
 
-### Code Splitting
+We welcome contributions to Tiketi Tamasha! If you find a bug, have an idea, or want to improve something:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **Bugs/Issues:** Open an [issue](https://github.com/WanjikuN/tiketi-tamasha-client.git/issues).
+  
+- **Enhancements/Ideas:** Discuss in the issues.
 
-### Analyzing the Bundle Size
+### Pull Requests
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. Fork the repo, create a branch.
+2. Test and document your changes.
+3. Follow existing coding style.
+4. Use clear commit messages.
+5. Open a PR with a brief description.
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Code Style
 
-### Advanced Configuration
+Follow the established coding style.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### License
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Contributions are under [MIT License](LICENSE). Thank you!

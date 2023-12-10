@@ -3,11 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import "../styles/SignUp.css";
 
-
 const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
-
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [roleOptions, setRoleOptions] = useState([]);
@@ -44,6 +43,12 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
       return;
     }
     try {
+      const userRole =roleOptions.find((role)=>role.name ==="User")
+      if(!userRole){
+        console.error("User role not found")
+        return;
+      }
+      setFormData({...formData,role_id:userRole.id});
       const response = await fetch("https://tiketi-tamasha-backend.onrender.com/signup", {
         method: "POST",
         headers: {
@@ -104,26 +109,44 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
           _password_hash: formData._password_hash,
         }),
       });
-
+  
       console.log(response);
       const responseData = await response.json();
-      console.log(responseData.id);
+      console.log(responseData);
       if (response.ok) {
-        updateUserData(responseData)
+        updateUserData(responseData);
         const userData = responseData;
-        setType(false)
+  
+        setType(false);
         setIsLoggedIn(true);
         saveUserToStorage(userData);
-        setSuccessMessage('Login successful!');
-
-        setTimeout(() => {
-            navigate("/");
-        }, 2000);
-        
+  
+        if (responseData.role_id){
+          const role = roleOptions.find((r)=>r.id === responseData.role_id);
+          console.log(role)
+          if(role){
+            if(responseData.role_id === 1){
+                setSuccessMessage('Login to admin dashboard successful!');
+                setTimeout(() => {
+                  navigate("/admin");
+              }, 2000);
+            }else if(role.name ==="Moderator"){
+                  setSuccessMessage('Login to organizer dashboard successful!');
+                  setTimeout(() => {
+                    navigate("/dashboard");
+                }, 2000);
+            }else if(role.name ==="User"){
+                  setSuccessMessage('Login successful!');
+                  setTimeout(() => {
+                    navigate("/");
+                }, 2000);
+            }
+          }
+        }
         enqueueSnackbar(`Hello, ${userData.username}! Logged in successfully`, {
           variant: "success",
         });
-        // Clear form data on successful login
+
         setFormData({
           username: "",
           _password_hash: "",
@@ -132,24 +155,29 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
           email: "",
           role_id: "",
         });
-        // alert("Login successful");
+
       } else {
-        // alert("Login failed");
+
         enqueueSnackbar("Login failed", { variant: "error" });
-        setFailMessage('Invalid Credentials');
+        setFailMessage("Invalid Credentials");
         setTimeout(() => {
-            setFailMessage('')
+          setFailMessage("");
         }, 2000);
-    }
+      }
     } catch (error) {
+
+
+
       console.error("Error during login:", error);
-      setFailMessage('Invalid Credentials');
+      setFailMessage("Invalid Credentials");
       setTimeout(() => {
-        setFailMessage('')
-    }, 2000);
+        setFailMessage("");
+      }, 2000);
+      
       enqueueSnackbar("Error during login", { variant: "error" });
     }
   };
+  
 
   useEffect(() => {
     const fetchRoles = async () => {
@@ -157,7 +185,8 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
         const response = await fetch("https://tiketi-tamasha-backend.onrender.com/roles");
         const data = await response.json();
         if (response.ok) {
-          setRoleOptions(data);
+          const filteredRoles = data.filter((role)=>role.name !=="admin");
+          setRoleOptions(filteredRoles);
         } else {
           console.error("Failed to fetch roles:", data.error);
         }
@@ -165,15 +194,16 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
         console.error("Error fetching roles:", error);
       }
     };
-
+ 
     fetchRoles();
   }, []);
-
   return (
     <div className="authentication-container">
    
       <div className="authentication-form">
-        <h2>{type ? "Login" : "Sign Up"}</h2>
+        <h2 style={{display:'flex',alignItems:'center',justifyContent:'center'}}> <Link style={{padding:"20px", color:"black", textDecoration: "none" }}to="/" >        <img style={{width: '40px',borderRadius:'10px'}}src="./Tamasha.png" alt="Tiketi Tamasha" />
+</Link>
+{type ? "Login" : "Sign Up"}</h2>
         {failMessage && <div style={{color:"red",fontWeight:"1000"}}>{failMessage}</div>}
 
         {!type && (
@@ -192,9 +222,10 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
               className="input-field"
             >
               <option value="" disabled>Select a role</option>
-                    {roleOptions.map((role) => (
-                        
-                        <option key={role.id} value={role.id}>
+                    {roleOptions
+                    .filter((role) => role.id !== 1) 
+                    .map((role) => (
+                      <option key={role.id} value={role.id}>
                         {role.name}
             </option>))}
             </select>
@@ -248,7 +279,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
         <button onClick={type ? handleLogin : handleSignup} className="authentication-button">
           {type ? "Login" : "Sign Up"}
         </button>
-        <p>
+        <p className="para">
           {type? "Don't have an account?" : "Already have an account?"}{" "}
           <span
             className="toggle-link"
@@ -257,12 +288,11 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
             {type ? "Sign Up" : "Login"}
           </span>
         </p>
-        {successMessage && <div style={{color:"green",fontWeight:"1000"}}>{successMessage}</div>}
+        {successMessage && <div style={{color:"green",fontWeight:"1000",float:'right'}}>{successMessage}</div>}
 
       </div>
     </div>
   );
 };
-
 
 export default Authentication;
