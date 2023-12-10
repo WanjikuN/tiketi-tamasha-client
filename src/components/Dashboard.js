@@ -63,7 +63,7 @@ const Dashboard = ({userData}) => {
   const[orders, setOrders] =useState([])
   const [isEditing, setIsEditing] = useState(false);
   const [editedEvent, setEditedEvent] = useState({});
-  console.log(userData)
+  // console.log(userData)
   const [isUserProfileModalOpen, setIsUserProfileModalOpen] = useState(false);
   const handleUserProfileClick = () => {
     setIsUserProfileModalOpen(true);

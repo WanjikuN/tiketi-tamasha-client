@@ -35,11 +35,11 @@ const App = () => {
     );
   };
   const currentRoute = window.location.pathname;
-
+  
   return (
     <div className="App">
       {currentRoute !== '/signup' && (
-              <Navbar setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} cartLength={cart.length} cart={cart} removeFromCart={removeFromCart} />
+              <Navbar setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} cartLength={cart.length} cart={cart} removeFromCart={removeFromCart} userData={{userData}}/>
             )}    
         <Routes>
         <Route exact path="/" element={<LandingPage />} />
