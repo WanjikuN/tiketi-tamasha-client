@@ -48,7 +48,9 @@ const App = () => {
         <Route path="/cart" element={<ShoppingCart cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} successMessage={successMessage} />} />
         <Route path="/dashboard" element={<Dashboard userData={userData} />}  />
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/about-us" element={<AboutUs />} />
 
+        
         <Route
           path="/checkout"
           element={<PrivateRoute path="/checkout" element={<Checkout  userData={userData} emptyCart={emptyCart} />} />}
@@ -67,12 +69,15 @@ const App = () => {
           path="/orders"
           element={<PrivateRoute path="/orders" element={<OrdersHistory />} />}
         />
-        <Route path='about-us' element={<AboutUs />} />
+        
       
       
       
       </Routes>
-      <Footer />/
+      {currentRoute !== '/signup' && (
+              <Navbar setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} cartLength={cart.length} cart={cart} removeFromCart={removeFromCart} userData={{userData}} updateUserData={updateUserData}/>
+            )}   
+      
     </div>
   );
 };
