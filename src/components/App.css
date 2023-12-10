@@ -17,12 +17,11 @@ body {
   align-items: center;
   background-color: #3AAFA9;
   height: 10vh;
-  width: 98%;
+  width: 100%;
   /* margin: 20px; */
   position: fixed; /* Make navbar sticky */
   top: 0; /* Stick it at the top */
   z-index: 900; /* Ensure it stays above other content */
-  margin: 0px 10px 10px 10px;
   border: none;
 }
 
