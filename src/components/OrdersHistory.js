@@ -76,7 +76,7 @@ const OrderHistory = () => {
         setAuthToken(userAuthToken);
 
         // Fetch processed events from the backend
-        const apiUrl = 'http://localhost:5000/payments';
+        const apiUrl = 'https://tiketi-tamasha-backend.onrender.com/payments';
 
         console.log('Before fetch:', apiUrl);
 

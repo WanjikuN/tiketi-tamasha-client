@@ -7,7 +7,7 @@ const AdminDashboard = () => {
   const [payments, setPayments] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/events')
+    fetch('https://tiketi-tamasha-backend.onrender.com/events')
       .then(response => response.json())
       .then(data => {
         setEvents(data);
@@ -16,7 +16,7 @@ const AdminDashboard = () => {
         console.error('Error fetching events:', error);
       });
 
-    fetch('http://localhost:5000/users?role_id=1')
+    fetch('https://tiketi-tamasha-backend.onrender.com/users?role_id=1')
       .then(response => response.json())
       .then(data => {
         setOrganizers(data);
@@ -25,7 +25,7 @@ const AdminDashboard = () => {
         console.error('Error fetching organizers:', error);
       });
 
-    fetch('http://localhost:5000/users?role_id=2')
+    fetch('https://tiketi-tamasha-backend.onrender.com/users?role_id=2')
       .then(response => response.json())
       .then(data => {
         setCustomers(data);
@@ -34,7 +34,7 @@ const AdminDashboard = () => {
         console.error('Error fetching customers:', error);
       });
 
-    fetch('http://localhost:5000/payments')
+    fetch('https://tiketi-tamasha-backend.onrender.com/payments')
       .then(response => response.json())
       .then(data => {
         setPayments(data);

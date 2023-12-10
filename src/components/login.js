@@ -18,7 +18,7 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch("http://localhost:5000/login", {
+      const response = await fetch("https://tiketi-tamasha-backend.onrender.com/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -44,7 +44,7 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
   };
 
   const handleSignUp = () => {
-    window.location.href = 'http://localhost:5000/signup'; 
+    window.location.href = 'https://tiketi-tamasha-backend.onrender.com/signup'; 
     
   };
 
