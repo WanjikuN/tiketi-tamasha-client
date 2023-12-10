@@ -6,7 +6,7 @@ import Axios from 'axios';
 
 const CheckoutContainer = styled.div`
   padding: 40px;
-  
+  height: 59vh;
   margin-top:150px;
   margin-bottom:50px;
 

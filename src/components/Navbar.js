@@ -5,7 +5,7 @@ import ShoppingCart from './cart';
 import { Link } from 'react-router-dom';
 import { NavLink } from "react-router-dom";
 import { useSnackbar } from "notistack"; 
-const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn,userData}) => {
+const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn,userData, updateUserData}) => {
   const { enqueueSnackbar } = useSnackbar(); 
   const [isCartOpen, setIsCartOpen] = useState(false);
   // console.log(userData.userData.role_id)
@@ -20,6 +20,7 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn,us
       if (response.ok) {
         
         setIsLoggedIn(false);
+        updateUserData(null)
         enqueueSnackbar('User logged out successfully', { variant: 'success' });
       } else {
         enqueueSnackbar('Logout failed', { variant: 'error' });
@@ -47,7 +48,8 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn,us
     <nav className="navbar">
       <div className="navbar-brand">
         <img src="./Tamasha.png" alt="Tiketi Tamasha" />
-        <Link style={{padding:"20px", color:"white", textDecoration: "none","&:hover": {borderBottom:"1px-solid-white"}}} to="/" >Tiketi Tamasha</Link>
+       
+        <Link style={{padding:"2px", fontSize: "20px",fontWeight: "bolder",color:"white", textDecoration: "none","&:hover": {borderBottom:"1px-solid-white"}}} to="/" >Tiketi Tamasha</Link>
 
 
       </div>
@@ -59,10 +61,10 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn,us
                 <Link className="nav-item nav-link" to='/about-us'>
                   About Us
                 </Link>
-                <li className="nav-item">
+                
                 <li className="nav-item">
                 <NavLink style={{padding:"20px", color:"white", textDecoration: "none","&:hover": {borderBottom:"1px-solid-white"}}} to="/signup" onClick={handleLogout}>{isLoggedIn? "Logout":"Login"}</NavLink>
-                </li>
+              
                 </li>
               </>
             )}
@@ -74,11 +76,11 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn,us
                 </Link>
                 <Link to="/dashboard" className="nav-link">Dashboard</Link>
                 
-                <li className="nav-item">
+                
                 <li className="nav-item">
                 <NavLink style={{padding:"20px", color:"white", textDecoration: "none","&:hover": {borderBottom:"1px-solid-white"}}} to="/signup" onClick={handleLogout}>{isLoggedIn? "Logout":"Login"}</NavLink>
                 </li>
-                </li>
+               
               </>
             )}
             {(userData && userData.userData && userData.userData.role_id === 3)  && (
@@ -101,11 +103,11 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn,us
                     <ShoppingCart cart={cart} onClose={handleCloseCart} removeFromCart={removeFromCart} />
                   )}
                 </li>
-                <li className="nav-item">
+                
                 <li className="nav-item">
                   <NavLink style={{padding:"20px", color:"white", textDecoration: "none","&:hover": {borderBottom:"1px-solid-white"}}} to="/signup" onClick={handleLogout}>{isLoggedIn? "Logout":"Login"}</NavLink>
                   </li>
-                </li>
+                
               </>
             )}
             {(!userData || !userData.userData) &&(
@@ -128,11 +130,11 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn,us
                     <ShoppingCart cart={cart} onClose={handleCloseCart} removeFromCart={removeFromCart} />
                   )}
                 </li>
-                <li className="nav-item">
+                
                 <li className="nav-item">
                   <NavLink style={{padding:"20px", color:"white", textDecoration: "none","&:hover": {borderBottom:"1px-solid-white"}}} to="/signup" onClick={handleLogout}>{isLoggedIn? "Logout":"Login"}</NavLink>
                   </li>
-                </li>
+                
               </>
             )}
           </ul>

@@ -194,7 +194,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
         console.error("Error fetching roles:", error);
       }
     };
-
+ 
     fetchRoles();
   }, []);
   return (
@@ -279,7 +279,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
         <button onClick={type ? handleLogin : handleSignup} className="authentication-button">
           {type ? "Login" : "Sign Up"}
         </button>
-        <p>
+        <p className="para">
           {type? "Don't have an account?" : "Already have an account?"}{" "}
           <span
             className="toggle-link"
@@ -288,7 +288,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
             {type ? "Sign Up" : "Login"}
           </span>
         </p>
-        {successMessage && <div style={{color:"green",fontWeight:"1000"}}>{successMessage}</div>}
+        {successMessage && <div style={{color:"green",fontWeight:"1000",float:'right'}}>{successMessage}</div>}
 
       </div>
     </div>

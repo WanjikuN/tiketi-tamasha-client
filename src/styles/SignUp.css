@@ -30,9 +30,7 @@
 }
 
 .password-input {
-  /* position: relative; */
-  /* width:90%; */
-  /* margin-right: 10px; */
+ 
   display: flex;
   justify-content: space-between;
 }
