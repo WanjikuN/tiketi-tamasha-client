@@ -75,8 +75,8 @@ const App = () => {
       
       </Routes>
       {currentRoute !== '/signup' && (
-              <Navbar setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} cartLength={cart.length} cart={cart} removeFromCart={removeFromCart} userData={{userData}} updateUserData={updateUserData}/>
-            )}   
+          <Footer />
+        )}   
       
     </div>
   );
