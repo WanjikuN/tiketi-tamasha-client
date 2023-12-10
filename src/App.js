@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate ,useNavigate} from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Authentication from './components/Authentication';
@@ -18,7 +18,7 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState(null);
   const [successMessage, setSuccessMessage] = useState('');
-
+  const navigate = useNavigate();
   useEffect(() => {
     document.title = 'Tiketi Tamasha';
   }, []);
@@ -34,17 +34,20 @@ const App = () => {
       <Navigate to="/signup" />
     );
   };
-
+  const currentRoute = window.location.pathname;
+  
   return (
     <div className="App">
-      <Navbar setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} cartLength={cart.length} cart={cart} removeFromCart={removeFromCart} />
-      <Routes>
+      {currentRoute !== '/signup' && (
+              <Navbar setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} cartLength={cart.length} cart={cart} removeFromCart={removeFromCart} userData={{userData}}/>
+            )}    
+        <Routes>
         <Route exact path="/" element={<LandingPage />} />
         <Route path="/signup" element={<Authentication setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} updateUserData={updateUserData}/>} />
         <Route path="/events/:eventId" element={<EventDetails carts={cart} removeFromCart={removeFromCart} />} />
         <Route path="/cart" element={<ShoppingCart cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} successMessage={successMessage} />} />
         <Route path="/dashboard" element={<Dashboard userData={userData} />}  />
-        {/* <Route path="/admin" element={<AdminDashboard />} /> */}
+        <Route path="/admin" element={<AdminDashboard />} />
 
         <Route
           path="/checkout"
@@ -56,10 +59,10 @@ const App = () => {
           element={<PrivateRoute path="/admin"element={<AdminDashboard/>} />}
         />
        
-        {/* <Route
+        <Route
           path="/dashboard"
           element={<PrivateRoute path="/dashboard" element={<Dashboard />} />}
-        /> */}
+        />
         <Route
           path="/orders"
           element={<PrivateRoute path="/orders" element={<OrdersHistory />} />}
@@ -69,7 +72,7 @@ const App = () => {
       
       
       </Routes>
-      {/* <Footer />/ */}
+      <Footer />/
     </div>
   );
 };

@@ -5,10 +5,11 @@ import ShoppingCart from './cart';
 import { Link } from 'react-router-dom';
 import { NavLink } from "react-router-dom";
 import { useSnackbar } from "notistack"; 
-const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn}) => {
+const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn,userData}) => {
   const { enqueueSnackbar } = useSnackbar(); 
   const [isCartOpen, setIsCartOpen] = useState(false);
-  
+  // console.log(userData.userData.role_id)
+
   const handleLogout = async () => {
     try {
       const response = await fetch("http://localhost:5000/logout", {
@@ -46,42 +47,96 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn}) 
     <nav className="navbar">
       <div className="navbar-brand">
         <img src="./Tamasha.png" alt="Tiketi Tamasha" />
-       
         <Link style={{padding:"20px", color:"white", textDecoration: "none","&:hover": {borderBottom:"1px-solid-white"}}} to="/" >Tiketi Tamasha</Link>
 
+
       </div>
-      <ul className="navbar-nav">
-      {/* <li className="nav-item">
-          <a href="/" className="nav-link">Dashboard</a>
-        </li> */}
-        <Link to='/' className="nav-item nav-link">
-         Home
-        </Link>
-        <Link className="nav-item nav-link" to='/about-us'>
-        About Us
-        </Link>
-        
-       
-          <>
-            <li className="nav-item">
-              <Link to="/orders" className="nav-link">Orders</Link>
-            </li>
-            <li className="nav-item-cart">
-              <a onClick={handleOpenCart} className="nav-link">
-              <p id="count"> <img src="./Cart.png" alt="Cart" className="cart-icon" />
-                {cartLength}</p>
-              </a>
-              {isCartOpen && (
-                <ShoppingCart cart={cart} onClose={handleCloseCart} removeFromCart={removeFromCart}/>
-              )}
-            </li>
-          </>
-        
-          <li className="nav-item">
-          <NavLink style={{padding:"20px", color:"white", textDecoration: "none","&:hover": {borderBottom:"1px-solid-white"}}} to="/signup" onClick={handleLogout}>{isLoggedIn? "Logout":"Login"}</NavLink>
-          </li>
-       
-      </ul>
+          <ul className="navbar-nav">
+            
+            {userData && userData.userData && userData.userData.role_id === 1 && (
+              <>
+                
+                <Link className="nav-item nav-link" to='/about-us'>
+                  About Us
+                </Link>
+                <li className="nav-item">
+                <li className="nav-item">
+                <NavLink style={{padding:"20px", color:"white", textDecoration: "none","&:hover": {borderBottom:"1px-solid-white"}}} to="/signup" onClick={handleLogout}>{isLoggedIn? "Logout":"Login"}</NavLink>
+                </li>
+                </li>
+              </>
+            )}
+            {userData && userData.userData && userData.userData.role_id === 2 && (
+              <>
+               
+                <Link className="nav-item nav-link" to='/about-us'>
+                  About Us
+                </Link>
+                <Link to="/dashboard" className="nav-link">Dashboard</Link>
+                
+                <li className="nav-item">
+                <li className="nav-item">
+                <NavLink style={{padding:"20px", color:"white", textDecoration: "none","&:hover": {borderBottom:"1px-solid-white"}}} to="/signup" onClick={handleLogout}>{isLoggedIn? "Logout":"Login"}</NavLink>
+                </li>
+                </li>
+              </>
+            )}
+            {(userData && userData.userData && userData.userData.role_id === 3)  && (
+              <>
+                     
+              <Link to='/' className="nav-item nav-link"> Home</Link>
+                <li className="nav-item">
+                  <Link to="/orders" className="nav-link">Orders</Link>
+                  
+                </li>
+                <Link className="nav-item nav-link" to='/about-us'>
+                  About Us
+                </Link>
+                <li className="nav-item-cart">
+                  <a onClick={handleOpenCart} className="nav-link">
+                    <p id="count"> <img src="./Cart.png" alt="Cart" className="cart-icon" />
+                      {cartLength}</p>
+                  </a>
+                  {isCartOpen && (
+                    <ShoppingCart cart={cart} onClose={handleCloseCart} removeFromCart={removeFromCart} />
+                  )}
+                </li>
+                <li className="nav-item">
+                <li className="nav-item">
+                  <NavLink style={{padding:"20px", color:"white", textDecoration: "none","&:hover": {borderBottom:"1px-solid-white"}}} to="/signup" onClick={handleLogout}>{isLoggedIn? "Logout":"Login"}</NavLink>
+                  </li>
+                </li>
+              </>
+            )}
+            {(!userData || !userData.userData) &&(
+              <>
+               
+              <Link to='/' className="nav-item nav-link"> Home</Link>
+                <li className="nav-item">
+                  <Link to="/orders" className="nav-link">Orders</Link>
+                  
+                </li>
+                <Link className="nav-item nav-link" to='/about-us'>
+                  About Us
+                </Link>
+                <li className="nav-item-cart">
+                  <a onClick={handleOpenCart} className="nav-link">
+                    <p id="count"> <img src="./Cart.png" alt="Cart" className="cart-icon" />
+                      {cartLength}</p>
+                  </a>
+                  {isCartOpen && (
+                    <ShoppingCart cart={cart} onClose={handleCloseCart} removeFromCart={removeFromCart} />
+                  )}
+                </li>
+                <li className="nav-item">
+                <li className="nav-item">
+                  <NavLink style={{padding:"20px", color:"white", textDecoration: "none","&:hover": {borderBottom:"1px-solid-white"}}} to="/signup" onClick={handleLogout}>{isLoggedIn? "Logout":"Login"}</NavLink>
+                  </li>
+                </li>
+              </>
+            )}
+          </ul>
+
     </nav>
   );
 };
