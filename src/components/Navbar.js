@@ -60,8 +60,6 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn}) 
         <Link className="nav-item nav-link" to='/about-us'>
         About Us
         </Link>
-        
-       
           <>
             <li className="nav-item">
               <Link to="/orders" className="nav-link">Orders</Link>
