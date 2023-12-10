@@ -53,7 +53,7 @@ const OrdersTable = ({orders}) => {
   );
 };
 
-const Dashboard = () => {
+const Dashboard = ({userData}) => {
   const [events, setEvents] = useState([]);
   const [isCreateEventFormVisible, setIsCreateEventFormVisible] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -95,27 +95,19 @@ const Dashboard = () => {
     setEvents([])
   };
 
-  const handleViewEventsButtonClick = () => {
-    setIsCreateEventFormVisible(false);
+  
+  const formatDateTime = (dateTimeString) => {
+    const date = new Date(dateTimeString);
+  
+    // Format as 'YYYY-MM-DD HH:mm:ss.SSSSSS'
+    const formattedDateTime = date.toISOString().replace('T', ' ').replace('Z', '');
+  
+    return formattedDateTime;
   };
-
-  const handleCreateEventFormSubmit = (event) => {
+  const handleCreateEventFormSubmit = async (event) => {
     event.preventDefault();
 
-    // Extract event data from the form
-    const eventName = event.target.elements.eventName.value;
-    const description = event.target.elements.description.value;
-    const tags = event.target.elements.tags.value.split(',');
-    const location = event.target.elements.location.value;
-    const startTime = event.target.elements.startTime.value;
-    const endTime = event.target.elements.endTime.value;
-    const earlyBookingPrice = event.target.elements.earlyBookingPrice.value;
-    const regularPrice = event.target.elements.regularPrice.value;
-    const mvpPrice = event.target.elements.mvpPrice.value;
-    const availableTickets = event.target.elements.availableTickets.value;
-    const eventImage = event.target.elements.eventImage.value;
-
-    // Create a new event object
+    // Use the values directly from formData
     const newEvent = {
       event_name: formData.event_name,
       description: formData.description,
@@ -157,17 +149,12 @@ const Dashboard = () => {
     
     };
 
-    setEvents([...events, newEvent]);
-
-    setIsCreateEventFormVisible(false);
-  };
-
   const handleCancelCreateEventForm = () => {
     setIsCreateEventFormVisible(false);
   };
 
   const handleEventSummaryClick = (event) => {
-    const selectedEvent = events.find((e) => e.eventName === event.eventName);
+    const selectedEvent = events.find((e) => e.event_name === event.event_name);
     setSelectedEvent(selectedEvent);
     // setIsViewEventsVisible(false);
     setEvents([])
@@ -178,6 +165,18 @@ const Dashboard = () => {
     setIsViewEventsVisible(true);
     fetchEvents();
   };
+  function handleName(e) {
+    e.preventDefault();
+    setTname(e.target.value);
+  }
+  const eventsDisplay = events.filter((ticket) => {
+    if (ticket === "") return true;
+    const eventNameMatch = ticket.event_name
+      .toLowerCase()
+      .includes(tname.toLowerCase());
+    const locationMatch = ticket.location
+      .toLowerCase()
+      .includes(tname.toLowerCase());
 
     return eventNameMatch || locationMatch;
   });
