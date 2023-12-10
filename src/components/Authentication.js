@@ -109,25 +109,26 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
           _password_hash: formData._password_hash,
         }),
       });
-
+  
       console.log(response);
       const responseData = await response.json();
-      console.log(responseData.id);
+      console.log(responseData);
       if (response.ok) {
-        updateUserData(responseData)
+        updateUserData(responseData);
         const userData = responseData;
-
-        setType(false)
+  
+        setType(false);
         setIsLoggedIn(true);
         saveUserToStorage(userData);
-        
+  
         if (responseData.role_id){
           const role = roleOptions.find((r)=>r.id === responseData.role_id);
+          console.log(role)
           if(role){
-            if(role.name ==="Admin"){
+            if(responseData.role_id === 1){
                 setSuccessMessage('Login to admin dashboard successful!');
                 setTimeout(() => {
-                  navigate("/admin/dashboard");
+                  navigate("/admin");
               }, 2000);
             }else if(role.name ==="Moderator"){
                   setSuccessMessage('Login to organizer dashboard successful!');
@@ -141,11 +142,11 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
                 }, 2000);
             }
           }
-        }        
+        }
         enqueueSnackbar(`Hello, ${userData.username}! Logged in successfully`, {
           variant: "success",
         });
-        // Clear form data on successful login
+
         setFormData({
           username: "",
           _password_hash: "",
@@ -154,28 +155,29 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
           email: "",
           role_id: "",
         });
-        // alert("Login successful");
+
       } else {
-        // alert("Login failed");
+
         enqueueSnackbar("Login failed", { variant: "error" });
-        setFailMessage('Invalid Credentials');
+        setFailMessage("Invalid Credentials");
         setTimeout(() => {
-            setFailMessage('')
+          setFailMessage("");
         }, 2000);
-    }
+      }
     } catch (error) {
 
-      //console.error("Error during login:", error);
+
 
       console.error("Error during login:", error);
-      setFailMessage('Invalid Credentials');
+      setFailMessage("Invalid Credentials");
       setTimeout(() => {
-        setFailMessage('')
-    }, 2000);
-
+        setFailMessage("");
+      }, 2000);
+      
       enqueueSnackbar("Error during login", { variant: "error" });
     }
   };
+  
 
   useEffect(() => {
     const fetchRoles = async () => {
@@ -183,7 +185,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
         const response = await fetch("http://localhost:5000/roles");
         const data = await response.json();
         if (response.ok) {
-          const filteredRoles = data.filter((role)=>role.name !=="Admin");
+          const filteredRoles = data.filter((role)=>role.name !=="admin");
           setRoleOptions(filteredRoles);
         } else {
           console.error("Failed to fetch roles:", data.error);
@@ -199,7 +201,9 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
     <div className="authentication-container">
    
       <div className="authentication-form">
-        <h2>{type ? "Login" : "Sign Up"}</h2>
+        <h2 style={{display:'flex',alignItems:'center',justifyContent:'center'}}> <Link style={{padding:"20px", color:"black", textDecoration: "none" }}to="/" >        <img style={{width: '40px',borderRadius:'10px'}}src="./Tamasha.png" alt="Tiketi Tamasha" />
+</Link>
+{type ? "Login" : "Sign Up"}</h2>
         {failMessage && <div style={{color:"red",fontWeight:"1000"}}>{failMessage}</div>}
 
         {!type && (
@@ -218,9 +222,10 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
               className="input-field"
             >
               <option value="" disabled>Select a role</option>
-                    {roleOptions.map((role) => (
-                        
-                        <option key={role.id} value={role.id}>
+                    {roleOptions
+                    .filter((role) => role.id !== 1) 
+                    .map((role) => (
+                      <option key={role.id} value={role.id}>
                         {role.name}
             </option>))}
             </select>
@@ -244,39 +249,33 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
           required
         />
         <div className="password-input">
-  <div className="password-field">
-    <input
-      type={showPassword ? "text" : "password"}
-      placeholder="Password"
-      value={formData._password_hash}
-      onChange={(e) => setFormData({ ...formData, _password_hash: e.target.value })}
-      className="input-field"
-      id="password"
-    />
-  </div>
-
-  {!type && (
-    <div className="confirm-password-field">
-      <input
-        type={showPassword ? "text" : "password"}
-        placeholder="Confirm Password"
-        value={formData.confirmPassword}
-        onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-        className="input-field"
-        id="confirm-password"
-      />
-      <span onClick={togglePasswordVisibility} className="password-toggle">
-        <FontAwesomeIcon
-          icon={showPassword ? faEye : faEyeSlash}
-          style={{ fontSize: "16px" }}
-        />
-      </span>
-    </div>
-  )}
-
-  
-</div>
-
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            value={formData._password_hash}
+            onChange={(e) => setFormData({ ...formData, _password_hash: e.target.value })}
+            className="input-field"
+            required
+          />
+          {!type && (
+          <div className="confirm-password-input">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Confirm Password"
+                value={formData.confirmPassword}
+                onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                className="input-field"
+                required
+              />
+            </div>)}
+         
+          <span onClick={togglePasswordVisibility} className="password-toggle">
+            <FontAwesomeIcon
+                icon={showPassword ? faEye : faEyeSlash}
+                style={{ fontSize: "16px" }}
+              />
+          </span>
+        </div>
         <button onClick={type ? handleLogin : handleSignup} className="authentication-button">
           {type ? "Login" : "Sign Up"}
         </button>
@@ -289,7 +288,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
             {type ? "Sign Up" : "Login"}
           </span>
         </p>
-        {successMessage && <div style={{color:"white",fontWeight:"600"}}>{successMessage}</div>}
+        {successMessage && <div style={{color:"green",fontWeight:"1000",float:'right'}}>{successMessage}</div>}
 
       </div>
     </div>
