@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Filter from "./Filter";
 import UserProfile from './UserProfile';
 import './Dashboard.css';
+
 const OrdersTable = ({orders}) => {
   const [tname, setTname] = useState("");
 
@@ -69,6 +70,22 @@ const Dashboard = ({userData}) => {
   const [isUserProfileModalOpen, setIsUserProfileModalOpen] = useState(false);
   const handleUserProfileClick = () => {
     setIsUserProfileModalOpen(true);
+  };
+
+  const handleDeleteEvent = async (eventId) => {
+    try {
+      const response = await fetch(`http://localhost:5000/events/${eventId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        setEvents(events.filter((event) => event.id !== eventId));
+      } else {
+        console.error('Failed to delete event:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error deleting event:', error);
+    }
   };
 
   const handleCloseUserProfileModal = () => {
@@ -456,6 +473,7 @@ const Dashboard = ({userData}) => {
                 {eventsDisplay.map((event, index) => (
                   <li key={index} onClick={() => handleEventSummaryClick(event)}>
                     {event.event_name}
+                    <button onClick={() => handleDeleteEvent(event.id)}>Delete Event</button>
                   </li>
                 ))}
               </ul>

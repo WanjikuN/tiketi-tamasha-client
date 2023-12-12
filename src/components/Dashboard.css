@@ -4,7 +4,7 @@
   }
   
   #left_nav {
-    background-color: #2B7A78; 
+    background-color: #2B7A78;
     color: #ffffff;
     padding: 20px;
     text-align: center;
@@ -37,7 +37,7 @@
   }
   
   .orders-table th {
-    background-color: #306C7D; 
+    background-color: #306C7D;
     color: #ffffff;
   }
   
@@ -72,11 +72,15 @@
   .create-event-form button {
     margin-top: 15px;
     padding: 12px;
-    background-color: #1D4D59; 
+    background-color: #1D4D59;
     color: #ffffff;
     cursor: pointer;
     border: none;
     border-radius: 4px;
+  }
+  
+  .create-event-form button:hover {
+    background-color: #163942;
   }
   
   .event-list {
@@ -89,16 +93,33 @@
   }
   
   .event-list li {
-    background-color: #E0F2F1; 
+    background-color: #E0F2F1;
     padding: 15px;
     margin-bottom: 10px;
     cursor: pointer;
     border-radius: 4px;
     transition: background-color 0.3s;
+    position: relative;
   }
   
   .event-list li:hover {
-    background-color: #B2DFDB; 
+    background-color: #B2DFDB;
+  }
+  
+  .event-list li button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #FF5252;
+    color: #ffffff;
+    padding: 8px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .event-list li button:hover {
+    background-color: #C50D0D;
   }
   
   .btn_event {
@@ -140,7 +161,6 @@
   }
   
   .left_nav:hover {
-    background-color: #408A99; 
+    background-color: #408A99;
   }
-
   
