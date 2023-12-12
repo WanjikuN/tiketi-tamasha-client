@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './AdminDashboard.css'; 
 
 const AdminDashboard = () => {
   const [events, setEvents] = useState([]);
@@ -45,8 +46,8 @@ const AdminDashboard = () => {
   }, []);
 
   return (
-    <div style={{margin:'80px'}}>
-      <h1>Admin Dashboard</h1>
+    <div className="admin-container">
+      <h1 className="admin-header">Admin Dashboard</h1>
 
       {/* Display Events, Organizers, Customers, and Payments */}
     </div>
