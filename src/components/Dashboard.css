@@ -77,6 +77,7 @@
     cursor: pointer;
     border: none;
     border-radius: 4px;
+    transition: background-color 0.3s;
   }
   
   .create-event-form button:hover {
@@ -116,6 +117,7 @@
     border: none;
     cursor: pointer;
     border-radius: 4px;
+    transition: background-color 0.3s;
   }
   
   .event-list li button:hover {
@@ -126,6 +128,18 @@
     display: flex;
     justify-content: space-between;
     margin-top: 15px;
+  }
+  
+  .btn_event button {
+    padding: 12px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  .btn_event button:hover {
+    background-color: #163942;
   }
   
   .book {
@@ -158,6 +172,7 @@
     border: none;
     cursor: pointer;
     border-radius: 4px;
+    transition: background-color 0.3s;
   }
   
   .left_nav:hover {
