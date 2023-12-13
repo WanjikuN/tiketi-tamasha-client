@@ -68,7 +68,7 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn,us
                 </li>
               </>
             )}
-            {userData && userData.userData && userData.userData.role_id === 2 && (
+            {userData && userData.userData && userData.userData.role_id === 2 && isLoggedIn &&(
               <>
                
                 <Link className="nav-item nav-link" to='/about-us'>
@@ -83,7 +83,7 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn,us
                
               </>
             )}
-            {(userData && userData.userData && userData.userData.role_id === 3)  && (
+            {(userData && userData.userData && userData.userData.role_id === 3 && isLoggedIn)  && (
               <>
                      
               <Link to='/' className="nav-item nav-link"> Home</Link>
@@ -110,7 +110,7 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn,us
                 
               </>
             )}
-            {(!userData || !userData.userData) &&(
+            {(!userData || !userData.userData || !isLoggedIn ) &&(
               <>
                
               <Link to='/' className="nav-item nav-link"> Home</Link>
