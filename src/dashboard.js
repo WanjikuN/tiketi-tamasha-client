@@ -3,42 +3,52 @@ import './styles/dashboard.css';
 
 const AdminDashboard = () => {
   const [events, setEvents] = useState([]);
-  const [organizers, setOrganizers] = useState([]);
-  const [customers, setCustomers] = useState([]);
   const [payments, setPayments] = useState([]);
+  const [newEventData, setNewEventData] = useState({
+    event_name: '',
+    location: '',
+    start_time: '',
+    end_time: '',
+    available_tickets: 0,
+  });
+  const [newPaymentData, setNewPaymentData] = useState({
+    amount: 0,
+    payment_type: '',
+    status: '',
+    payment_date: '',
+  });
 
   const itemsPerPage = 10;
   const [eventsCurrentPage, setEventsCurrentPage] = useState(1);
   const [eventsTotalPages, setEventsTotalPages] = useState(1);
-
   const [paymentsCurrentPage, setPaymentsCurrentPage] = useState(1);
   const [paymentsTotalPages, setPaymentsTotalPages] = useState(1);
 
+  const fetchEvents = async () => {
+    try {
+      const eventsResponse = await fetch(`http://localhost:5000/events?page=${eventsCurrentPage}&limit=${itemsPerPage}`);
+      const eventsData = await eventsResponse.json();
+      setEvents(eventsData);
+      const totalPagesFromEvents = Math.ceil(eventsData.length / itemsPerPage);
+      setEventsTotalPages(totalPagesFromEvents);
+    } catch (error) {
+      console.error('Error fetching events data:', error);
+    }
+  };
+
+  const fetchPayments = async () => {
+    try {
+      const paymentsResponse = await fetch(`http://localhost:5000/payments?page=${paymentsCurrentPage}&limit=${itemsPerPage}`);
+      const paymentsData = await paymentsResponse.json();
+      setPayments(paymentsData);
+      const totalPagesFromPayments = Math.ceil(paymentsData.length / itemsPerPage);
+      setPaymentsTotalPages(totalPagesFromPayments);
+    } catch (error) {
+      console.error('Error fetching payments data:', error);
+    }
+  };
+
   useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const eventsResponse = await fetch(`http://localhost:5000/events?page=${eventsCurrentPage}&limit=${itemsPerPage}`);
-        const eventsData = await eventsResponse.json();
-        setEvents(eventsData);
-        const totalPagesFromEvents = Math.ceil(eventsData.length / itemsPerPage);
-        setEventsTotalPages(totalPagesFromEvents);
-      } catch (error) {
-        console.error('Error fetching events data:', error);
-      }
-    };
-
-    const fetchPayments = async () => {
-      try {
-        const paymentsResponse = await fetch(`http://localhost:5000/payments?page=${paymentsCurrentPage}&limit=${itemsPerPage}`);
-        const paymentsData = await paymentsResponse.json();
-        setPayments(paymentsData);
-        const totalPagesFromPayments = Math.ceil(paymentsData.length / itemsPerPage);
-        setPaymentsTotalPages(totalPagesFromPayments);
-      } catch (error) {
-        console.error('Error fetching payments data:', error);
-      }
-    };
-
     fetchEvents();
     fetchPayments();
   }, [eventsCurrentPage, paymentsCurrentPage]);
@@ -66,6 +76,108 @@ const AdminDashboard = () => {
       setPaymentsCurrentPage(paymentsCurrentPage - 1);
     }
   };
+
+  const handleEventInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewEventData({
+      ...newEventData,
+      [name]: value,
+    });
+  };
+
+  const handlePaymentInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewPaymentData({
+      ...newPaymentData,
+      [name]: value,
+    });
+  };
+
+  const createEvent = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/events', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newEventData),
+      });
+
+      if (response.ok) {
+        setNewEventData({
+          event_name: '',
+          location: '',
+          start_time: '',
+          end_time: '',
+          available_tickets: 0,
+        });
+        setEventsCurrentPage(1);
+      } else {
+        console.error('Failed to create event');
+      }
+    } catch (error) {
+      console.error('Error creating event:', error);
+    }
+  };
+
+  const createPayment = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/payments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newPaymentData),
+      });
+
+      if (response.ok) {
+        setNewPaymentData({
+          amount: 0,
+          payment_type: '',
+          status: '',
+          payment_date: '',
+        });
+        setPaymentsCurrentPage(1);
+      } else {
+        console.error('Failed to create payment');
+      }
+    } catch (error) {
+      console.error('Error creating payment:', error);
+    }
+  };
+
+  const deleteEvent = async (eventId) => {
+    try {
+      const response = await fetch(`http://localhost:5000/events/${eventId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        setEventsCurrentPage(1);
+      } else {
+        console.error('Failed to delete event');
+      }
+    } catch (error) {
+      console.error('Error deleting event:', error);
+    }
+  };
+
+  const deletePayment = async (paymentId) => {
+    try {
+      const response = await fetch(`http://localhost:5000/payments/${paymentId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        setPaymentsCurrentPage(1);
+      } else {
+        console.error('Failed to delete payment');
+      }
+    } catch (error) {
+      console.error('Error deleting payment:', error);
+    }
+  };
+
 
   return (
     <div>
