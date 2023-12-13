@@ -138,7 +138,8 @@ const Dashboard = ({userData}) => {
         const responseData = await response.json();
         setEvents([...events, responseData]); 
         setIsCreateEventFormVisible(false);
-
+        setIsViewEventsVisible(true)
+        fetchEvents();
       }
       else {
         console.error('Failed to create event:', response.statusText);
@@ -356,8 +357,8 @@ const Dashboard = ({userData}) => {
               <input type="number" name="available_tickets" onChange={(e) => setFormData({ ...formData, available_tickets: e.target.value })}
     required />
 
-              <label>Event Image:</label>
-              <input type="file" name="images" onChange={(e) => setFormData({ ...formData, images: e.target.value })}required />
+              <label>Event Image:(url)</label>
+              <input type="text" name="images" onChange={(e) => setFormData({ ...formData, images: e.target.value })}required />
               <div className='btn_event'>
               <button type="submit">Create Event</button>
               <button onClick={handleCancelCreateEventForm}>Cancel</button>
