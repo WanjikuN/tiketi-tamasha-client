@@ -125,7 +125,7 @@ const Dashboard = ({userData}) => {
     };
     console.log(newEvent)
     try {
-      const response = await fetch('https://tiketi-tamasha-backend.onrender.com/events', {
+      const response = await fetch('http://127.0.0.1:5000/events', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -184,7 +184,7 @@ const Dashboard = ({userData}) => {
   const fetchEvents = async () => {
       try {
         const user_id = userData.id;
-        const response = await fetch(`https://tiketi-tamasha-backend.onrender.com/events?user_id=${user_id}`);
+        const response = await fetch(`http://127.0.0.1:5000/events?user_id=${user_id}`);
         const data = await response.json();
         if (response.ok) {
           setEvents(data);
@@ -211,7 +211,7 @@ const Dashboard = ({userData}) => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch('https://tiketi-tamasha-backend.onrender.com/categories');
+        const response = await fetch('http://127.0.0.1:5000/categories');
         const data = await response.json();
         if (response.ok) {
           setCategoryOptions(data);
@@ -226,7 +226,7 @@ const Dashboard = ({userData}) => {
     fetchCategories();
   }, []);
   useEffect(() => {
-    fetch("https://tiketi-tamasha-backend.onrender.com/payments")
+    fetch("http://127.0.0.1:5000/payments")
       .then((res) => res.json())
       .then((data) => {
         setOrders(data);
@@ -244,7 +244,7 @@ const Dashboard = ({userData}) => {
   };
   const handleEditEventFormSubmit = async () => {
     try {
-      const response = await fetch(`https://tiketi-tamasha-backend.onrender.com/events/${selectedEvent.id}`, {
+      const response = await fetch(`http://127.0.0.1:5000/events/${selectedEvent.id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
