@@ -208,17 +208,19 @@ const Authentication = ({ setIsLoggedIn, isLoggedIn, updateUserData }) => {
         console.error("Error fetching roles:", error);
       }
     };
-
+ 
     fetchRoles();
   }, []);
 
   return (
     <div className="authentication-container">
       <div className="authentication-form">
-        <h2>{type ? "Login" : "Sign Up"}</h2>
-        {failMessage && (
-          <div style={{ color: "red", fontWeight: "1000" }}>{failMessage}</div>
-        )}
+
+        <h2 style={{display:'flex',alignItems:'center',justifyContent:'center'}}> <Link style={{padding:"20px", color:"black", textDecoration: "none" }}to="/" >        <img style={{width: '40px',borderRadius:'10px'}}src="./Tamasha.png" alt="Tiketi Tamasha" />
+</Link>
+{type ? "Login" : "Sign Up"}</h2>
+        {failMessage && <div style={{color:"red",fontWeight:"1000"}}>{failMessage}</div>}
+
 
         {!type && (
           <>
@@ -310,10 +312,10 @@ const Authentication = ({ setIsLoggedIn, isLoggedIn, updateUserData }) => {
         >
           {type ? "Login" : "Sign Up"}
         </button>
-        <p>
-          {type
-            ? "Don't have an account?"
-            : "Already have an account?"}{" "}
+
+        <p className="para">
+          {type? "Don't have an account?" : "Already have an account?"}{" "}
+
           <span
             className="toggle-link"
             onClick={() => setType(!type)}
@@ -321,11 +323,9 @@ const Authentication = ({ setIsLoggedIn, isLoggedIn, updateUserData }) => {
             {type ? "Sign Up" : "Login"}
           </span>
         </p>
-        {successMessage && (
-          <div style={{ color: "green", fontWeight: "1000" }}>
-            {successMessage}
-          </div>
-        )}
+
+        {successMessage && <div style={{color:"green",fontWeight:"1000",float:'right'}}>{successMessage}</div>}
+
 
         {isLoggedIn && (
           <button onClick={logout} className="authentication-button">

@@ -6,7 +6,7 @@ import Axios from 'axios';
 
 const CheckoutContainer = styled.div`
   padding: 40px;
-  
+  height: 59vh;
   margin-top:150px;
   margin-bottom:50px;
 
@@ -41,7 +41,7 @@ const Select = styled.select`
 `;
 
 const SubmitButton = styled.button`
-  background-color: #D69F3A;
+  background: linear-gradient(to right, #8760d02c, #3aafa9a0);
   border: 1px solid #be372824;
   color: black;
   padding: 10px 20px;
