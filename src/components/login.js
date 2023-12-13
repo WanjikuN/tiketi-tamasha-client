@@ -18,7 +18,7 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch("http://localhost:5000/login", {
+      const response = await fetch("http://127.0.0.1:5000/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -44,7 +44,7 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
   };
 
   const handleSignUp = () => {
-    window.location.href = 'http://localhost:5000/signup'; 
+    window.location.href = 'http://127.0.0.1:5000/signup'; 
     
   };
 
