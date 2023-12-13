@@ -11,7 +11,7 @@ import { useCart } from './components/CartContext';
 import ShoppingCart from './components/cart';
 import OrdersHistory from './components/OrdersHistory';
 import Dashboard from './components/Dashboard';
-import AdminDashboard from './components/AdminDashboard';
+import AdminDashboard from './dashboard';
 
 const App = () => {
   const { cart, addToCart, removeFromCart, emptyCart } = useCart();
@@ -38,6 +38,7 @@ const App = () => {
   
   return (
     <div className="App">
+
       {currentRoute !== '/signup' && (
               <Navbar setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} cartLength={cart.length} cart={cart} removeFromCart={removeFromCart} userData={{userData}}/>
             )}    
@@ -50,16 +51,15 @@ const App = () => {
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/about-us" element={<AboutUs />} />
 
+
         
         <Route
           path="/checkout"
           element={<PrivateRoute path="/checkout" element={<Checkout  userData={userData} emptyCart={emptyCart} />} />}
         />
-        
-        <Route
-          path="/admin"
-          element={<PrivateRoute path="/admin"element={<AdminDashboard/>} />}
-        />
+
+
+  
        
         <Route
           path="/dashboard"
