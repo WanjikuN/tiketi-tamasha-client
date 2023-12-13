@@ -1,0 +1,74 @@
+/* Dashboard Styles */
+
+/* General styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Table styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+  font-size: 14px; /* Adjust the font size as needed */
+}
+
+table th {
+  background-color: #f2f2f2;
+  font-size: 14px; /* Adjust the font size as needed */
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Pagination styles */
+.pagination {
+  margin-top: 21px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  margin: 0 5px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.pagination button:hover {
+  background-color: #2980b9;
+}
+
+.pagination span {
+  margin: 0 12px;
+  font-weight: bold;
+}
