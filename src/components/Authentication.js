@@ -24,7 +24,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
   const [failMessage, setFailMessage] = useState('');
 
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+    setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
   const handleSignup = async () => {
@@ -60,6 +60,9 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
       if (response.ok) {
         const data = await response.json();
         setType(true);
+
+        localStorage.setItem("authToken", data.token);
+
         enqueueSnackbar(`Hello, ${data.username}! Account created successfully`, {
           variant: "success",
         });
@@ -113,13 +116,19 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
       console.log(response);
       const responseData = await response.json();
       console.log(responseData);
+
       if (response.ok) {
+        localStorage.setItem("authToken", responseData.token);
         updateUserData(responseData);
-        const userData = responseData;
+
+        // const userData = responseData;
   
         setType(false);
         setIsLoggedIn(true);
-        saveUserToStorage(userData);
+        saveUserToStorage(responseData);
+
+        setIsLoggedIn(true);
+       
   
         if (responseData.role_id){
           const role = roleOptions.find((r)=>r.id === responseData.role_id);
@@ -140,7 +149,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
             }
           }
         }
-        enqueueSnackbar(`Hello, ${userData.username}! Logged in successfully`, {
+        enqueueSnackbar(`Hello, ${responseData.username}! Logged in successfully`, {
           variant: "success",
         });
 
@@ -182,7 +191,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
         const response = await fetch("http://127.0.0.1:5000/roles");
         const data = await response.json();
         if (response.ok) {
-          const filteredRoles = data.filter((role)=>role.name !=="admin");
+          const filteredRoles = data.filter((role) => role.name !== "admin");
           setRoleOptions(filteredRoles);
         } else {
           console.error("Failed to fetch roles:", data.error);
@@ -191,9 +200,22 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
         console.error("Error fetching roles:", error);
       }
     };
- 
+  
+    const fetchUserDataFromStorage = () => {
+      const storedUser = localStorage.getItem("user");
+      if (storedUser) {
+        const userData = JSON.parse(storedUser);
+        updateUserData(userData);
+        setIsLoggedIn(true);
+      }
+    };
+  
     fetchRoles();
-  }, []);
+    fetchUserDataFromStorage(); 
+  }, [setIsLoggedIn, updateUserData]); 
+  
+
+
   return (
     <div className="authentication-container">
    
