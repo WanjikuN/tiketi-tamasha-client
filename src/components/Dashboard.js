@@ -70,6 +70,24 @@ const Dashboard = ({userData}) => {
     setIsUserProfileModalOpen(true);
   };
 
+
+  const handleDeleteEvent = async (eventId) => {
+    try {
+      const response = await fetch(`https://tiketi-tamasha-backend.onrender.com/events/${eventId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        setEvents(events.filter((event) => event.id !== eventId));
+      } else {
+        console.error('Failed to delete event:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error deleting event:', error);
+    }
+  };
+
+
   const handleCloseUserProfileModal = () => {
     setIsUserProfileModalOpen(false);
   };
