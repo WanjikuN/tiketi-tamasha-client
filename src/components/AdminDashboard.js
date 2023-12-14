@@ -10,7 +10,16 @@ const AdminDashboard = ({userData}) => {
   const handleUserProfileClick = () => {
     setIsUserProfileModalOpen(true);
   };
-
+  const [roles, setRoles] = useState([]);
+  const fetchRoles = async () => {
+    try {
+      const rolesResponse = await fetch('http://localhost:5000/roles');
+      const rolesData = await rolesResponse.json();
+      setRoles(rolesData);
+    } catch (error) {
+      console.error('Error fetching roles data:', error);
+    }
+  };
   const handleCloseUserProfileModal = () => {
     setIsUserProfileModalOpen(false);
   };
@@ -61,6 +70,7 @@ const AdminDashboard = ({userData}) => {
   useEffect(() => {
     fetchEvents();
     fetchPayments();
+    fetchRoles();
   }, [eventsCurrentPage, paymentsCurrentPage]);
 
   const handleNextPageEvents = () => {
@@ -187,23 +197,44 @@ const AdminDashboard = ({userData}) => {
       console.error('Error deleting payment:', error);
     }
   };
-  useEffect(() => {
-    fetchEvents();
-    fetchPayments();
-  }, [eventsCurrentPage, paymentsCurrentPage]);
-
+  
   return (
     <div id="dashboard">
       <div id="left_nav">
         
         <button className='left_nav' onClick={handleUserProfileClick}>Profile</button>
+        <button className='left_nav' onClick={() => setActiveTab('Organizers')}>Organizers</button>
+        <button className='left_nav' onClick={() => setActiveTab('Users')}>Users</button>
+
+        <button className='left_nav' onClick={() => setActiveTab('Categories')}>Categories</button>
+        <button className='left_nav' onClick={() => setActiveTab('Roles')}>Roles</button>
+
           <button className='left_nav' onClick={() => setActiveTab('Events')}>Events</button>
           <button className='left_nav' onClick={() => setActiveTab('Payments')}>Payments</button>
         
       </div>
       <div className="dashboard-container">
           <h2>Admin Dashboard</h2>
-
+          {activeTab === 'Roles' && (
+              <div>
+                <h2>Roles</h2>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Role Name</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {roles.filter((role) => role.id !== 1) 
+                    .map(role => (
+                      <tr key={role.id}>
+                        <td>{role.name}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
       {activeTab === 'Events' && (
       
       <div className="dashboard-cont">
