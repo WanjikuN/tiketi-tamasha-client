@@ -474,6 +474,8 @@ const Dashboard = ({userData}) => {
                 {eventsDisplay.map((event, index) => (
                   <li key={index} onClick={() => handleEventSummaryClick(event)}>
                     {event.event_name}
+                    <button onClick={() => handleDeleteEvent(event.id)}>Delete Event</button>
+
                   </li>
                 ))}
               </ul>
