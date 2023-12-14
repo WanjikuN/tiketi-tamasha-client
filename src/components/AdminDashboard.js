@@ -45,7 +45,6 @@ const AdminDashboard = ({userData}) => {
 
   const closeUserEventsModal = () => {
     setIsUserEventsModalOpen(false);
-    // Clear the user and events data when closing the modal
     setSelectedUser(null);
     setUserEvents([]);
   };
@@ -71,15 +70,13 @@ const AdminDashboard = ({userData}) => {
   const openAddCategoryModal = () => {
     setIsAddCategoryModalOpen(true);
   };
-  
-  // Function to close the add category modal
+ 
   const closeAddCategoryModal = () => {
     setIsAddCategoryModalOpen(false);
-    // Clear the input when closing the modal
     setNewCategoryName('');
   };
   
-  // Function to handle input changes in the add category modal
+ 
   const handleNewCategoryNameChange = (e) => {
     setNewCategoryName(e.target.value);
   };
@@ -109,7 +106,6 @@ const AdminDashboard = ({userData}) => {
       });
 
       if (response.ok) {
-        // Reset the new category data after successful addition
         setIsAddCategoryModalOpen(false)
         setNewCategoryData('')
         fetchCategories();
@@ -143,9 +139,7 @@ const AdminDashboard = ({userData}) => {
       });
   
       if (response.ok) {
-        // Reset the edit state after successful update
         setEditCategoryId(null);
-        // Refetch categories or update the local state with the updated data
         fetchCategories();
       } else {
         console.error('Failed to update category');
@@ -166,9 +160,7 @@ const AdminDashboard = ({userData}) => {
       });
   
       if (response.ok) {
-        // Reset the edit state after successful update
         setEditRoleId(null);
-        // Refetch categories or update the local state with the updated data
         fetchRoles();
       } else {
         console.error('Failed to update role');
@@ -598,25 +590,25 @@ const [paymentsTotalPages, setPaymentsTotalPages] = useState(1);
                       <tr key={category.id}>
                       <td>
                         {editCategoryId === category.id ? (
-                          // Render an input field for editing
+                          
                           <input
                             type="text"
                             value={editCategoryId === category.id ? category.name : ''}
                             onChange={(e) => handleCategoryInputChange(category.id, e.target.value)}
                           />
                         ) : (
-                          // Display category name if not in edit mode
+                          
                           category.name
                         )}
                       </td>
                       <td>
                         {editCategoryId === category.id ? (
-                          // Render a save button during edit mode
+                          
                           <button onClick={() => handleSaveCategory(category.id, category)}>
                             Save
                           </button>
                         ) : (
-                          // Render an edit button when not in edit mode
+                         
                           <button onClick={() => handleEditCategory(category.id)}>Edit</button>
                         )}
                       </td>
@@ -657,25 +649,25 @@ const [paymentsTotalPages, setPaymentsTotalPages] = useState(1);
                       <tr key={role.id}>
                         <td>
                         {editRoleId === role.id ? (
-                          // Render an input field for editing
+                          
                           <input
                             type="text"
                             value={editRoleId === role.id ? role.name : ''}
                             onChange={(e) => handleRoleInputChange(role.id, e.target.value)}
                           />
                         ) : (
-                          // Display category name if not in edit mode
+                        
                           role.name
                         )}
                       </td>
                       <td>
                         {editRoleId === role.id ? (
-                          // Render a save button during edit mode
+                        
                           <button onClick={() => handleSaveRole(role.id, role)}>
                             Save
                           </button>
                         ) : (
-                          // Render an edit button when not in edit mode
+                          
                           <button onClick={() => handleEditRole(role.id)}>Edit</button>
                         )}
                       </td>
