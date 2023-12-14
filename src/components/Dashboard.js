@@ -144,7 +144,7 @@ const Dashboard = ({userData}) => {
     };
     console.log(newEvent)
     try {
-      const response = await fetch('http://localhost:5000/events', {
+      const response = await fetch('http://127.0.0.1:5000/events', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -157,7 +157,8 @@ const Dashboard = ({userData}) => {
         const responseData = await response.json();
         setEvents([...events, responseData]); 
         setIsCreateEventFormVisible(false);
-
+        setIsViewEventsVisible(true)
+        fetchEvents();
       }
       else {
         console.error('Failed to create event:', response.statusText);
@@ -203,7 +204,7 @@ const Dashboard = ({userData}) => {
   const fetchEvents = async () => {
       try {
         const user_id = userData.id;
-        const response = await fetch(`http://localhost:5000/events?user_id=${user_id}`);
+        const response = await fetch(`http://127.0.0.1:5000/events?user_id=${user_id}`);
         const data = await response.json();
         if (response.ok) {
           setEvents(data);
@@ -230,7 +231,7 @@ const Dashboard = ({userData}) => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch('http://localhost:5000/categories');
+        const response = await fetch('http://127.0.0.1:5000/categories');
         const data = await response.json();
         if (response.ok) {
           setCategoryOptions(data);
@@ -245,7 +246,7 @@ const Dashboard = ({userData}) => {
     fetchCategories();
   }, []);
   useEffect(() => {
-    fetch("http://localhost:5000/payments")
+    fetch("http://127.0.0.1:5000/payments")
       .then((res) => res.json())
       .then((data) => {
         setOrders(data);
@@ -263,7 +264,7 @@ const Dashboard = ({userData}) => {
   };
   const handleEditEventFormSubmit = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/events/${selectedEvent.id}`, {
+      const response = await fetch(`http://127.0.0.1:5000/events/${selectedEvent.id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -375,8 +376,8 @@ const Dashboard = ({userData}) => {
               <input type="number" name="available_tickets" onChange={(e) => setFormData({ ...formData, available_tickets: e.target.value })}
     required />
 
-              <label>Event Image:</label>
-              <input type="file" name="images" onChange={(e) => setFormData({ ...formData, images: e.target.value })}required />
+              <label>Event Image:(url)</label>
+              <input type="text" name="images" onChange={(e) => setFormData({ ...formData, images: e.target.value })}required />
               <div className='btn_event'>
               <button type="submit">Create Event</button>
               <button onClick={handleCancelCreateEventForm}>Cancel</button>

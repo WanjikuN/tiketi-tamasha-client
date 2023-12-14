@@ -12,7 +12,7 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn,us
 
   const handleLogout = async () => {
     try {
-      const response = await fetch("http://localhost:5000/logout", {
+      const response = await fetch("http://127.0.0.1:5000/logout", {
         method: "DELETE",
         credentials: "include",
       });
@@ -57,18 +57,18 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn,us
             
             {userData && userData.userData && userData.userData.role_id === 1 && (
               <>
-                
                 <Link className="nav-item nav-link" to='/about-us'>
                   About Us
                 </Link>
-                
+                <Link to="/admin" className="nav-link">Dashboard</Link>
+
                 <li className="nav-item">
                 <NavLink style={{padding:"20px", color:"white", textDecoration: "none","&:hover": {borderBottom:"1px-solid-white"}}} to="/signup" onClick={handleLogout}>{isLoggedIn? "Logout":"Login"}</NavLink>
               
                 </li>
               </>
             )}
-            {userData && userData.userData && userData.userData.role_id === 2 && (
+            {userData && userData.userData && userData.userData.role_id === 2 && isLoggedIn &&(
               <>
                
                 <Link className="nav-item nav-link" to='/about-us'>
@@ -83,7 +83,7 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn,us
                
               </>
             )}
-            {(userData && userData.userData && userData.userData.role_id === 3)  && (
+            {(userData && userData.userData && userData.userData.role_id === 3 && isLoggedIn)  && (
               <>
                      
               <Link to='/' className="nav-item nav-link"> Home</Link>
@@ -110,7 +110,7 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn,us
                 
               </>
             )}
-            {(!userData || !userData.userData) &&(
+            {(!userData || !userData.userData || !isLoggedIn ) &&(
               <>
                
               <Link to='/' className="nav-item nav-link"> Home</Link>

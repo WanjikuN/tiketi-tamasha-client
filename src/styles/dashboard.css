@@ -1,0 +1,147 @@
+/* Dashboard Styles */
+
+/* General styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Table styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+  font-size: 14px; /* Adjust the font size as needed */
+}
+
+table th {
+  background-color: #f2f2f2;
+  font-size: 14px; /* Adjust the font size as needed */
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Pagination styles */
+.pagination {
+  margin-top: 21px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  margin: 0 5px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.pagination button:hover {
+  background-color: #2980b9;
+}
+
+.pagination span {
+  margin: 0 12px;
+  font-weight: bold;
+}
+/* Add this CSS to your existing stylesheet or create a new one */
+.modal {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.modal-content input{
+ height: 20px;
+ border-radius: 4px;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  
+}
+#add_cat{
+  display: flex;
+  justify-content: space-around;
+  padding-top: 7px;
+
+}
+button{
+  background-color: #3AAFA9;
+}
+#event-filters {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+#event-filters label {
+  margin-right: 10px;
+  font-weight: 550;
+}
+
+#event-filters input {
+  padding: 5px;
+  width: 180px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+/* Add these styles for responsive design */
+@media only screen and (max-width: 600px) {
+  #event-filters label {
+    width: 90%;
+    margin-bottom: 5px;
+  }
+
+  #event-filters input {
+    width: 100%;
+  }
+}

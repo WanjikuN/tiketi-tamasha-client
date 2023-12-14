@@ -10,7 +10,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [roleOptions, setRoleOptions] = useState([]);
-  const [type, setType] = useState(false);
+  const [type, setType] = useState(true);
   const [formData, setFormData] = useState({
     username: "",
     _password_hash: "",
@@ -49,7 +49,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
         return;
       }
       setFormData({...formData,role_id:userRole.id});
-      const response = await fetch("http://localhost:5000/signup", {
+      const response = await fetch("http://127.0.0.1:5000/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -82,7 +82,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
         // alert("Signup failed");
         setTimeout(() => {
             setFailMessage('')
-        }, 2000);
+        }, 1000);
         enqueueSnackbar("Signup failed", { variant: "error" });
       }
     } catch (error) {
@@ -98,7 +98,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch("http://localhost:5000/login", {
+      const response = await fetch("http://127.0.0.1:5000/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -126,20 +126,17 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
           console.log(role)
           if(role){
             if(responseData.role_id === 1){
-                setSuccessMessage('Login to admin dashboard successful!');
-                setTimeout(() => {
-                  navigate("/admin");
-              }, 2000);
-            }else if(role.name ==="Moderator"){
-                  setSuccessMessage('Login to organizer dashboard successful!');
-                  setTimeout(() => {
-                    navigate("/dashboard");
-                }, 2000);
-            }else if(role.name ==="User"){
-                  setSuccessMessage('Login successful!');
-                  setTimeout(() => {
-                    navigate("/");
-                }, 2000);
+                // setSuccessMessage('Login to admin dashboard successful!');
+                navigate("/admin");
+                
+            }else if(role.id === 2){
+                  // setSuccessMessage('Login to organizer dashboard successful!');
+                  navigate("/dashboard");
+
+            }else if(role.id === 3){
+                  // setSuccessMessage('Login successful!');
+                  navigate("/");
+                
             }
           }
         }
@@ -162,7 +159,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
         setFailMessage("Invalid Credentials");
         setTimeout(() => {
           setFailMessage("");
-        }, 2000);
+        }, 1000);
       }
     } catch (error) {
 
@@ -172,7 +169,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
       setFailMessage("Invalid Credentials");
       setTimeout(() => {
         setFailMessage("");
-      }, 2000);
+      }, 1000);
       
       enqueueSnackbar("Error during login", { variant: "error" });
     }
@@ -182,7 +179,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const response = await fetch("http://localhost:5000/roles");
+        const response = await fetch("http://127.0.0.1:5000/roles");
         const data = await response.json();
         if (response.ok) {
           const filteredRoles = data.filter((role)=>role.name !=="admin");
