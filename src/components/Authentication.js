@@ -129,11 +129,11 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
                 // setSuccessMessage('Login to admin dashboard successful!');
                 navigate("/admin");
                 
-            }else if(role.name ==="Moderator"){
+            }else if(role.id === 2){
                   // setSuccessMessage('Login to organizer dashboard successful!');
                   navigate("/dashboard");
 
-            }else if(role.name ==="User"){
+            }else if(role.id === 3){
                   // setSuccessMessage('Login successful!');
                   navigate("/");
                 
