@@ -7,6 +7,16 @@ const AdminDashboard = ({userData}) => {
   const [events, setEvents] = useState([]);
   const [payments, setPayments] = useState([]);
   const [isUserProfileModalOpen, setIsUserProfileModalOpen] = useState(false);
+  const [users, setUsers] = useState([]);
+  const fetchUsers = async () => {
+    try {
+      const usersResponse = await fetch('http://localhost:5000/users');
+      const usersData = await usersResponse.json();
+      setUsers(usersData);
+    } catch (error) {
+      console.error('Error fetching users data:', error);
+    }
+  };
   const [categories, setCategories] = useState([]);
   const fetchCategories = async () => {
     try {
@@ -82,6 +92,7 @@ const AdminDashboard = ({userData}) => {
     fetchPayments();
     fetchRoles();
     fetchCategories();
+    fetchUsers();
   }, [eventsCurrentPage, paymentsCurrentPage]);
 
   const handleNextPageEvents = () => {
@@ -225,6 +236,58 @@ const AdminDashboard = ({userData}) => {
       </div>
       <div className="dashboard-container">
           <h2>Admin Dashboard</h2>
+          {activeTab === 'Users' && (
+            <div>
+              <h2>Users</h2>
+              <table>
+                <thead>
+                  <tr>
+                    <th>User</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                   
+                  </tr>
+                </thead>
+                <tbody>
+                  {users.filter(user => user.role_id === 3)
+                  .map(user => (
+                    <tr key={user.id}>
+                      <td>{user.username}</td>
+                      <td>{user.email}</td>
+                      <td>{user.phone_number}</td>
+                      
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+          {activeTab === 'Organizers' && (
+            <div>
+              <h2>Organizers</h2>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Organizer</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                   
+                  </tr>
+                </thead>
+                <tbody>
+                  {users.filter(user => user.role_id === 2)
+                  .map(user => (
+                    <tr key={user.id}>
+                      <td>{user.username}</td>
+                      <td>{user.email}</td>
+                      <td>{user.phone_number}</td>
+                      
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
           {activeTab === 'Categories' && (
               <div>
                 <h2>Categories</h2>
