@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useSnackbar } from "notistack";
-import { useNavigate } from "react-router-dom";
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from "react-router-dom";
 import "../styles/SignUp.css";
 
-const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
+const Authentication = ({ setIsLoggedIn, isLoggedIn, updateUserData }) => {
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
   const [showPassword, setShowPassword] = useState(false);
   const [roleOptions, setRoleOptions] = useState([]);
   const [type, setType] = useState(true);
@@ -19,9 +19,8 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
     email: "",
     role_id: "",
   });
-  const { enqueueSnackbar } = useSnackbar();
-  const [successMessage, setSuccessMessage] = useState('');
-  const [failMessage, setFailMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState("");
+  const [failMessage, setFailMessage] = useState("");
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -32,23 +31,24 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 
     if (!passwordRegex.test(formData._password_hash)) {
-      
-      setFailMessage("Password must include at least one uppercase letter, one lowercase letter, one special character, and be at least six characters long.(Tiketi@123)"
-      )
+      setFailMessage(
+        "Password must include at least one uppercase letter, one lowercase letter, one special character, and be at least six characters long. (e.g., Tiketi@123)"
+      );
       return;
     }
 
     if (formData._password_hash !== formData.confirmPassword) {
-      alert("Password and confirmation do not match.");
+      setFailMessage("Password and confirmation do not match.");
       return;
     }
+
     try {
-      const userRole =roleOptions.find((role)=>role.name ==="User")
-      if(!userRole){
-        console.error("User role not found")
+      const userRole = roleOptions.find((role) => role.name === "User");
+      if (!userRole) {
+        console.error("User role not found");
         return;
       }
-      setFormData({...formData,role_id:userRole.id});
+      setFormData({ ...formData, role_id: userRole.id });
       const response = await fetch("http://127.0.0.1:5000/signup", {
         method: "POST",
         headers: {
@@ -66,9 +66,9 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
         enqueueSnackbar(`Hello, ${data.username}! Account created successfully`, {
           variant: "success",
         });
-      
-        setSuccessMessage('Signup successful! You can now log in.');
-        
+
+        setSuccessMessage("Signup successful! You can now log in.");
+
         // Clear form data on successful signup
         setFormData({
           username: "",
@@ -78,25 +78,22 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
           email: "",
           role_id: "",
         });
-        
-        // alert("Signup successful");
       } else {
-        setFailMessage('Signup failed: Username,role and email required');
-        // alert("Signup failed");
+        setFailMessage("Signup failed: Username, role, and email required");
         setTimeout(() => {
-            setFailMessage('')
+          setFailMessage("");
         }, 1000);
         enqueueSnackbar("Signup failed", { variant: "error" });
       }
     } catch (error) {
       console.error("Error during signup:", error);
-    //   alert("Error during signup");
-      setFailMessage('Signup failed');
+      setFailMessage("Signup failed");
       enqueueSnackbar("Error during signup", { variant: "error" });
     }
   };
+
   const saveUserToStorage = (userData) => {
-    localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem("user", JSON.stringify(userData));
   };
 
   const handleLogin = async () => {
@@ -112,40 +109,29 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
           _password_hash: formData._password_hash,
         }),
       });
-  
-      console.log(response);
+
       const responseData = await response.json();
-      console.log(responseData);
 
       if (response.ok) {
         localStorage.setItem("authToken", responseData.token);
         updateUserData(responseData);
 
-        // const userData = responseData;
-  
         setType(false);
         setIsLoggedIn(true);
         saveUserToStorage(responseData);
 
         setIsLoggedIn(true);
-       
-  
-        if (responseData.role_id){
-          const role = roleOptions.find((r)=>r.id === responseData.role_id);
-          console.log(role)
-          if(role){
-            if(responseData.role_id === 1){
-                // setSuccessMessage('Login to admin dashboard successful!');
-                navigate("/admin");
-                
-            }else if(role.id === 2){
-                  // setSuccessMessage('Login to organizer dashboard successful!');
-                  navigate("/dashboard");
 
-            }else if(role.id === 3){
-                  // setSuccessMessage('Login successful!');
-                  navigate("/");
-                
+        if (responseData.role_id) {
+          const role = roleOptions.find((r) => r.id === responseData.role_id);
+          console.log(role);
+          if (role) {
+            if (responseData.role_id === 1) {
+              navigate("/admin");
+            } else if (role.id === 2) {
+              navigate("/dashboard");
+            } else if (role.id === 3) {
+              navigate("/");
             }
           }
         }
@@ -161,9 +147,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
           email: "",
           role_id: "",
         });
-
       } else {
-
         enqueueSnackbar("Login failed", { variant: "error" });
         setFailMessage("Invalid Credentials");
         setTimeout(() => {
@@ -171,19 +155,15 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
         }, 1000);
       }
     } catch (error) {
-
-
-
       console.error("Error during login:", error);
       setFailMessage("Invalid Credentials");
       setTimeout(() => {
         setFailMessage("");
       }, 1000);
-      
+
       enqueueSnackbar("Error during login", { variant: "error" });
     }
   };
-  
 
   useEffect(() => {
     const fetchRoles = async () => {
@@ -200,30 +180,23 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
         console.error("Error fetching roles:", error);
       }
     };
-  
-    const fetchUserDataFromStorage = () => {
-      const storedUser = localStorage.getItem("user");
-      if (storedUser) {
-        const userData = JSON.parse(storedUser);
-        updateUserData(userData);
-        setIsLoggedIn(true);
-      }
-    };
-  
-    fetchRoles();
-    fetchUserDataFromStorage(); 
-  }, [setIsLoggedIn, updateUserData]); 
-  
 
+    if (!isLoggedIn && roleOptions.length === 0) {
+      // Fetch roles only when the user is not logged in and roles are not loaded yet
+      fetchRoles();
+    }
+  }, [isLoggedIn, roleOptions, setRoleOptions]);
 
   return (
     <div className="authentication-container">
-   
       <div className="authentication-form">
-        <h2 style={{display:'flex',alignItems:'center',justifyContent:'center'}}> <Link style={{padding:"20px", color:"black", textDecoration: "none" }}to="/" >        <img style={{width: '40px',borderRadius:'10px'}}src="./Tamasha.png" alt="Tiketi Tamasha" />
-</Link>
-{type ? "Login" : "Sign Up"}</h2>
-        {failMessage && <div style={{color:"red",fontWeight:"1000"}}>{failMessage}</div>}
+        <h2 style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <Link style={{ padding: "20px", color: "black", textDecoration: "none" }} to="/">
+            <img style={{ width: "40px", borderRadius: "10px" }} src="./Tamasha.png" alt="Tiketi Tamasha" />
+          </Link>
+          {type ? "Login" : "Sign Up"}
+        </h2>
+        {failMessage && <div style={{ color: "red", fontWeight: "1000" }}>{failMessage}</div>}
 
         {!type && (
           <>
@@ -240,13 +213,16 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
               onChange={(e) => setFormData({ ...formData, role_id: e.target.value })}
               className="input-field"
             >
-              <option value="" disabled>Select a role</option>
-                    {roleOptions
-                    .filter((role) => role.id !== 1) 
-                    .map((role) => (
-                      <option key={role.id} value={role.id}>
-                        {role.name}
-            </option>))}
+              <option value="" disabled>
+                Select a role
+              </option>
+              {roleOptions
+                .filter((role) => role.id !== 1)
+                .map((role) => (
+                  <option key={role.id} value={role.id}>
+                    {role.name}
+                  </option>
+                ))}
             </select>
             <input
               type="tel"
@@ -254,9 +230,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
               value={formData.phone_number}
               onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })}
               className="input-field"
-              
             />
-            
           </>
         )}
         <input
@@ -277,7 +251,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
             required
           />
           {!type && (
-          <div className="confirm-password-input">
+            <div className="confirm-password-input">
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="Confirm Password"
@@ -286,29 +260,23 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
                 className="input-field"
                 required
               />
-            </div>)}
-         
+            </div>
+          )}
+
           <span onClick={togglePasswordVisibility} className="password-toggle">
-            <FontAwesomeIcon
-                icon={showPassword ? faEye : faEyeSlash}
-                style={{ fontSize: "16px" }}
-              />
+            <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} style={{ fontSize: "16px" }} />
           </span>
         </div>
         <button onClick={type ? handleLogin : handleSignup} className="authentication-button">
           {type ? "Login" : "Sign Up"}
         </button>
         <p className="para">
-          {type? "Don't have an account?" : "Already have an account?"}{" "}
-          <span
-            className="toggle-link"
-            onClick={() => setType(!type)}
-          >
+          {type ? "Don't have an account?" : "Already have an account?"}{" "}
+          <span className="toggle-link" onClick={() => setType(!type)}>
             {type ? "Sign Up" : "Login"}
           </span>
         </p>
-        {successMessage && <div style={{color:"green",fontWeight:"1000",float:'right'}}>{successMessage}</div>}
-
+        {successMessage && <div style={{ color: "green", fontWeight: "1000", float: "right" }}>{successMessage}</div>}
       </div>
     </div>
   );
