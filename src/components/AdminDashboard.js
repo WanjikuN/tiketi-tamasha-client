@@ -7,6 +7,16 @@ const AdminDashboard = ({userData}) => {
   const [events, setEvents] = useState([]);
   const [payments, setPayments] = useState([]);
   const [isUserProfileModalOpen, setIsUserProfileModalOpen] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const fetchCategories = async () => {
+    try {
+      const categoriesResponse = await fetch('http://localhost:5000/categories');
+      const categoriesData = await categoriesResponse.json();
+      setCategories(categoriesData);
+    } catch (error) {
+      console.error('Error fetching categories data:', error);
+    }
+  };
   const handleUserProfileClick = () => {
     setIsUserProfileModalOpen(true);
   };
@@ -71,6 +81,7 @@ const AdminDashboard = ({userData}) => {
     fetchEvents();
     fetchPayments();
     fetchRoles();
+    fetchCategories();
   }, [eventsCurrentPage, paymentsCurrentPage]);
 
   const handleNextPageEvents = () => {
@@ -205,7 +216,6 @@ const AdminDashboard = ({userData}) => {
         <button className='left_nav' onClick={handleUserProfileClick}>Profile</button>
         <button className='left_nav' onClick={() => setActiveTab('Organizers')}>Organizers</button>
         <button className='left_nav' onClick={() => setActiveTab('Users')}>Users</button>
-
         <button className='left_nav' onClick={() => setActiveTab('Categories')}>Categories</button>
         <button className='left_nav' onClick={() => setActiveTab('Roles')}>Roles</button>
 
@@ -215,6 +225,25 @@ const AdminDashboard = ({userData}) => {
       </div>
       <div className="dashboard-container">
           <h2>Admin Dashboard</h2>
+          {activeTab === 'Categories' && (
+              <div>
+                <h2>Categories</h2>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Category Name</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {categories.map(category => (
+                      <tr key={category.id}>
+                        <td>{category.name}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           {activeTab === 'Roles' && (
               <div>
                 <h2>Roles</h2>
