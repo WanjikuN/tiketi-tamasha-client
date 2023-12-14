@@ -20,6 +20,51 @@ const OrderHistory = () => {
         },
         {
             event_id: 2,
+            event_name: 'TamashaNoc',
+            payment_date: '2023-12-01',
+            payment_type: 'Card',
+            payer_phone: '123-456-7890',
+            amount: 1000.00,
+            status: 'Processed',
+        },
+        {
+            event_id: 3,
+            event_name: 'Ticket Washa',
+            payment_date: '2023-12-01',
+            payment_type: 'Card',
+            payer_phone: '123-456-7890',
+            amount: 1000.00,
+            status: 'Processed',
+        },
+        {
+            event_id: 4,
+            event_name: 'Octobafeast',
+            payment_date: '2023-12-01',
+            payment_type: 'Mpesa',
+            payer_phone: '25470078923',
+            amount: 1500.00,
+            status: 'Processed',
+        },
+        {
+            event_id: 1,
+            event_name: 'NovFeast',
+            payment_date: '2024-12-01',
+            payment_type: 'Card',
+            payer_phone: '123-456-7890',
+            amount: 1500.00,
+            status: 'Processed',
+        },
+        {
+            event_id: 6,
+            event_name: 'Dec Tamasha',
+            payment_date: '2023-12-01',
+            payment_type: 'Card',
+            payer_phone: '123-456-7890',
+            amount: 1500.00,
+            status: 'Processed',
+        },
+        {
+            event_id: 2,
             event_name: 'Tamasha',
             payment_date: '2023-12-01',
             payment_type: 'Card',
@@ -47,7 +92,7 @@ const OrderHistory = () => {
         },
         {
             event_id: 1,
-            event_name: 'NovFest',
+            event_name: 'NovFesrt',
             payment_date: '2024-12-01',
             payment_type: 'Card',
             payer_phone: '123-456-7890',
@@ -55,14 +100,15 @@ const OrderHistory = () => {
             status: 'Processed',
         },
         {
-            event_id: 6,
-            event_name: 'Dec Tamasha',
-            payment_date: '2023-12-01',
+            event_id: 1,
+            event_name: 'NovFest4',
+            payment_date: '2024-12-01',
             payment_type: 'Card',
             payer_phone: '123-456-7890',
             amount: 1500.00,
             status: 'Processed',
-        },
+        }
+     
        
     ];
 
