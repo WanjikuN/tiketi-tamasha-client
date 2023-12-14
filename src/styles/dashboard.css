@@ -72,3 +72,76 @@ table tbody tr:hover {
   margin: 0 12px;
   font-weight: bold;
 }
+/* Add this CSS to your existing stylesheet or create a new one */
+.modal {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.modal-content input{
+ height: 20px;
+ border-radius: 4px;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  
+}
+#add_cat{
+  display: flex;
+  justify-content: space-around;
+  padding-top: 7px;
+
+}
+button{
+  background-color: #3AAFA9;
+}
+#event-filters {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+#event-filters label {
+  margin-right: 10px;
+  font-weight: 550;
+}
+
+#event-filters input {
+  padding: 5px;
+  width: 180px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+/* Add these styles for responsive design */
+@media only screen and (max-width: 600px) {
+  #event-filters label {
+    width: 90%;
+    margin-bottom: 5px;
+  }
+
+  #event-filters input {
+    width: 100%;
+  }
+}

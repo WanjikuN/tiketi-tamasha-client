@@ -57,11 +57,11 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn,us
             
             {userData && userData.userData && userData.userData.role_id === 1 && (
               <>
-                
                 <Link className="nav-item nav-link" to='/about-us'>
                   About Us
                 </Link>
-                
+                <Link to="/admin" className="nav-link">Dashboard</Link>
+
                 <li className="nav-item">
                 <NavLink style={{padding:"20px", color:"white", textDecoration: "none","&:hover": {borderBottom:"1px-solid-white"}}} to="/signup" onClick={handleLogout}>{isLoggedIn? "Logout":"Login"}</NavLink>
               
