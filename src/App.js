@@ -38,6 +38,7 @@ const App = () => {
   
   return (
     <div className="App">
+
       {currentRoute !== '/signup' && (
               <Navbar setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} cartLength={cart.length} cart={cart} removeFromCart={removeFromCart} userData={{userData}}/>
             )}    
@@ -46,20 +47,25 @@ const App = () => {
         <Route path="/signup" element={<Authentication setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} updateUserData={updateUserData}/>} />
         <Route path="/events/:eventId" element={<EventDetails carts={cart} removeFromCart={removeFromCart} />} />
         <Route path="/cart" element={<ShoppingCart cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} successMessage={successMessage} />} />
-        <Route path="/dashboard" element={<Dashboard userData={userData} />}  />
-        <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/about-us" element={<AboutUs />} />
 
-        
+
+        <Route
+          path="/dashboard"
+          element={<PrivateRoute path="/dashboard" element={<Dashboard  userData={userData}  />} />}
+        />
+
         <Route
           path="/checkout"
           element={<PrivateRoute path="/checkout" element={<Checkout  userData={userData} emptyCart={emptyCart} />} />}
         />
-        
         <Route
           path="/admin"
-          element={<PrivateRoute path="/admin"element={<AdminDashboard/>} />}
+          element={<PrivateRoute path="/admin" element={<AdminDashboard  userData={userData}  />} />}
         />
+
+
+  
        
         <Route
           path="/dashboard"
@@ -74,7 +80,7 @@ const App = () => {
       
       
       </Routes>
-      {currentRoute !== '/signup' && (
+      {(currentRoute !== '/signup' )&& (
           <Footer />
         )}   
       
