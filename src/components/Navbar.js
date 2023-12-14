@@ -12,7 +12,7 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn,us
 
   const handleLogout = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:5000/logout", {
+      const response = await fetch("https://tiketi-tamasha-backend.onrender.com/logout", {
         method: "DELETE",
         credentials: "include",
       });
