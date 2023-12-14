@@ -10,7 +10,7 @@ const Authentication = ({ setIsLoggedIn , isLoggedIn , updateUserData}) => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [roleOptions, setRoleOptions] = useState([]);
-  const [type, setType] = useState(false);
+  const [type, setType] = useState(true);
   const [formData, setFormData] = useState({
     username: "",
     _password_hash: "",
