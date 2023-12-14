@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import './AdminDashboard.css'; 
 import '../styles/dashboard.css';
 import UserProfile from './UserProfile';
+
 
 const AdminDashboard = ({userData}) => {
   const [activeTab, setActiveTab] = useState('Events');
@@ -393,6 +395,7 @@ const [paymentsTotalPages, setPaymentsTotalPages] = useState(1);
   };
   
   return (
+
     <div id="dashboard">
       <div id="left_nav">
         
@@ -523,6 +526,7 @@ const [paymentsTotalPages, setPaymentsTotalPages] = useState(1);
                       <td>{user.email}</td>
                       <td>{user.phone_number}</td>
                       <td><button onClick={() => handleUserClick(user.id)}>View Events</button></td>
+
 
                     </tr>
                   ))}
