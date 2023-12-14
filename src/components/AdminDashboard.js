@@ -746,15 +746,7 @@ const [paymentsTotalPages, setPaymentsTotalPages] = useState(1);
               ))}
             </tbody>
           </table>
-          <div className="pagination">
-            <button onClick={handlePreviousPageEvents} disabled={eventsCurrentPage === 1}>
-              Previous Page
-            </button>
-            <span>Page {eventsCurrentPage} of {eventsTotalPages}</span>
-            <button onClick={handleNextPageEvents} disabled={eventsCurrentPage === eventsTotalPages}>
-              Next Page
-            </button>
-          </div>
+          
         
         </div>
         )}
@@ -785,15 +777,7 @@ const [paymentsTotalPages, setPaymentsTotalPages] = useState(1);
             ))}
           </tbody>
         </table>
-        <div className="pagination">
-          <button onClick={handlePreviousPagePayments} disabled={paymentsCurrentPage === 1}>
-            Previous Page
-          </button>
-          <span>Page {paymentsCurrentPage} of {paymentsTotalPages}</span>
-          <button onClick={handleNextPagePayments} disabled={paymentsCurrentPage === paymentsTotalPages}>
-            Next Page
-          </button>
-        </div>
+        
       </div>)}
     </div>
     {isUserProfileModalOpen && (

@@ -80,7 +80,7 @@ const App = () => {
       
       
       </Routes>
-      {currentRoute !== '/signup' && (
+      {(currentRoute !== '/signup' )&& (
           <Footer />
         )}   
       
