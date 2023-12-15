@@ -57,7 +57,11 @@ const AdminDashboard = ({userData}) => {
   const itemsPerPage = 5;
   const fetchUsers = async () => {
     try {
+<<<<<<< HEAD
       const usersResponse = await fetch('http://127.0.0.1:5000/users');
+=======
+      const usersResponse = await fetch('http://localhost:5000/users');
+>>>>>>> fcd8094045a2752f578bc90061dbf2350c582261
       const usersData = await usersResponse.json();
       setUsers(usersData);
     } catch (error) {
@@ -83,7 +87,11 @@ const AdminDashboard = ({userData}) => {
   const [categories, setCategories] = useState([]);
   const fetchCategories = async () => {
     try {
+<<<<<<< HEAD
       const categoriesResponse = await fetch('http://127.0.0.1:5000/categories');
+=======
+      const categoriesResponse = await fetch('http://localhost:5000/categories');
+>>>>>>> fcd8094045a2752f578bc90061dbf2350c582261
       const categoriesData = await categoriesResponse.json();
       setCategories(categoriesData);
     } catch (error) {
@@ -97,7 +105,11 @@ const AdminDashboard = ({userData}) => {
   const addCategory = async () => {
     try {
       console.log('adding category: ' + newCategoryName);
+<<<<<<< HEAD
       const response = await fetch('http://127.0.0.1:5000/categories', {
+=======
+      const response = await fetch('http://localhost:5000/categories', {
+>>>>>>> fcd8094045a2752f578bc90061dbf2350c582261
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -130,7 +142,11 @@ const AdminDashboard = ({userData}) => {
   const handleSaveCategory = async (categoryId, updatedCategory) => {
     try {
       console.log('Updating category:', updatedCategory);
+<<<<<<< HEAD
       const response = await fetch(`http://127.0.0.1:5000/categories/${categoryId}`, {
+=======
+      const response = await fetch(`http://localhost:5000/categories/${categoryId}`, {
+>>>>>>> fcd8094045a2752f578bc90061dbf2350c582261
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -151,7 +167,11 @@ const AdminDashboard = ({userData}) => {
   const handleSaveRole= async (roleId, updatedRole) => {
     try {
       console.log('Updating role:', updatedRole);
+<<<<<<< HEAD
       const response = await fetch(`http://127.0.0.1:5000/roles/${roleId}`, {
+=======
+      const response = await fetch(`http://localhost:5000/roles/${roleId}`, {
+>>>>>>> fcd8094045a2752f578bc90061dbf2350c582261
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -195,7 +215,11 @@ const AdminDashboard = ({userData}) => {
   const [roles, setRoles] = useState([]);
   const fetchRoles = async () => {
     try {
+<<<<<<< HEAD
       const rolesResponse = await fetch('http://127.0.0.1:5000/roles');
+=======
+      const rolesResponse = await fetch('http://localhost:5000/roles');
+>>>>>>> fcd8094045a2752f578bc90061dbf2350c582261
       const rolesData = await rolesResponse.json();
       setRoles(rolesData);
     } catch (error) {
@@ -225,7 +249,11 @@ const [paymentsCurrentPage, setPaymentsCurrentPage] = useState(1);
 const [paymentsTotalPages, setPaymentsTotalPages] = useState(1);
   const fetchEvents = async () => {
     try {
+<<<<<<< HEAD
       const eventsResponse = await fetch(`http://127.0.0.1:5000/events?page=${eventsCurrentPage}&limit=${itemsPerPage}`);
+=======
+      const eventsResponse = await fetch(`http://localhost:5000/events?page=${eventsCurrentPage}&limit=${itemsPerPage}`);
+>>>>>>> fcd8094045a2752f578bc90061dbf2350c582261
       const eventsData = await eventsResponse.json();
       setEvents(eventsData);
       const totalPagesFromEvents = Math.ceil(eventsData.length / itemsPerPage);
@@ -237,7 +265,11 @@ const [paymentsTotalPages, setPaymentsTotalPages] = useState(1);
 
   const fetchPayments = async () => {
     try {
+<<<<<<< HEAD
       const paymentsResponse = await fetch(`http://127.0.0.1:5000/payments?page=${paymentsCurrentPage}&limit=${itemsPerPage}`);
+=======
+      const paymentsResponse = await fetch(`http://localhost:5000/payments?page=${paymentsCurrentPage}&limit=${itemsPerPage}`);
+>>>>>>> fcd8094045a2752f578bc90061dbf2350c582261
       const paymentsData = await paymentsResponse.json();
       setPayments(paymentsData);
       const totalPagesFromPayments = Math.ceil(paymentsData.length / itemsPerPage);
@@ -297,7 +329,11 @@ const [paymentsTotalPages, setPaymentsTotalPages] = useState(1);
 
   const createEvent = async () => {
     try {
+<<<<<<< HEAD
       const response = await fetch('http://127.0.0.1:5000/events', {
+=======
+      const response = await fetch('http://localhost:5000/events', {
+>>>>>>> fcd8094045a2752f578bc90061dbf2350c582261
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -324,7 +360,11 @@ const [paymentsTotalPages, setPaymentsTotalPages] = useState(1);
 
   const createPayment = async () => {
     try {
+<<<<<<< HEAD
       const response = await fetch('http://127.0.0.1:5000/payments', {
+=======
+      const response = await fetch('http://localhost:5000/payments', {
+>>>>>>> fcd8094045a2752f578bc90061dbf2350c582261
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -350,7 +390,11 @@ const [paymentsTotalPages, setPaymentsTotalPages] = useState(1);
 
   const deleteEvent = async (eventId) => {
     try {
+<<<<<<< HEAD
       const response = await fetch(`http://127.0.0.1:5000/events/${eventId}`, {
+=======
+      const response = await fetch(`http://localhost:5000/events/${eventId}`, {
+>>>>>>> fcd8094045a2752f578bc90061dbf2350c582261
         method: 'DELETE',
       });
 
@@ -366,7 +410,11 @@ const [paymentsTotalPages, setPaymentsTotalPages] = useState(1);
 
   const deletePayment = async (paymentId) => {
     try {
+<<<<<<< HEAD
       const response = await fetch(`http://127.0.0.1:5000/payments/${paymentId}`, {
+=======
+      const response = await fetch(`http://localhost:5000/payments/${paymentId}`, {
+>>>>>>> fcd8094045a2752f578bc90061dbf2350c582261
         method: 'DELETE',
       });
 
