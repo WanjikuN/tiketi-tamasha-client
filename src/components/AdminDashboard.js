@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/dashboard.css';
 import UserProfile from './UserProfile';
-
+import './AdminDashboard.css';
 
 const AdminDashboard = ({userData}) => {
   const [activeTab, setActiveTab] = useState('Events');
@@ -56,7 +56,7 @@ const AdminDashboard = ({userData}) => {
   const itemsPerPage = 5;
   const fetchUsers = async () => {
     try {
-      const usersResponse = await fetch('http://localhost:5000/users');
+      const usersResponse = await fetch('http://127.0.0.1:5000/users');
       const usersData = await usersResponse.json();
       setUsers(usersData);
     } catch (error) {
@@ -82,7 +82,7 @@ const AdminDashboard = ({userData}) => {
   const [categories, setCategories] = useState([]);
   const fetchCategories = async () => {
     try {
-      const categoriesResponse = await fetch('http://localhost:5000/categories');
+      const categoriesResponse = await fetch('http://127.0.0.1:5000/categories');
       const categoriesData = await categoriesResponse.json();
       setCategories(categoriesData);
     } catch (error) {
@@ -96,7 +96,7 @@ const AdminDashboard = ({userData}) => {
   const addCategory = async () => {
     try {
       console.log('adding category: ' + newCategoryName);
-      const response = await fetch('http://localhost:5000/categories', {
+      const response = await fetch('http://127.0.0.1:5000/categories', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -129,7 +129,7 @@ const AdminDashboard = ({userData}) => {
   const handleSaveCategory = async (categoryId, updatedCategory) => {
     try {
       console.log('Updating category:', updatedCategory);
-      const response = await fetch(`http://localhost:5000/categories/${categoryId}`, {
+      const response = await fetch(`http://127.0.0.1:5000/categories/${categoryId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -150,7 +150,7 @@ const AdminDashboard = ({userData}) => {
   const handleSaveRole= async (roleId, updatedRole) => {
     try {
       console.log('Updating role:', updatedRole);
-      const response = await fetch(`http://localhost:5000/roles/${roleId}`, {
+      const response = await fetch(`http://127.0.0.1:5000/roles/${roleId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -194,7 +194,7 @@ const AdminDashboard = ({userData}) => {
   const [roles, setRoles] = useState([]);
   const fetchRoles = async () => {
     try {
-      const rolesResponse = await fetch('http://localhost:5000/roles');
+      const rolesResponse = await fetch('http://127.0.0.1:5000/roles');
       const rolesData = await rolesResponse.json();
       setRoles(rolesData);
     } catch (error) {
@@ -224,7 +224,7 @@ const [paymentsCurrentPage, setPaymentsCurrentPage] = useState(1);
 const [paymentsTotalPages, setPaymentsTotalPages] = useState(1);
   const fetchEvents = async () => {
     try {
-      const eventsResponse = await fetch(`http://localhost:5000/events?page=${eventsCurrentPage}&limit=${itemsPerPage}`);
+      const eventsResponse = await fetch(`http://127.0.0.1:5000/events?page=${eventsCurrentPage}&limit=${itemsPerPage}`);
       const eventsData = await eventsResponse.json();
       setEvents(eventsData);
       const totalPagesFromEvents = Math.ceil(eventsData.length / itemsPerPage);
@@ -236,7 +236,7 @@ const [paymentsTotalPages, setPaymentsTotalPages] = useState(1);
 
   const fetchPayments = async () => {
     try {
-      const paymentsResponse = await fetch(`http://localhost:5000/payments?page=${paymentsCurrentPage}&limit=${itemsPerPage}`);
+      const paymentsResponse = await fetch(`http://127.0.0.1:5000/payments?page=${paymentsCurrentPage}&limit=${itemsPerPage}`);
       const paymentsData = await paymentsResponse.json();
       setPayments(paymentsData);
       const totalPagesFromPayments = Math.ceil(paymentsData.length / itemsPerPage);
@@ -296,7 +296,7 @@ const [paymentsTotalPages, setPaymentsTotalPages] = useState(1);
 
   const createEvent = async () => {
     try {
-      const response = await fetch('http://localhost:5000/events', {
+      const response = await fetch('http://127.0.0.1:5000/events', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -323,7 +323,7 @@ const [paymentsTotalPages, setPaymentsTotalPages] = useState(1);
 
   const createPayment = async () => {
     try {
-      const response = await fetch('http://localhost:5000/payments', {
+      const response = await fetch('http://127.0.0.1:5000/payments', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -349,7 +349,7 @@ const [paymentsTotalPages, setPaymentsTotalPages] = useState(1);
 
   const deleteEvent = async (eventId) => {
     try {
-      const response = await fetch(`http://localhost:5000/events/${eventId}`, {
+      const response = await fetch(`http://127.0.0.1:5000/events/${eventId}`, {
         method: 'DELETE',
       });
 
@@ -365,7 +365,7 @@ const [paymentsTotalPages, setPaymentsTotalPages] = useState(1);
 
   const deletePayment = async (paymentId) => {
     try {
-      const response = await fetch(`http://localhost:5000/payments/${paymentId}`, {
+      const response = await fetch(`http://127.0.0.1:5000/payments/${paymentId}`, {
         method: 'DELETE',
       });
 
@@ -431,6 +431,7 @@ const [paymentsTotalPages, setPaymentsTotalPages] = useState(1);
                   />
                 </label>
               </div>
+              <div id='tab'>
               <table>
                 <thead>
                   <tr>
@@ -456,6 +457,7 @@ const [paymentsTotalPages, setPaymentsTotalPages] = useState(1);
                   ))}
                 </tbody>
               </table>
+              </div>
             </div>
           )}
           {isUserEventsModalOpen && (
@@ -503,7 +505,8 @@ const [paymentsTotalPages, setPaymentsTotalPages] = useState(1);
                   />
                 </label>
               </div>
-              <table>
+              <div id='tab'>
+              <table >
                 <thead>
                   <tr>
                     <th>Organizer</th>
@@ -531,6 +534,7 @@ const [paymentsTotalPages, setPaymentsTotalPages] = useState(1);
                   ))}
                 </tbody>
               </table>
+              </div>
             </div>
           )}
           {activeTab === 'Categories' && (

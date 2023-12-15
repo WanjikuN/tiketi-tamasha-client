@@ -5,7 +5,7 @@ import React from 'react';
 const Footer = () => {
   return (
     <footer className="footer">
-      <div className="container">
+      
         <div className="footer-content">
           <div className="footer-links">
             <a href="#">Terms and Conditions</a>
@@ -13,7 +13,7 @@ const Footer = () => {
             <a href="#">Contact Us</a>
           </div>
         </div>
-      </div>
+      
     </footer>
   );
 };

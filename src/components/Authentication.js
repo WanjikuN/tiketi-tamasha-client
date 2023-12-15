@@ -48,7 +48,7 @@ const Authentication = ({ setIsLoggedIn, isLoggedIn, updateUserData }) => {
         console.error("User role not found");
         return;
       }
-      setFormData({ ...formData, role_id: userRole.id });
+      setFormData({...formData,role_id:userRole.id});
       const response = await fetch("http://127.0.0.1:5000/signup", {
         method: "POST",
         headers: {
@@ -217,7 +217,7 @@ const Authentication = ({ setIsLoggedIn, isLoggedIn, updateUserData }) => {
                 Select a role
               </option>
               {roleOptions
-                .filter((role) => role.id !== 1)
+                .filter((role) => role.id !== 1 && role.id !== 4)
                 .map((role) => (
                   <option key={role.id} value={role.id}>
                     {role.name}
