@@ -97,6 +97,8 @@ const Authentication = ({ setIsLoggedIn, isLoggedIn, updateUserData }) => {
   };
 
   const handleLogin = async () => {
+    setSuccessMessage("Checking credetials...");
+
     try {
       const response = await fetch("https://tiketi-tamasha-backend.onrender.com/login", {
         method: "POST",
