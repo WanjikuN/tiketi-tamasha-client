@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './AdminDashboard.css'; 
 import '../styles/dashboard.css';
 import UserProfile from './UserProfile';
 
