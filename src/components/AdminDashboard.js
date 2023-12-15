@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './AdminDashboard.css'; 
 import '../styles/dashboard.css';
 import UserProfile from './UserProfile';
-
+import './AdminDashboard.css';
 
 const AdminDashboard = ({userData}) => {
   const [activeTab, setActiveTab] = useState('Events');
@@ -432,6 +431,7 @@ const [paymentsTotalPages, setPaymentsTotalPages] = useState(1);
                   />
                 </label>
               </div>
+              <div id='tab'>
               <table>
                 <thead>
                   <tr>
@@ -457,6 +457,7 @@ const [paymentsTotalPages, setPaymentsTotalPages] = useState(1);
                   ))}
                 </tbody>
               </table>
+              </div>
             </div>
           )}
           {isUserEventsModalOpen && (
@@ -504,7 +505,8 @@ const [paymentsTotalPages, setPaymentsTotalPages] = useState(1);
                   />
                 </label>
               </div>
-              <table>
+              <div id='tab'>
+              <table >
                 <thead>
                   <tr>
                     <th>Organizer</th>
@@ -532,6 +534,7 @@ const [paymentsTotalPages, setPaymentsTotalPages] = useState(1);
                   ))}
                 </tbody>
               </table>
+              </div>
             </div>
           )}
           {activeTab === 'Categories' && (

@@ -13,4 +13,8 @@
     border-radius: 5px;
     margin-bottom: 20px;
   }
-  
+  #tab{
+    height: 60vh;
+    overflow: scroll;
+    /* border:1px solid black; */
+  }
