@@ -86,28 +86,29 @@ function Checkout({userData, emptyCart}) {
   console.log(userData)
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+    setShowSuccessMessage(true);
+
     try {
-      const res = await Axios.get(`http://127.0.0.1:5000/lnmo?amount=1&phone=${order.paymentDetails}`);
+      const res = await Axios.get(`https://tiketi-tamasha-backend.onrender.com/lnmo?amount=1&phone=${order.paymentDetails}`);
       console.log(res);
   
       if (res.status === 200) {
         console.log("STK push initiated successfully");
         
-        setShowSuccessMessage(true);
-
+        
         setTimeout(() => {
+              setOrder({
+                name: "",
+                email: "",
+                paymentMethod: "",
+                paymentDetails: "",
+                orderId: "",
+              });
                 emptyCart();
                 navigate('/')
             }, 3000);
         // Clear the form
-        setOrder({
-          name: "",
-          email: "",
-          paymentMethod: "",
-          paymentDetails: "",
-          orderId: "",
-        });
+        
       } else {
         console.error("Failed to initiate STK push");
       }
