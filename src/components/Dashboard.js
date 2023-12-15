@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Filter from "./Filter";
 import UserProfile from './UserProfile';
 import './Dashboard.css';
-
 const OrdersTable = ({orders}) => {
   const [tname, setTname] = useState("");
-
 
   //  const ordersDisplay = orders.filter((ticket) => {
   //     if (ticket === "") return true;
@@ -72,6 +70,7 @@ const Dashboard = ({userData}) => {
     setIsUserProfileModalOpen(true);
   };
 
+
   const handleDeleteEvent = async (eventId) => {
     try {
       const response = await fetch(`https://tiketi-tamasha-backend.onrender.com/events/${eventId}`, {
@@ -87,6 +86,7 @@ const Dashboard = ({userData}) => {
       console.error('Error deleting event:', error);
     }
   };
+
 
   const handleCloseUserProfileModal = () => {
     setIsUserProfileModalOpen(false);
@@ -475,6 +475,7 @@ const Dashboard = ({userData}) => {
                   <li key={index} onClick={() => handleEventSummaryClick(event)}>
                     {event.event_name}
                     <button onClick={() => handleDeleteEvent(event.id)}>Delete Event</button>
+
                   </li>
                 ))}
               </ul>
