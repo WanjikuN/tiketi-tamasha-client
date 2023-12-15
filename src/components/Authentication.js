@@ -217,7 +217,7 @@ const Authentication = ({ setIsLoggedIn, isLoggedIn, updateUserData }) => {
                 Select a role
               </option>
               {roleOptions
-                .filter((role) => role.id !== 1)
+                .filter((role) => role.id !== 1 && role.id !== 4)
                 .map((role) => (
                   <option key={role.id} value={role.id}>
                     {role.name}
