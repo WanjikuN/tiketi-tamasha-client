@@ -74,7 +74,7 @@ const Dashboard = ({userData}) => {
 
   const handleDeleteEvent = async (eventId) => {
     try {
-      const response = await fetch(`http://localhost:5000/events/${eventId}`, {
+      const response = await fetch(`http://127.0.0.1:5000/events/${eventId}`, {
         method: 'DELETE',
       });
 
