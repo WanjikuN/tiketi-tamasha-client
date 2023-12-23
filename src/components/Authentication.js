@@ -49,7 +49,7 @@ const Authentication = ({ setIsLoggedIn, isLoggedIn, updateUserData }) => {
         return;
       }
       setFormData({...formData,role_id:userRole.id});
-      const response = await fetch("https://tiketi-tamasha-backend.onrender.com/signup", {
+      const response = await fetch("http://127.0.0.1:5000/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -100,7 +100,7 @@ const Authentication = ({ setIsLoggedIn, isLoggedIn, updateUserData }) => {
     setSuccessMessage("Checking credetials...");
 
     try {
-      const response = await fetch("https://tiketi-tamasha-backend.onrender.com/login", {
+      const response = await fetch("http://127.0.0.1:5000/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -170,7 +170,7 @@ const Authentication = ({ setIsLoggedIn, isLoggedIn, updateUserData }) => {
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const response = await fetch("https://tiketi-tamasha-backend.onrender.com/roles");
+        const response = await fetch("http://127.0.0.1:5000/roles");
         const data = await response.json();
         if (response.ok) {
           const filteredRoles = data.filter((role) => role.name !== "admin");

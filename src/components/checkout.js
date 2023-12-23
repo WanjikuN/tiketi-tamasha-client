@@ -89,7 +89,7 @@ function Checkout({userData, emptyCart}) {
     setShowSuccessMessage(true);
 
     try {
-      const res = await Axios.get(`https://tiketi-tamasha-backend.onrender.com/lnmo?amount=1&phone=${order.paymentDetails}`);
+      const res = await Axios.get(`http://127.0.0.1:5000/lnmo?amount=1&phone=${order.paymentDetails}`);
       console.log(res);
   
       if (res.status === 200) {
