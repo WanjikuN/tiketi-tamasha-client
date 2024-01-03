@@ -9,7 +9,10 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn,us
   const { enqueueSnackbar } = useSnackbar(); 
   const [isCartOpen, setIsCartOpen] = useState(false);
   // console.log(userData.userData.role_id)
-
+  const [isNavOpen, setIsNavOpen] = useState(false);
+  const toggleNav = () => {
+    setIsNavOpen(!isNavOpen);
+  };
   const handleLogout = async () => {
     try {
       const response = await fetch("http://127.0.0.1:5000/logout", {
@@ -53,7 +56,10 @@ const Navbar = ({ cartLength, cart, removeFromCart, isLoggedIn ,setIsLoggedIn,us
 
 
       </div>
-          <ul className="navbar-nav">
+      <div className="navbar-toggler" onClick={toggleNav} role="button" aria-haspopup="true" aria-expanded={isNavOpen}>
+        ☰ 
+      </div>
+      <ul className={`navbar-nav ${isNavOpen ? 'show' : ''}`} role="menu">
             
             {userData && userData.userData && userData.userData.role_id === 1 && (
               <>

@@ -43,6 +43,35 @@ body {
   display: flex;
   align-items: center;
 }
+.navbar-toggler{
+  padding-right: 20px;
+  cursor: pointer;
+  font-size: 20px;
+}
+/* Add this media query to handle smaller screens */
+@media screen and (max-width: 730px) {
+  .navbar-nav {
+    display: none;
+    flex-wrap: wrap;
+    transition: display 0.3s ease;
+  }
+
+  .navbar-nav.show {
+    display: flex;
+    flex-direction: column;
+    line-height: 5px;
+  }
+
+  .navbar-nav li {
+    /* width: 100%; Make each list item take up the full width */
+    text-align: center; /* Center the text within each list item */
+  }
+
+  .navbar-nav li a {
+    padding: 10px;
+    /* display: block; */
+  }
+}
 #count{
   display: flex;
   justify-content: center;

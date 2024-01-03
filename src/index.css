@@ -148,12 +148,19 @@ justify-content: space-between;
     display: flex;
     width: 1000px;
   }
+  .navbar-toggler{
+    display: none;
+  }
   
 
 }
 @media screen and (min-width: 1200px) {
   .trending_img {
     width: 400px; /* Larger width for screens wider than 1200px */
+  }
+  .navbar-toggler{
+    display: none;
+    
   }
   
   #calenda{
