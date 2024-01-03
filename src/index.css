@@ -142,6 +142,7 @@ justify-content: space-between;
 @media screen and (min-width: 730px) {
   .trending_img {
     width: 200px; /* Default width for smaller screens */
+    border-radius: 1% 20% 1% 20%;
   }
   .trending_card{
     /* border: 1px solid black; */
