@@ -235,6 +235,7 @@ justify-content: space-between;
 @media (max-width: 768px) {
   #calenda{
     display: flex;
+    justify-content: center;
    
   }}
 /* Add this CSS to your existing styles or create a new stylesheet */
